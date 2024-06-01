@@ -13,7 +13,7 @@ cp .env.example .env
 ```
 
 ```bash
-cp npx prisma generate
+npx prisma generate
 ```
 
 Second, run the development server:
