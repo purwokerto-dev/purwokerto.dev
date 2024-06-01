@@ -2,7 +2,21 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
-First, run the development server:
+First, setup project
+
+```bash
+npm install
+```
+
+```bash
+cp .env.example .env
+```
+
+```bash
+cp npx prisma generate
+```
+
+Second, run the development server:
 
 ```bash
 npm run dev
@@ -12,6 +26,12 @@ yarn dev
 pnpm dev
 # or
 bun dev
+```
+
+Third, open database management prisma studio
+
+```bash
+npx prisma studio
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
