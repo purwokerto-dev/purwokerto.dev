@@ -7,7 +7,7 @@ export default async function Home() {
       {users.map((user, index) => (
         <ul key={index}>
           <li>id: {user.id}</li>
-          <li>name: {user.name}</li>
+          <li>nadme: {user.name}</li>
           <li>email: {user.email}</li>
         </ul>
       ))}
