@@ -12,12 +12,40 @@ datasource db {
 
 model User {
   id             String   @id @default(cuid())
-  name           String?
+  username       String
+  password       String
+  firstName      String
+  lastName       String?
+  githubLink     String?
+  linkedinLink   String?
   email          String   @unique
   emailVerified  DateTime?
   image          String?
+  adminCreate    Admin?    @relation("adminCreate", fields: [createdBy], references: [id])
+  adminUpdate    Admin?    @relation("adminUpdate", fields: [updatedBy], references: [id])
+  createdAt      DateTime?
+  createdBy      String?
+  updatedAt      DateTime?
+  updatedBy      String?
   accounts       Account[]
   sessions       Session[]
+}
+
+model Admin {
+  id                  String    @id @default(cuid())
+  username            String
+  password            String
+  name                String
+  otherAdminCreate    Admin?    @relation("otherAdminCreate", fields: [createdBy], references: [id])
+  otherAdminUpdate    Admin?    @relation("otherAdminUpdate", fields: [updatedBy], references: [id])
+  createdAt           DateTime?
+  createdBy           String?
+  updatedAt           DateTime?
+  updatedBy           String?
+  usersCreated        User[]    @relation("adminCreate")
+  usersUpdated        User[]    @relation("adminUpdate")
+  adminCreated        Admin[]   @relation("otherAdminCreate")
+  adminUpdated        Admin[]   @relation("otherAdminUpdate")
 }
 
 model Account {
