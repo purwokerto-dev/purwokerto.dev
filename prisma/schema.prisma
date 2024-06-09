@@ -48,6 +48,8 @@ model Admin {
   usersUpdated        User[]    @relation("adminUpdate")
   adminCreated        Admin[]   @relation("otherAdminCreate")
   adminUpdated        Admin[]   @relation("otherAdminUpdate")
+  badgeCreated        Badge[]   @relation("badgeCreate")
+  badgeUpdated        Badge[]   @relation("badgeUpdate")
 }
 
 model Blog {
@@ -77,6 +79,19 @@ model TagsOnBlogs {
   tagId             String
 
   @@id([blogId, tagId])
+}
+
+model Badge {
+  id             String   @id @default(cuid())
+  title          String
+  description    String
+  img            String
+  badgeCreate    Admin?    @relation("badgeCreate", fields: [createdBy], references: [id])
+  badgeUpdate    Admin?    @relation("badgeUpdate", fields: [updatedBy], references: [id])
+  createdAt      DateTime?
+  createdBy      String?
+  updatedAt      DateTime?
+  updatedBy      String?
 }
 
 model Account {

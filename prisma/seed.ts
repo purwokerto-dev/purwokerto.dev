@@ -50,6 +50,17 @@ async function main() {
     }
   });
 
+  const badge = await prisma.badge.create({
+    data:
+      {
+        title: "badge title",
+        description: "badge description",
+        img: "badge_one.png",
+        createdBy: admin.id,
+        createdAt: new Date(),
+      },
+  });
+
   console.log({ admin, user });
 }
 main()
