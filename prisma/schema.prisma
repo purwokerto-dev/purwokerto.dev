@@ -29,6 +29,8 @@ model User {
   updatedBy      String?
   accounts       Account[]
   sessions       Session[]
+  blogCreated    Blog[]    @relation("UserCreate")
+  blogUpdated    Blog[]    @relation("UserUpdate")
 }
 
 model Admin {
@@ -46,6 +48,35 @@ model Admin {
   usersUpdated        User[]    @relation("adminUpdate")
   adminCreated        Admin[]   @relation("otherAdminCreate")
   adminUpdated        Admin[]   @relation("otherAdminUpdate")
+}
+
+model Blog {
+  id                String      @id @default(cuid())
+  title             String
+  body              String
+  status            Int         @default(1)
+  tags              TagsOnBlogs[]
+  UserCreate        User?       @relation("UserCreate", fields: [createdBy], references: [id])
+  UserUpdate        User?       @relation("UserUpdate", fields: [updatedBy], references: [id])
+  createdAt         DateTime?
+  createdBy         String?
+  updatedAt         DateTime?
+  updatedBy         String?
+}
+
+model BlogTag {
+  id                String    @id @default(cuid())
+  blog              TagsOnBlogs[]
+  title             String
+}
+
+model TagsOnBlogs {
+  blog              Blog  @relation(fields: [blogId], references: [id])
+  blogId            String
+  tag               BlogTag   @relation(fields: [tagId], references: [id])
+  tagId             String
+
+  @@id([blogId, tagId])
 }
 
 model Account {

@@ -27,6 +27,28 @@ async function main() {
         createdBy: admin.id,
     },
   });
+  const blogTag = await prisma.blogTag.create({
+    data: {
+      title: "programming language",
+    },
+  });
+
+  const blog = await prisma.blog.create({
+    data:
+      {
+        title: "blog title",
+        body: "blog body",
+        createdBy: user.id,
+        createdAt: new Date(),
+      },
+  });
+
+  const tagsOnBlogs = await prisma.tagsOnBlogs.create({
+    data: {
+      blogId: blog.id,
+      tagId: blogTag.id,
+    }
+  });
 
   console.log({ admin, user });
 }
