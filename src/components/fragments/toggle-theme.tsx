@@ -8,7 +8,7 @@ const ToggleTheme = () => {
   return (
     <button
       onClick={() => (theme === "dark" ? setTheme("light") : setTheme("dark"))}
-      className="h-10 w-10 rounded-full p-2 hover:bg-gray-100 dark:hover:bg-gray-700">
+      className="h-10 w-10 rounded-full p-2">
       <svg
         className="fill-primary block dark:hidden"
         fill="currentColor"

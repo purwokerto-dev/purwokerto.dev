@@ -6,4 +6,7 @@
   body {
     @apply dark:bg-primary bg-white;
   }
+  .transition-300 {
+    @apply transition-all duration-300 ease-in-out;
+  }
 }

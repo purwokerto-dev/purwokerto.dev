@@ -1,5 +1,5 @@
 import React from "react";
-import Navbar from "./Navbar";
+import Navbar from "./navbar";
 
 const Header = () => (
   <header className="container px-4 mx-auto">

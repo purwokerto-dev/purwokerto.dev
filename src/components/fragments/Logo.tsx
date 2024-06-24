@@ -4,20 +4,21 @@ const Logo = () => {
   return (
     <>
       <Image
-        src="/whitelogo.png"
+        loading="lazy"
+        src={"/darklogo.svg"}
         alt="logo"
-        width={500}
-        height={500}
-        className="h-10 w-auto"
+        width={100}
+        height={100}
+        className="h-10 w-auto hidden dark:block"
       />
-
-      {/* <Image
-        src="/whitemaskot.png"
+      <Image
+        loading="lazy"
+        src={"/lightlogo.svg"}
         alt="logo"
-        width={500}
-        height={500}
-        className="h-20 w-20 md:hidden"
-      /> */}
+        width={100}
+        height={100}
+        className="h-10 w-auto block dark:hidden"
+      />
     </>
   );
 };

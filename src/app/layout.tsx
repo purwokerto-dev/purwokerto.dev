@@ -3,6 +3,7 @@ import { Source_Sans_3 } from "next/font/google";
 import "./globals.css";
 import SessionProvider from "@/providers/SessionProvider";
 import ThemeProvider from "@/providers/ThemeProvider";
+import Header from "@/components/sections/header";
 
 const sourceSans = Source_Sans_3({ subsets: ["latin"] });
 
@@ -20,7 +21,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={sourceSans.className}>
         <SessionProvider>
-          <ThemeProvider>{children}</ThemeProvider>
+          <ThemeProvider>
+            <Header />
+            {children}
+          </ThemeProvider>
         </SessionProvider>
       </body>
     </html>
