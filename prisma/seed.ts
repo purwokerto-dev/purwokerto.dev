@@ -69,7 +69,6 @@ async function main() {
         place: "HeteroSpace",
         dateTime: new Date(),
         description: "badge description",
-        badgeReward: badge.id,
         fee: 25000, 
         createdBy: admin.id,
         createdAt: new Date(),
@@ -94,6 +93,28 @@ async function main() {
         event: event.id,
         attend: 0,
         rsvp_link: "https://www.purwokerto.dev/",
+        createdAt: new Date(),
+        createdBy: admin.id
+      },
+  });
+
+  const eb = await prisma.eventBadge.create({
+    data:
+      {
+        event: event.id,
+        badge: badge.id,
+        speaker: user.id,
+        createdAt: new Date(),
+        createdBy: admin.id
+      },
+  });
+
+  const ep = await prisma.eventPoint.create({
+    data:
+      {
+        eventRegistration: er.id,
+        eventBadge: eb.id,
+        point: 1,
         createdAt: new Date(),
         createdBy: admin.id
       },
