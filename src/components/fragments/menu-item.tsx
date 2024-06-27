@@ -14,7 +14,7 @@ const MenuItem: FC<MenuItemPropsI> = ({ href, text, isActive, className }) => (
     <Link
       href={href}
       className={cn(
-        isActive ? "border-l-4 border-blue-500 pl-2" : "",
+        isActive ? "border-l-4 border-blue-500 lg:border-0" : "",
         className
       )}>
       {text}

@@ -5,15 +5,15 @@ import { usePathname } from "next/navigation";
 import { cn } from "@/lib/cn";
 import Button from "../fragments/button";
 
-interface NavbarMobilePropsI {
+interface NavbarMobileMenuPropsI {
   isOpen: boolean;
 }
 
-const NavbarMobile: FC<NavbarMobilePropsI> = ({ isOpen }) => {
+const NavbarMobileMenu: FC<NavbarMobileMenuPropsI> = ({ isOpen }) => {
   const pathname = usePathname();
   return (
     <div
-      className={`fixed z-40 left-0 right-0 md:hidden duration-300 bg-white dark:bg-primary transition-300 ${
+      className={`fixed z-40 left-0 right-0 lg:hidden duration-300 bg-white dark:bg-primary transition-300 ${
         !isOpen && "opacity-0 pointer-events-none"
       }`}>
       <ul className="container mx-auto p-4 flex flex-col gap-2">
@@ -38,4 +38,4 @@ const NavbarMobile: FC<NavbarMobilePropsI> = ({ isOpen }) => {
   );
 };
 
-export default NavbarMobile;
+export default NavbarMobileMenu;
