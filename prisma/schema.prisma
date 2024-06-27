@@ -52,6 +52,8 @@ model Admin {
   badgeUpdated        Badge[]   @relation("badgeUpdate")
   eventCreated        Event[]   @relation("eventCreate")
   eventUpdated        Event[]   @relation("eventUpdate")
+  socmedCreated       Socmed[]  @relation("socmedCreate")
+  socmedUpdated       Socmed[]  @relation("socmedUpdate")
 }
 
 model Blog {
@@ -114,6 +116,18 @@ model Event {
   createdBy      String?
   updatedAt      DateTime?
   updatedBy      String?
+}
+
+model Socmed {
+  id                String      @id @default(cuid())
+  name              String
+  link              String
+  socmedCreate      Admin?      @relation("socmedCreate", fields: [createdBy], references: [id])
+  socmedUpdate      Admin?      @relation("socmedUpdate", fields: [updatedBy], references: [id])
+  createdAt         DateTime?
+  createdBy         String?
+  updatedAt         DateTime?
+  updatedBy         String?
 }
 
 model Account {

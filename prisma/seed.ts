@@ -75,6 +75,16 @@ async function main() {
         createdAt: new Date(),
       },
   });
+  
+  const socmed = await prisma.socmed.create({
+    data:
+      {
+        name: "linkedin",
+        link: "https://www.linkedin.com/in/pwtdev/",
+        createdBy: admin.id,
+        createdAt: new Date(),
+      },
+  });
 
   console.log({ admin, user });
 }
