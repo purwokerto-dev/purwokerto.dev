@@ -60,6 +60,21 @@ async function main() {
         createdAt: new Date(),
       },
   });
+  
+  const event = await prisma.event.create({
+    data:
+      {
+        title: "event title",
+        quota: 25,
+        place: "HeteroSpace",
+        dateTime: new Date(),
+        description: "badge description",
+        badgeReward: badge.id,
+        fee: 25000, 
+        createdBy: admin.id,
+        createdAt: new Date(),
+      },
+  });
 
   console.log({ admin, user });
 }
