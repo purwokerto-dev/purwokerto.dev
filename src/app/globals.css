@@ -9,4 +9,7 @@
   .transition-300 {
     @apply transition-all duration-300 ease-in-out;
   }
+  .container-base {
+    @apply container px-4 md:px-6 lg:px-8 mx-auto;
+  }
 }
