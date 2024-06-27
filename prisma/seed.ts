@@ -85,6 +85,19 @@ async function main() {
         createdAt: new Date(),
       },
   });
+  
+  
+  const er = await prisma.eventRegistration.create({
+    data:
+      {
+        user: user.id,
+        event: event.id,
+        attend: 0,
+        rsvp_link: "https://www.purwokerto.dev/",
+        createdAt: new Date(),
+        createdBy: admin.id
+      },
+  });
 
   console.log({ admin, user });
 }
