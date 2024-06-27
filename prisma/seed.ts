@@ -60,6 +60,31 @@ async function main() {
         createdAt: new Date(),
       },
   });
+  
+  const event = await prisma.event.create({
+    data:
+      {
+        title: "event title",
+        quota: 25,
+        place: "HeteroSpace",
+        dateTime: new Date(),
+        description: "badge description",
+        badgeReward: badge.id,
+        fee: 25000, 
+        createdBy: admin.id,
+        createdAt: new Date(),
+      },
+  });
+  
+  const socmed = await prisma.socmed.create({
+    data:
+      {
+        name: "linkedin",
+        link: "https://www.linkedin.com/in/pwtdev/",
+        createdBy: admin.id,
+        createdAt: new Date(),
+      },
+  });
 
   console.log({ admin, user });
 }

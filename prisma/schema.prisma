@@ -50,6 +50,10 @@ model Admin {
   adminUpdated        Admin[]   @relation("otherAdminUpdate")
   badgeCreated        Badge[]   @relation("badgeCreate")
   badgeUpdated        Badge[]   @relation("badgeUpdate")
+  eventCreated        Event[]   @relation("eventCreate")
+  eventUpdated        Event[]   @relation("eventUpdate")
+  socmedCreated       Socmed[]  @relation("socmedCreate")
+  socmedUpdated       Socmed[]  @relation("socmedUpdate")
 }
 
 model Blog {
@@ -88,10 +92,42 @@ model Badge {
   img            String
   badgeCreate    Admin?    @relation("badgeCreate", fields: [createdBy], references: [id])
   badgeUpdate    Admin?    @relation("badgeUpdate", fields: [updatedBy], references: [id])
+  badgeEvent     Event[]   @relation("eventBadge")
   createdAt      DateTime?
   createdBy      String?
   updatedAt      DateTime?
   updatedBy      String?
+}
+
+model Event {
+  id             String   @id @default(cuid())
+  title          String
+  quota          Int?
+  place          String
+  dateTime       DateTime
+  duration       Int?
+  description    String?
+  eventBadge     Badge?    @relation("eventBadge", fields: [badgeReward], references: [id])
+  eventCreate    Admin?    @relation("eventCreate", fields: [createdBy], references: [id])
+  eventUpdate    Admin?    @relation("eventUpdate", fields: [updatedBy], references: [id])
+  badgeReward    String?
+  fee            Int?
+  createdAt      DateTime?
+  createdBy      String?
+  updatedAt      DateTime?
+  updatedBy      String?
+}
+
+model Socmed {
+  id                String      @id @default(cuid())
+  name              String
+  link              String
+  socmedCreate      Admin?      @relation("socmedCreate", fields: [createdBy], references: [id])
+  socmedUpdate      Admin?      @relation("socmedUpdate", fields: [updatedBy], references: [id])
+  createdAt         DateTime?
+  createdBy         String?
+  updatedAt         DateTime?
+  updatedBy         String?
 }
 
 model Account {
