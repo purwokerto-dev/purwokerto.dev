@@ -12,10 +12,9 @@ datasource db {
 
 model User {
   id             String   @id @default(cuid())
-  username       String
+  username       String   @unique
   password       String
-  firstName      String
-  lastName       String?
+  name           String
   githubLink     String?
   linkedinLink   String?
   email          String   @unique

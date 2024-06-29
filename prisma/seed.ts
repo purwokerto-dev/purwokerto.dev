@@ -21,7 +21,7 @@ async function main() {
     data: {
         username: "testname",
         password: hashedPassword,
-        firstName: "First",
+        name: "First",
         email: "test@gmail.com",
         createdAt: new Date(),
         createdBy: admin.id,
