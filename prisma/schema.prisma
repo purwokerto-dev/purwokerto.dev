@@ -114,6 +114,8 @@ model Event {
   dateTime       DateTime
   duration       Int?
   description    String?
+  banner         String?
+  map            String?
   eventCreate    Admin?    @relation("eventCreate", fields: [createdBy], references: [id])
   eventUpdate    Admin?    @relation("eventUpdate", fields: [updatedBy], references: [id])
   fee            Int?
