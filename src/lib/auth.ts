@@ -9,7 +9,6 @@ const prismaAdapter = PrismaAdapter(prisma);
 
 // @ts-ignore
 prismaAdapter.createUser = async (data) => {
-
   const password = "testpwd";
   const saltRounds = 10;
 
@@ -23,8 +22,8 @@ prismaAdapter.createUser = async (data) => {
       name: data.name,
       email: data.email,
       image: data.image,
-      createdAt: new Date()
-    }
+      createdAt: new Date(),
+    },
   });
 };
 

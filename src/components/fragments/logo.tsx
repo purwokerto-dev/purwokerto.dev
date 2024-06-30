@@ -1,8 +1,9 @@
 import Image from "next/image";
+import Link from "next/link";
 
 const Logo = () => {
   return (
-    <>
+    <Link href="/">
       <Image
         loading="lazy"
         src={"/darklogo.svg"}
@@ -19,7 +20,7 @@ const Logo = () => {
         height={100}
         className="h-10 w-auto block dark:hidden"
       />
-    </>
+    </Link>
   );
 };
 

@@ -7,6 +7,7 @@ import ToggleMenu from "../fragments/toggle-menu";
 import NavbarMobileMenu from "../blocks/navbar-mobile";
 import NavbarDekstopMenu from "../blocks/navbar-dekstop";
 import Button from "../fragments/button";
+import { signIn } from "next-auth/react";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -23,14 +24,10 @@ const Navbar = () => {
           <ToggleMenu isOpen={isOpen} onClick={() => setIsOpen(!isOpen)} />
 
           <Button
+            onClick={() => signIn("google")}
             text="masuk"
             variant="outline"
             className="hidden mr-2 rounded-none lg:block"
-          />
-          <Button
-            text="daftar"
-            variant="bg"
-            className="hidden rounded-none lg:block"
           />
         </div>
       </div>
