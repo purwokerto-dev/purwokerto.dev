@@ -8,14 +8,13 @@ const prismaAdapter = PrismaAdapter(prisma);
 
 // @ts-ignore
 prismaAdapter.createUser = async (data) => {
-
   return prisma.user.create({
     data: {
       name: data.name,
       email: data.email,
       image: data.image,
-      createdAt: new Date()
-    }
+      createdAt: new Date(),
+    },
   });
 };
 
