@@ -1,7 +1,6 @@
 import { AuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import bcrypt from "bcrypt";
 import prisma from "./db";
 
 // Custom PrismaAdapter with overridden createUser method
@@ -10,16 +9,8 @@ const prismaAdapter = PrismaAdapter(prisma);
 // @ts-ignore
 prismaAdapter.createUser = async (data) => {
 
-  const password = "testpwd";
-  const saltRounds = 10;
-
-  const hashedPassword = await bcrypt.hash(password, saltRounds);
-
-  console.log("Data: ", data);
   return prisma.user.create({
     data: {
-      username: data.email,
-      password: hashedPassword,
       name: data.name,
       email: data.email,
       image: data.image,

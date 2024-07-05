@@ -12,15 +12,13 @@ async function main() {
   const admin = await prisma.admin.create({
     data:
       {
-        username: "testname",
-        password: hashedPassword,
         name: "testname",
+        email: "admin@gmail.com",
+        createdAt: new Date(),
       },
   });
   const user = await prisma.user.create({
     data: {
-        username: "testname",
-        password: hashedPassword,
         name: "First",
         email: "test@gmail.com",
         createdAt: new Date(),
@@ -78,8 +76,8 @@ async function main() {
   const socmed = await prisma.socmed.create({
     data:
       {
-        name: "linkedin",
-        link: "https://www.linkedin.com/in/pwtdev/",
+        type: "linkedin",
+        url: "https://www.linkedin.com/in/pwtdev/",
         createdBy: admin.id,
         createdAt: new Date(),
       },

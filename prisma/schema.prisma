@@ -12,14 +12,12 @@ datasource db {
 
 model User {
   id             String   @id @default(cuid())
-  username       String   @unique
-  password       String
   name           String
   githubLink     String?
   linkedinLink   String?
   email          String   @unique
-  emailVerified  DateTime?
   image          String?
+  profesi        String?
   adminCreate    Admin?    @relation("adminCreate", fields: [createdBy], references: [id])
   adminUpdate    Admin?    @relation("adminUpdate", fields: [updatedBy], references: [id])
   createdAt      DateTime?
@@ -36,9 +34,9 @@ model User {
 
 model Admin {
   id                  String    @id @default(cuid())
-  username            String
-  password            String
   name                String
+  email               String   @unique
+  image               String?
   otherAdminCreate    Admin?    @relation("otherAdminCreate", fields: [createdBy], references: [id])
   otherAdminUpdate    Admin?    @relation("otherAdminUpdate", fields: [updatedBy], references: [id])
   createdAt           DateTime?
@@ -146,8 +144,8 @@ model EventBadge {
 
 model Socmed {
   id                String      @id @default(cuid())
-  name              String
-  link              String
+  type              String
+  url               String
   socmedCreate      Admin?      @relation("socmedCreate", fields: [createdBy], references: [id])
   socmedUpdate      Admin?      @relation("socmedUpdate", fields: [updatedBy], references: [id])
   createdAt         DateTime?
