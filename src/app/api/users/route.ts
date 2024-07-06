@@ -1,7 +1,8 @@
 // pages/api/users/index.ts
 import { NextRequest, NextResponse } from 'next/server';
 import { PrismaClient, User } from '@prisma/client';
-import { getSession } from 'next-auth/react';
+import { getServerSession } from 'next-auth/next';
+import { authOptions } from "@/lib/auth";
 
 const prisma = new PrismaClient();
 
@@ -17,7 +18,7 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
   // Check the session
-  const session = await getSession({ req });
+  const session = await getServerSession(authOptions);
   if (!session || !session.user.isAdmin) {
     // If there is no session or if the user is not an admin, return unauthorized
     return NextResponse.json({ error: "Access unauthorized" }, { status: 403 });
