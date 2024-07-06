@@ -20,7 +20,7 @@ model User {
   profesi        String?
   adminCreate    User?    @relation("adminCreate", fields: [createdBy], references: [id])
   adminUpdate    User?    @relation("adminUpdate", fields: [updatedBy], references: [id])
-  createdAt      DateTime?
+  createdAt      DateTime? @default(now())
   createdBy      String?
   updatedAt      DateTime?
   updatedBy      String?
@@ -53,7 +53,7 @@ model Admin {
   email               String   @unique
   otherAdminCreate    User?    @relation("otherAdminCreate", fields: [createdBy], references: [id])
   otherAdminUpdate    User?    @relation("otherAdminUpdate", fields: [updatedBy], references: [id])
-  createdAt           DateTime?
+  createdAt           DateTime? @default(now())
   createdBy           String?
   updatedAt           DateTime?
   updatedBy           String?
@@ -67,7 +67,7 @@ model Blog {
   tags              TagsOnBlogs[]
   UserCreate        User?       @relation("UserCreate", fields: [createdBy], references: [id])
   UserUpdate        User?       @relation("UserUpdate", fields: [updatedBy], references: [id])
-  createdAt         DateTime?
+  createdAt         DateTime? @default(now())
   createdBy         String?
   updatedAt         DateTime?
   updatedBy         String?
@@ -95,7 +95,7 @@ model Badge {
   img            String
   badgeCreate    User?    @relation("badgeCreate", fields: [createdBy], references: [id])
   badgeUpdate    User?    @relation("badgeUpdate", fields: [updatedBy], references: [id])
-  createdAt      DateTime?
+  createdAt      DateTime? @default(now())
   createdBy      String?
   updatedAt      DateTime?
   updatedBy      String?
@@ -115,7 +115,7 @@ model Event {
   eventCreate    User?    @relation("eventCreate", fields: [createdBy], references: [id])
   eventUpdate    User?    @relation("eventUpdate", fields: [updatedBy], references: [id])
   fee            Int?
-  createdAt      DateTime?
+  createdAt      DateTime? @default(now())
   createdBy      String?
   updatedAt      DateTime?
   updatedBy      String?
@@ -133,7 +133,7 @@ model EventBadge {
   speaker        String
   ebCreate       User?    @relation("ebCreate", fields: [createdBy], references: [id])
   ebUpdate       User?    @relation("ebUpdate", fields: [updatedBy], references: [id])
-  createdAt      DateTime?
+  createdAt      DateTime? @default(now())
   createdBy      String?
   updatedAt      DateTime?
   updatedBy      String?
@@ -146,7 +146,7 @@ model Socmed {
   url               String
   socmedCreate      User?      @relation("socmedCreate", fields: [createdBy], references: [id])
   socmedUpdate      User?      @relation("socmedUpdate", fields: [updatedBy], references: [id])
-  createdAt         DateTime?
+  createdAt         DateTime? @default(now())
   createdBy         String?
   updatedAt         DateTime?
   updatedBy         String?
@@ -162,7 +162,7 @@ model EventRegistration {
   rsvp_link      String
   erCreate       User?      @relation("erCreate", fields: [createdBy], references: [id])
   erUpdate       User?      @relation("erUpdate", fields: [updatedBy], references: [id])
-  createdAt      DateTime?
+  createdAt      DateTime?  @default(now())
   createdBy      String?
   updatedAt      DateTime?
   updatedBy      String?
@@ -178,7 +178,7 @@ model EventPoint {
   point             Int          @default(1)
   epCreate          User?    @relation("epCreate", fields: [createdBy], references: [id])
   epUpdate          User?    @relation("epUpdate", fields: [updatedBy], references: [id])
-  createdAt         DateTime?
+  createdAt         DateTime? @default(now())
   createdBy         String?
   updatedAt         DateTime?
   updatedBy         String?
