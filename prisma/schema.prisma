@@ -18,8 +18,8 @@ model User {
   email          String   @unique
   image          String?
   profesi        String?
-  adminCreate    Admin?    @relation("adminCreate", fields: [createdBy], references: [id])
-  adminUpdate    Admin?    @relation("adminUpdate", fields: [updatedBy], references: [id])
+  adminCreate    User?    @relation("adminCreate", fields: [createdBy], references: [id])
+  adminUpdate    User?    @relation("adminUpdate", fields: [updatedBy], references: [id])
   createdAt      DateTime?
   createdBy      String?
   updatedAt      DateTime?
@@ -28,37 +28,35 @@ model User {
   sessions       Session[]
   blogCreated    Blog[]    @relation("UserCreate")
   blogUpdated    Blog[]    @relation("UserUpdate")
+  usersCreated   User[]    @relation("adminCreate")
+  usersUpdated   User[]    @relation("adminUpdate")
+  adminCreated   Admin[]   @relation("otherAdminCreate")
+  adminUpdated   Admin[]   @relation("otherAdminUpdate")
   erUser         EventRegistration[] @relation("erUser")
   ebSpeaker      EventBadge[] @relation("ebSpeaker")
+  badgeCreated   Badge[]   @relation("badgeCreate")
+  badgeUpdated   Badge[]   @relation("badgeUpdate")
+  eventCreated   Event[]   @relation("eventCreate")
+  eventUpdated   Event[]   @relation("eventUpdate")
+  socmedCreated  Socmed[]  @relation("socmedCreate")
+  socmedUpdated  Socmed[]  @relation("socmedUpdate")
+  erCreated      EventRegistration[]  @relation("erCreate")
+  erUpdated      EventRegistration[]  @relation("erUpdate")
+  ebCreated      EventBadge[]  @relation("ebCreate")
+  ebUpdated      EventBadge[]  @relation("ebUpdate")
+  epCreated      EventPoint[]  @relation("epCreate")
+  epUpdated      EventPoint[]  @relation("epUpdate")
 }
 
 model Admin {
   id                  String    @id @default(cuid())
-  name                String
   email               String   @unique
-  image               String?
-  otherAdminCreate    Admin?    @relation("otherAdminCreate", fields: [createdBy], references: [id])
-  otherAdminUpdate    Admin?    @relation("otherAdminUpdate", fields: [updatedBy], references: [id])
+  otherAdminCreate    User?    @relation("otherAdminCreate", fields: [createdBy], references: [id])
+  otherAdminUpdate    User?    @relation("otherAdminUpdate", fields: [updatedBy], references: [id])
   createdAt           DateTime?
   createdBy           String?
   updatedAt           DateTime?
   updatedBy           String?
-  usersCreated        User[]    @relation("adminCreate")
-  usersUpdated        User[]    @relation("adminUpdate")
-  adminCreated        Admin[]   @relation("otherAdminCreate")
-  adminUpdated        Admin[]   @relation("otherAdminUpdate")
-  badgeCreated        Badge[]   @relation("badgeCreate")
-  badgeUpdated        Badge[]   @relation("badgeUpdate")
-  eventCreated        Event[]   @relation("eventCreate")
-  eventUpdated        Event[]   @relation("eventUpdate")
-  socmedCreated       Socmed[]  @relation("socmedCreate")
-  socmedUpdated       Socmed[]  @relation("socmedUpdate")
-  erCreated           EventRegistration[]  @relation("erCreate")
-  erUpdated           EventRegistration[]  @relation("erUpdate")
-  ebCreated           EventBadge[]  @relation("ebCreate")
-  ebUpdated           EventBadge[]  @relation("ebUpdate")
-  epCreated           EventPoint[]  @relation("epCreate")
-  epUpdated           EventPoint[]  @relation("epUpdate")
 }
 
 model Blog {
@@ -95,8 +93,8 @@ model Badge {
   title          String
   description    String
   img            String
-  badgeCreate    Admin?    @relation("badgeCreate", fields: [createdBy], references: [id])
-  badgeUpdate    Admin?    @relation("badgeUpdate", fields: [updatedBy], references: [id])
+  badgeCreate    User?    @relation("badgeCreate", fields: [createdBy], references: [id])
+  badgeUpdate    User?    @relation("badgeUpdate", fields: [updatedBy], references: [id])
   createdAt      DateTime?
   createdBy      String?
   updatedAt      DateTime?
@@ -114,8 +112,8 @@ model Event {
   description    String?
   banner         String?
   map            String?
-  eventCreate    Admin?    @relation("eventCreate", fields: [createdBy], references: [id])
-  eventUpdate    Admin?    @relation("eventUpdate", fields: [updatedBy], references: [id])
+  eventCreate    User?    @relation("eventCreate", fields: [createdBy], references: [id])
+  eventUpdate    User?    @relation("eventUpdate", fields: [updatedBy], references: [id])
   fee            Int?
   createdAt      DateTime?
   createdBy      String?
@@ -133,8 +131,8 @@ model EventBadge {
   badge          String
   ebSpeaker      User     @relation("ebSpeaker", fields: [speaker], references: [id])
   speaker        String
-  ebCreate       Admin?    @relation("ebCreate", fields: [createdBy], references: [id])
-  ebUpdate       Admin?    @relation("ebUpdate", fields: [updatedBy], references: [id])
+  ebCreate       User?    @relation("ebCreate", fields: [createdBy], references: [id])
+  ebUpdate       User?    @relation("ebUpdate", fields: [updatedBy], references: [id])
   createdAt      DateTime?
   createdBy      String?
   updatedAt      DateTime?
@@ -146,8 +144,8 @@ model Socmed {
   id                String      @id @default(cuid())
   type              String
   url               String
-  socmedCreate      Admin?      @relation("socmedCreate", fields: [createdBy], references: [id])
-  socmedUpdate      Admin?      @relation("socmedUpdate", fields: [updatedBy], references: [id])
+  socmedCreate      User?      @relation("socmedCreate", fields: [createdBy], references: [id])
+  socmedUpdate      User?      @relation("socmedUpdate", fields: [updatedBy], references: [id])
   createdAt         DateTime?
   createdBy         String?
   updatedAt         DateTime?
@@ -162,8 +160,8 @@ model EventRegistration {
   event          String
   attend         Int         @default(0)
   rsvp_link      String
-  erCreate       Admin?      @relation("erCreate", fields: [createdBy], references: [id])
-  erUpdate       Admin?      @relation("erUpdate", fields: [updatedBy], references: [id])
+  erCreate       User?      @relation("erCreate", fields: [createdBy], references: [id])
+  erUpdate       User?      @relation("erUpdate", fields: [updatedBy], references: [id])
   createdAt      DateTime?
   createdBy      String?
   updatedAt      DateTime?
@@ -178,8 +176,8 @@ model EventPoint {
   epEb              EventBadge   @relation("epEb", fields: [eventBadge], references: [id])
   eventBadge        String
   point             Int          @default(1)
-  epCreate          Admin?    @relation("epCreate", fields: [createdBy], references: [id])
-  epUpdate          Admin?    @relation("epUpdate", fields: [updatedBy], references: [id])
+  epCreate          User?    @relation("epCreate", fields: [createdBy], references: [id])
+  epUpdate          User?    @relation("epUpdate", fields: [updatedBy], references: [id])
   createdAt         DateTime?
   createdBy         String?
   updatedAt         DateTime?

@@ -9,21 +9,20 @@ async function main() {
 
   const hashedPassword = await bcrypt.hash(password, saltRounds);
 
+  const user = await prisma.user.create({
+    data: {
+      name: "First",
+      email: "test@gmail.com",
+      createdAt: new Date()
+    },
+  });
   const admin = await prisma.admin.create({
     data:
       {
-        name: "testname",
         email: "admin@gmail.com",
         createdAt: new Date(),
+        createdBy: user.id
       },
-  });
-  const user = await prisma.user.create({
-    data: {
-        name: "First",
-        email: "test@gmail.com",
-        createdAt: new Date(),
-        createdBy: admin.id,
-    },
   });
   const blogTag = await prisma.blogTag.create({
     data: {
@@ -54,7 +53,7 @@ async function main() {
         title: "badge title",
         description: "badge description",
         img: "badge_one.png",
-        createdBy: admin.id,
+        createdBy: user.id,
         createdAt: new Date(),
       },
   });
@@ -68,7 +67,7 @@ async function main() {
         dateTime: new Date(),
         description: "badge description",
         fee: 25000, 
-        createdBy: admin.id,
+        createdBy: user.id,
         createdAt: new Date(),
       },
   });
@@ -78,7 +77,7 @@ async function main() {
       {
         type: "linkedin",
         url: "https://www.linkedin.com/in/pwtdev/",
-        createdBy: admin.id,
+        createdBy: user.id,
         createdAt: new Date(),
       },
   });
@@ -92,7 +91,7 @@ async function main() {
         attend: 0,
         rsvp_link: "https://www.purwokerto.dev/",
         createdAt: new Date(),
-        createdBy: admin.id
+        createdBy: user.id
       },
   });
 
@@ -103,7 +102,7 @@ async function main() {
         badge: badge.id,
         speaker: user.id,
         createdAt: new Date(),
-        createdBy: admin.id
+        createdBy: user.id
       },
   });
 
@@ -114,7 +113,7 @@ async function main() {
         eventBadge: eb.id,
         point: 1,
         createdAt: new Date(),
-        createdBy: admin.id
+        createdBy: user.id
       },
   });
 
