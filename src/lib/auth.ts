@@ -34,6 +34,14 @@ export const authOptions: AuthOptions = {
     async session({ session, user }) {
       if (session.user) {
         session.user.id = user.id;
+        // Check if the user's email is in the admin table
+        const isAdmin = await prisma.admin.findUnique({
+          where: {
+            email: user.email,
+          },
+        });
+        // If the user is found in the admin table, mark them as an admin in the session
+        session.user.isAdmin = !!isAdmin;
       }
       return session;
     },
