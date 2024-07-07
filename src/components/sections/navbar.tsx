@@ -24,7 +24,7 @@ const Navbar = () => {
           <ToggleMenu isOpen={isOpen} onClick={() => setIsOpen(!isOpen)} />
 
           <Button
-            onClick={() => signIn("google")}
+            // onClick={() => signIn("google")}
             text="masuk"
             variant="outline"
             className="hidden mr-2 rounded-none lg:block"
