@@ -7,9 +7,13 @@ import Button from "../fragments/button";
 
 interface NavbarMobileMenuPropsI {
   isOpen: boolean;
+  setIsOpen: () => void;
 }
 
-const NavbarMobileMenu: FC<NavbarMobileMenuPropsI> = ({ isOpen }) => {
+const NavbarMobileMenu: FC<NavbarMobileMenuPropsI> = ({
+  isOpen,
+  setIsOpen,
+}) => {
   const pathname = usePathname();
   return (
     <div
@@ -19,6 +23,7 @@ const NavbarMobileMenu: FC<NavbarMobileMenuPropsI> = ({ isOpen }) => {
       <ul className="container mx-auto p-4 flex flex-col gap-2">
         {menus.map((menu) => (
           <MenuItem
+            setIsOpen={setIsOpen}
             isActive={pathname === menu.path ? true : false}
             key={menu.path}
             href={menu.path}
@@ -31,8 +36,7 @@ const NavbarMobileMenu: FC<NavbarMobileMenuPropsI> = ({ isOpen }) => {
             )}
           />
         ))}
-        <Button text="masuk" variant="outline" />
-        <Button text="daftar" variant="bg" />
+        <Button text="masuk" variant="bg" />
       </ul>
     </div>
   );

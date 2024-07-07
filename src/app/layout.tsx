@@ -4,12 +4,15 @@ import "./globals.css";
 import SessionProvider from "@/providers/SessionProvider";
 import ThemeProvider from "@/providers/ThemeProvider";
 import Header from "@/components/sections/header";
+import Footer from "@/components/sections/footer";
+import { cn } from "@/lib/cn";
 
 const sourceSans = Source_Sans_3({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Purwokerto Dev",
-  description: "Komunitas Developer Purwokerto",
+  title: "Purwokerto Dev | Komunitas Developer Purwokerto",
+  description:
+    "Wadah Komunitas Developer Purwokerto untuk Berkreasi, Terkoneksi dan Berkolaborasi.",
 };
 
 export default function RootLayout({
@@ -19,11 +22,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={sourceSans.className}>
+      <head>
+        <link rel="icon" href="/whitemaskot.png" type="image/png" />
+      </head>
+      <body className={cn(sourceSans.className, "min-h-screen flex flex-col")}>
         <SessionProvider>
           <ThemeProvider>
             <Header />
-            {children}
+            <main className="flex-grow">{children}</main>
+            <Footer />
           </ThemeProvider>
         </SessionProvider>
       </body>

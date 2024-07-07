@@ -8,24 +8,24 @@ import prisma from "./db";
 const prismaAdapter = PrismaAdapter(prisma);
 
 // @ts-ignore
-prismaAdapter.createUser = async (data) => {
-  const password = "testpwd";
-  const saltRounds = 10;
+// prismaAdapter.createUser = async (data) => {
+//   const password = "testpwd";
+//   const saltRounds = 10;
 
-  const hashedPassword = await bcrypt.hash(password, saltRounds);
+//   const hashedPassword = await bcrypt.hash(password, saltRounds);
 
-  console.log("Data: ", data);
-  return prisma.user.create({
-    data: {
-      username: data.email,
-      password: hashedPassword,
-      name: data.name,
-      email: data.email,
-      image: data.image,
-      createdAt: new Date(),
-    },
-  });
-};
+//   console.log("Data: ", data);
+//   return prisma.user.create({
+//     data: {
+//       username: data.email,
+//       password: hashedPassword,
+//       name: data.name,
+//       email: data.email,
+//       image: data.image,
+//       createdAt: new Date(),
+//     },
+//   });
+// };
 
 export const authOptions: AuthOptions = {
   providers: [
@@ -41,9 +41,9 @@ export const authOptions: AuthOptions = {
   },
   callbacks: {
     async session({ session, user }) {
-      if (session.user) {
-        session.user.id = user.id;
-      }
+      // if (session.user) {
+      //   session.user.id = user.id;
+      // }
       return session;
     },
   },

@@ -17,6 +17,9 @@ const NavbarDekstopMenu = () => {
             "text-gray-600 dark:text-white text-lg font-semibold py-1 px-2 rounded-md hover:bg-gray-300 dark:hover:bg-gray-600",
             pathname === menu.path ? "bg-gray-200 dark:bg-gray-700" : ""
           )}
+          setIsOpen={function (): void {
+            throw new Error("Function not implemented.");
+          }}
         />
       ))}
     </ul>

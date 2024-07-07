@@ -19,6 +19,20 @@ const config: Config = {
         primary: "#0E2439",
         darkhover: "#9CB3C9",
       },
+      keyframes: {
+        hangingWiggle: {
+          "0%, 100%": {
+            transform: "rotate(0deg)",
+            transformOrigin: "top left",
+          },
+          "25%": { transform: "rotate(5deg)", transformOrigin: "top left" },
+          "50%": { transform: "rotate(-5deg)", transformOrigin: "top left" },
+          "75%": { transform: "rotate(5deg)", transformOrigin: "top left" },
+        },
+      },
+      animation: {
+        hangingWiggle: "hangingWiggle 5s ease-in-out infinite",
+      },
     },
   },
   plugins: [],

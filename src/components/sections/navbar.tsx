@@ -13,7 +13,7 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav>
+    <nav className="container-base">
       <div className="grid grid-cols-2 lg:grid-cols-3">
         <NavbarDekstopMenu />
         <div className="lg:justify-self-center">
@@ -31,7 +31,7 @@ const Navbar = () => {
           />
         </div>
       </div>
-      <NavbarMobileMenu isOpen={isOpen} />
+      <NavbarMobileMenu isOpen={isOpen} setIsOpen={() => setIsOpen(!isOpen)} />
     </nav>
   );
 };
