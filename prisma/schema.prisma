@@ -17,7 +17,7 @@ model User {
   linkedinLink   String?
   email          String   @unique
   image          String?
-  profesi        String?
+  job            String?
   adminCreate    User?    @relation("adminCreate", fields: [createdBy], references: [id])
   adminUpdate    User?    @relation("adminUpdate", fields: [updatedBy], references: [id])
   createdAt      DateTime? @default(now())
