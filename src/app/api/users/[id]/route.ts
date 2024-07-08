@@ -25,13 +25,19 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
         // If there is no session or if the user is not an admin, return unauthorized
         return NextResponse.json({ error: "Access unauthorized" }, { status: 403 });
     }
-    const { name, email } = await req.json();
+    const { name, email, githubLink, linkedinLink, image, job } = await req.json();
     try {
         const updatedUser: User = await prisma.user.update({
             where: { id: params.id },
             data: {
-                name,
-                email,
+                ... (name ? { name } : {}),
+                ... (email ? { email } : {}),
+                ... (githubLink ? { githubLink } : {}),
+                ... (linkedinLink ? { linkedinLink } : {}),
+                ... (image ? { image } : {}),
+                ... (job ? { job } : {}),
+                updatedAt: new Date(),
+                updatedBy: session.user.id,
             },
         });
         return NextResponse.json(updatedUser, { status: 200 });
