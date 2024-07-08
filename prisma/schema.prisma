@@ -11,41 +11,45 @@ datasource db {
 }
 
 model User {
-  id             String   @id @default(cuid())
-  name           String
-  githubLink     String?
-  linkedinLink   String?
-  email          String   @unique
-  image          String?
-  job            String?
-  adminCreate    User?    @relation("adminCreate", fields: [createdBy], references: [id])
-  adminUpdate    User?    @relation("adminUpdate", fields: [updatedBy], references: [id])
-  createdAt      DateTime? @default(now())
-  createdBy      String?
-  updatedAt      DateTime?
-  updatedBy      String?
-  accounts       Account[]
-  sessions       Session[]
-  blogCreated    Blog[]    @relation("UserCreate")
-  blogUpdated    Blog[]    @relation("UserUpdate")
-  usersCreated   User[]    @relation("adminCreate")
-  usersUpdated   User[]    @relation("adminUpdate")
-  adminCreated   Admin[]   @relation("otherAdminCreate")
-  adminUpdated   Admin[]   @relation("otherAdminUpdate")
-  erUser         EventRegistration[] @relation("erUser")
-  ebSpeaker      EventBadge[] @relation("ebSpeaker")
-  badgeCreated   Badge[]   @relation("badgeCreate")
-  badgeUpdated   Badge[]   @relation("badgeUpdate")
-  eventCreated   Event[]   @relation("eventCreate")
-  eventUpdated   Event[]   @relation("eventUpdate")
-  socmedCreated  Socmed[]  @relation("socmedCreate")
-  socmedUpdated  Socmed[]  @relation("socmedUpdate")
-  erCreated      EventRegistration[]  @relation("erCreate")
-  erUpdated      EventRegistration[]  @relation("erUpdate")
-  ebCreated      EventBadge[]  @relation("ebCreate")
-  ebUpdated      EventBadge[]  @relation("ebUpdate")
-  epCreated      EventPoint[]  @relation("epCreate")
-  epUpdated      EventPoint[]  @relation("epUpdate")
+  id                  String   @id @default(cuid())
+  name                String
+  githubLink          String?
+  linkedinLink        String?
+  email               String   @unique
+  image               String?
+  job                 String?
+  adminCreate         User?    @relation("adminCreate", fields: [createdBy], references: [id])
+  adminUpdate         User?    @relation("adminUpdate", fields: [updatedBy], references: [id])
+  createdAt           DateTime? @default(now())
+  createdBy           String?
+  updatedAt           DateTime?
+  updatedBy           String?
+  accounts            Account[]
+  sessions            Session[]
+  blogCreated         Blog[]    @relation("UserCreate")
+  blogUpdated         Blog[]    @relation("UserUpdate")
+  usersCreated        User[]    @relation("adminCreate")
+  usersUpdated        User[]    @relation("adminUpdate")
+  adminCreated        Admin[]   @relation("otherAdminCreate")
+  adminUpdated        Admin[]   @relation("otherAdminUpdate")
+  erUser              EventRegistration[] @relation("erUser")
+  ebSpeaker           EventBadge[] @relation("ebSpeaker")
+  badgeCreated        Badge[]   @relation("badgeCreate")
+  badgeUpdated        Badge[]   @relation("badgeUpdate")
+  eventCreated        Event[]   @relation("eventCreate")
+  eventUpdated        Event[]   @relation("eventUpdate")
+  socmedCreated       Socmed[]  @relation("socmedCreate")
+  socmedUpdated       Socmed[]  @relation("socmedUpdate")
+  erCreated           EventRegistration[]  @relation("erCreate")
+  erUpdated           EventRegistration[]  @relation("erUpdate")
+  ebCreated           EventBadge[]  @relation("ebCreate")
+  ebUpdated           EventBadge[]  @relation("ebUpdate")
+  epCreated           EventPoint[]  @relation("epCreate")
+  epUpdated           EventPoint[]  @relation("epUpdate")
+  BlogTagCreated      BlogTag[]  @relation("BlogTagCreate")
+  BlogTagUpdated      BlogTag[]  @relation("BlogTagUpdate")
+  TagsOnBlogsCreated  TagsOnBlogs[]  @relation("TagsOnBlogsCreate")
+  TagsOnBlogsUpdated  TagsOnBlogs[]  @relation("TagsOnBlogsUpdate")
 }
 
 model Admin {
@@ -77,13 +81,25 @@ model BlogTag {
   id                String    @id @default(cuid())
   blog              TagsOnBlogs[]
   title             String
+  BlogTagCreate     User?       @relation("BlogTagCreate", fields: [createdBy], references: [id])
+  BlogTagUpdate     User?       @relation("BlogTagUpdate", fields: [updatedBy], references: [id])
+  createdAt         DateTime? @default(now())
+  createdBy         String?
+  updatedAt         DateTime?
+  updatedBy         String?
 }
 
 model TagsOnBlogs {
-  blog              Blog  @relation(fields: [blogId], references: [id])
-  blogId            String
-  tag               BlogTag   @relation(fields: [tagId], references: [id])
-  tagId             String
+  blog                Blog  @relation(fields: [blogId], references: [id])
+  blogId              String
+  tag                 BlogTag   @relation(fields: [tagId], references: [id])
+  tagId               String
+  TagsOnBlogsCreate   User?       @relation("TagsOnBlogsCreate", fields: [createdBy], references: [id])
+  TagsOnBlogsUpdate   User?       @relation("TagsOnBlogsUpdate", fields: [updatedBy], references: [id])
+  createdAt           DateTime? @default(now())
+  createdBy           String?
+  updatedAt           DateTime?
+  updatedBy           String?
 
   @@id([blogId, tagId])
 }
