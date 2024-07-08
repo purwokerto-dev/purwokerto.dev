@@ -24,12 +24,17 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Access unauthorized" }, { status: 403 });
   }
   // Create a new user
-  const { name, email } = await req.json();
+  const { name, email, githubLink, linkedinLink, image, job } = await req.json();
   try {
     const newUser: User = await prisma.user.create({
       data: {
         name,
         email,
+        ... (githubLink ? { githubLink } : {}),
+        ... (linkedinLink ? { linkedinLink } : {}),
+        ... (image ? { image } : {}),
+        ... (job ? { job } : {}),
+        createdBy: session.user.id,
       },
     });
     return NextResponse.json(newUser, { status: 201 });
