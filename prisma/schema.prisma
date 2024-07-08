@@ -67,7 +67,7 @@ model Blog {
   id                String      @id @default(cuid())
   title             String
   body              String
-  status            Int         @default(1)
+  draft             Int         @default(1)
   tags              TagsOnBlogs[]
   UserCreate        User?       @relation("UserCreate", fields: [createdBy], references: [id])
   UserUpdate        User?       @relation("UserUpdate", fields: [updatedBy], references: [id])
