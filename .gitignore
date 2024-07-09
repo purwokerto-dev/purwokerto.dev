@@ -39,3 +39,6 @@ next-env.d.ts
 # anything db
 *.db
 *.db-journal
+
+# badge images
+/public/badges
