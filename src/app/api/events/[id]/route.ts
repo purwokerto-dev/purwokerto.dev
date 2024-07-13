@@ -28,7 +28,7 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
         // If there is no session or if the user is not an admin, return unauthorized
         return NextResponse.json({ error: "Access unauthorized" }, { status: 403 });
     }
-    const { title, place, dateTime, quota, duration, description, banner, map, fee } = await req.json();
+    const { title, place, dateTime, quota, duration, description, banner, map, fee, hidden } = await req.json();
     try {
         let bannerURL = '';
         if (banner) {
@@ -81,6 +81,7 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
                 ... (bannerURL ? { banner: bannerURL } : {}),
                 ... (map ? { map } : {}),
                 ... (fee ? { fee } : {}),
+                ... (hidden ? { hidden } : {}),
                 updatedBy: session.user.id,
             },
         });

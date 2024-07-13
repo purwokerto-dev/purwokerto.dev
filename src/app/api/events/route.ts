@@ -27,7 +27,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Access unauthorized" }, { status: 403 });
   }
   // Create a new event
-  const { title, place, quota, dateTime, duration, description, banner, map, fee } = await req.json();
+  const { title, place, quota, dateTime, duration, description, banner, map, fee, hidden } = await req.json();
   try {
     let bannerURL = '';
     if (banner) {
@@ -63,6 +63,7 @@ export async function POST(req: NextRequest) {
         ... (bannerURL ? { banner: bannerURL } : {}),
         ... (map ? { map } : {}),
         ... (fee ? { fee } : {}),
+        ... (hidden ? { hidden } : {}),
         createdBy: session.user.id,
       },
     });
