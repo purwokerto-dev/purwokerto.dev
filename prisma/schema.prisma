@@ -175,7 +175,6 @@ model EventRegistration {
   user           String
   erEvent        Event       @relation("erEvent", fields: [event], references: [id])
   event          String
-  attend         Int         @default(0)
   rsvp_link      String
   erCreate       User?      @relation("erCreate", fields: [createdBy], references: [id])
   erUpdate       User?      @relation("erUpdate", fields: [updatedBy], references: [id])

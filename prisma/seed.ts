@@ -88,7 +88,6 @@ async function main() {
       {
         user: user.id,
         event: event.id,
-        attend: 0,
         rsvp_link: "https://www.purwokerto.dev/",
         createdAt: new Date(),
         createdBy: user.id
