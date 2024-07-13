@@ -131,6 +131,7 @@ model Event {
   eventCreate    User?    @relation("eventCreate", fields: [createdBy], references: [id])
   eventUpdate    User?    @relation("eventUpdate", fields: [updatedBy], references: [id])
   fee            Int?
+  hidden         Boolean  @default(false)
   createdAt      DateTime? @default(now())
   createdBy      String?
   updatedAt      DateTime?
@@ -145,8 +146,8 @@ model EventBadge {
   event          String
   ebBadge        Badge    @relation("ebBadge", fields: [badge], references: [id])
   badge          String
-  ebSpeaker      User     @relation("ebSpeaker", fields: [speaker], references: [id])
-  speaker        String
+  ebSpeaker      User?     @relation("ebSpeaker", fields: [speaker], references: [id])
+  speaker        String?
   ebCreate       User?    @relation("ebCreate", fields: [createdBy], references: [id])
   ebUpdate       User?    @relation("ebUpdate", fields: [updatedBy], references: [id])
   createdAt      DateTime? @default(now())
