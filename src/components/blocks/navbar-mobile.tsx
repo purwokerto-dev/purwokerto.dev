@@ -4,6 +4,7 @@ import { menus } from "@/data/menus";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/cn";
 import Button from "../fragments/button";
+import { signIn } from "next-auth/react";
 
 interface NavbarMobileMenuPropsI {
   isOpen: boolean;
@@ -36,7 +37,7 @@ const NavbarMobileMenu: FC<NavbarMobileMenuPropsI> = ({
             )}
           />
         ))}
-        <Button text="masuk" variant="bg" />
+        <Button onClick={() => signIn("google")} text="masuk" variant="bg" />
       </ul>
     </div>
   );

@@ -2,7 +2,7 @@ import Image from "next/image";
 import React from "react";
 import Button from "../fragments/button";
 
-const Hero = () => {
+const Hero = async () => {
   return (
     <div className="container-base transition-300 overflow-hidden relative grid grid-cols-1 lg:grid-cols-2 lg:items-center pt-8 lg:pt-0 xl:px-28">
       <svg
