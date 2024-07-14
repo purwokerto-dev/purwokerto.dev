@@ -6,12 +6,31 @@ import { authOptions } from "@/lib/auth";
 
 const prisma = new PrismaClient();
 
+/**
+ * @swagger
+ * /api/users/{id}:
+ *   get:
+ *     description: Returns details of a user
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The user's ID
+ *     responses:
+ *       200:
+ *         description: Returns details of a user
+ */
 export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
     // Fetch a single user
     try {
         const user: User | null = await prisma.user.findUnique({
             where: { id: params.id },
         });
+        if (!user) {
+            return NextResponse.json({ error: 'User not found' }, { status: 400 });
+        }
         return NextResponse.json(user, { status: 200 });
     } catch (error) {
         return NextResponse.json({ error: 'User not found' }, { status: 400 });
