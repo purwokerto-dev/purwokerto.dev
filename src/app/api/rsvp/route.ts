@@ -6,6 +6,28 @@ import { authOptions } from "@/lib/auth";
 
 const prisma = new PrismaClient();
 
+/**
+ * @swagger
+ * /api/rsvp:
+ *   get:
+ *     description: Do a rsvp for a user
+ *     parameters:
+ *       - in: query
+ *         name: user
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The user ID to filter by
+ *       - in: query
+ *         name: event
+ *         required: false
+ *         schema:
+ *           type: string
+ *         description: The event ID to filter by
+ *     responses:
+ *       200:
+ *         description: Do a rsvp for a user
+ */
 export async function GET(req: NextRequest) {
   // Check the session
   const session = await getServerSession(authOptions);

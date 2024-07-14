@@ -16,6 +16,29 @@ export async function GET(req: NextRequest) {
   }
 }
 
+/**
+ * @swagger
+ * /api/eventregistrations:
+ *   post:
+ *     description: Create new event registration
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required: ["user", "event"]
+ *             properties:
+ *               user:
+ *                 type: string
+ *                 description: ID user
+ *               event:
+ *                 type: string
+ *                 description: ID event
+ *     responses:
+ *       201:
+ *         description: Create new event registration
+ */
 export async function POST(req: NextRequest) {
   // Check the session
   const session = await getServerSession(authOptions);

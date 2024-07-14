@@ -9,6 +9,15 @@ import { v4 as uuidv4 } from 'uuid';
 
 const prisma = new PrismaClient();
 
+/**
+ * @swagger
+ * /api/events:
+ *   get:
+ *     description: Display list of events
+ *     responses:
+ *       200:
+ *         description: Display list of events
+ */
 export async function GET(req: NextRequest) {
   // List all events
   try {
@@ -19,6 +28,53 @@ export async function GET(req: NextRequest) {
   }
 }
 
+/**
+ * @swagger
+ * /api/events:
+ *   post:
+ *     description: Create new event
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required: ["title", "place", "dateTime"]
+ *             properties:
+ *               title:
+ *                 type: string
+ *                 description: title of event
+ *               place:
+ *                 type: string
+ *                 description: place of event
+ *               dateTime:
+ *                 type: number
+ *                 description: date and time when event takes place
+ *               quota:
+ *                 type: string
+ *                 description: max quota of event
+ *               duration:
+ *                 type: number
+ *                 description: event duration (in hours)
+ *               description:
+ *                 type: string
+ *                 description: long description of event
+ *               banner:
+ *                 type: string
+ *                 description: banner image of event (base64) support png, jpg, jpeg, svg
+ *               map:
+ *                 type: string
+ *                 description: map coordinate of event
+ *               fee:
+ *                 type: number
+ *                 description: event fee
+ *               hidden:
+ *                 type: boolean
+ *                 description: is this event hidden or open
+ *     responses:
+ *       201:
+ *         description: Create new event
+ */
 export async function POST(req: NextRequest) {
   // Check the session
   const session = await getServerSession(authOptions);
