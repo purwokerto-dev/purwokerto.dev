@@ -23,7 +23,7 @@ export async function GET(req: NextRequest) {
   try {
     const events: Event[] = await prisma.event.findMany();
     return NextResponse.json(events, { status: 200 });
-  } catch (error) {
+  } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 400 });
   }
 }
@@ -77,7 +77,7 @@ export async function GET(req: NextRequest) {
  */
 export async function POST(req: NextRequest) {
   // Check the session
-  const session = await getServerSession(authOptions);
+  const session: any = await getServerSession(authOptions);
   if (!session || !session.user.isAdmin) {
     // If there is no session or if the user is not an admin, return unauthorized
     return NextResponse.json({ error: "Access unauthorized" }, { status: 403 });
@@ -124,7 +124,7 @@ export async function POST(req: NextRequest) {
       },
     });
     return NextResponse.json(newEvent, { status: 201 });
-  } catch (error) {
+  } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 400 });
   }
 }
