@@ -6,6 +6,15 @@ import { authOptions } from "@/lib/auth";
 
 const prisma = new PrismaClient();
 
+/**
+ * @swagger
+ * /api/eventregistrations:
+ *   get:
+ *     description: Display list of event registrations
+ *     responses:
+ *       200:
+ *         description: Display list of event registrations
+ */
 export async function GET(req: NextRequest) {
   // List all eventRegistrations
   try {
