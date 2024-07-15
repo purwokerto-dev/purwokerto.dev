@@ -20,7 +20,7 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
 
 export async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
     // Check the session
-    const session = await getServerSession(authOptions);
+    const session: any = await getServerSession(authOptions);
     if (!session || !session.user.isAdmin) {
         // If there is no session or if the user is not an admin, return unauthorized
         return NextResponse.json({ error: "Access unauthorized" }, { status: 403 });
@@ -71,7 +71,7 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
 }
 
 export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
-    const session = await getServerSession(authOptions);
+    const session: any = await getServerSession(authOptions);
     if (!session || !session.user.isAdmin) {
         // If there is no session or if the user is not an admin, return unauthorized
         return NextResponse.json({ error: "Access unauthorized" }, { status: 403 });
