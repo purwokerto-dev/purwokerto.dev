@@ -6,6 +6,15 @@ import { authOptions } from "@/lib/auth";
 
 const prisma = new PrismaClient();
 
+/**
+ * @swagger
+ * /api/eventbadges:
+ *   get:
+ *     description: Returns list of event badges
+ *     responses:
+ *       200:
+ *         description: list of event badges
+ */
 export async function GET(req: NextRequest) {
   // List all eventBadges
   try {
@@ -16,6 +25,32 @@ export async function GET(req: NextRequest) {
   }
 }
 
+/**
+ * @swagger
+ * /api/eventbadges:
+ *   post:
+ *     description: Create new event badge [requires admin level access]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required: ["event", "badge"]
+ *             properties:
+ *               event:
+ *                 type: string
+ *                 description: event ID of new event badge
+ *               badge:
+ *                 type: string
+ *                 description: badge ID of new event badge
+ *               speaker:
+ *                 type: string
+ *                 description: speaker (user) ID of new event badge
+ *     responses:
+ *       201:
+ *         description: Create new event baddge
+ */
 export async function POST(req: NextRequest) {
   // Check the session
   const session: any = await getServerSession(authOptions);

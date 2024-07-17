@@ -6,6 +6,15 @@ import { authOptions } from "@/lib/auth";
 
 const prisma = new PrismaClient();
 
+/**
+ * @swagger
+ * /api/blogtags:
+ *   get:
+ *     description: Returns list of blog tags
+ *     responses:
+ *       200:
+ *         description: list of blog tags
+ */
 export async function GET(req: NextRequest) {
   // List all blog tags
   try {
@@ -16,6 +25,26 @@ export async function GET(req: NextRequest) {
   }
 }
 
+/**
+ * @swagger
+ * /api/blogtags:
+ *   post:
+ *     description: Create new blog tag [requires admin level access]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required: ["title"]
+ *             properties:
+ *               title:
+ *                 type: string
+ *                 description: title of new blog post
+ *     responses:
+ *       201:
+ *         description: Create new blog tag
+ */
 export async function POST(req: NextRequest) {
   // Check the session
   const session: any = await getServerSession(authOptions);

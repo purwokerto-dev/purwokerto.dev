@@ -10,7 +10,7 @@ const prismaAdapter = PrismaAdapter(prisma);
 prismaAdapter.createUser = async (data) => {
   return prisma.user.create({
     data: {
-      name: data.name,
+      name: data.name ? data.name : "",
       email: data.email,
       image: data.image,
       createdAt: new Date(),
@@ -31,7 +31,7 @@ export const authOptions: AuthOptions = {
     strategy: "database",
   },
   callbacks: {
-    async session({ session, user }) {
+    async session({ session, user }: { session: any, user: { id: string, email: string } }) {
       if (session.user) {
         session.user.id = user.id;
         // Check if the user's email is in the admin table
