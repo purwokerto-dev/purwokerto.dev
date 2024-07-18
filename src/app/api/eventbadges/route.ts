@@ -10,6 +10,8 @@ const prisma = new PrismaClient();
  * @swagger
  * /api/eventbadges:
  *   get:
+ *     tags:
+ *       - Event
  *     description: Returns list of event badges
  *     responses:
  *       200:
@@ -29,6 +31,8 @@ export async function GET(req: NextRequest) {
  * @swagger
  * /api/eventbadges:
  *   post:
+ *     tags:
+ *       - Event
  *     description: Create new event badge [requires admin level access]
  *     requestBody:
  *       required: true

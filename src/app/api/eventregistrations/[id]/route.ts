@@ -6,6 +6,24 @@ import { authOptions } from "@/lib/auth";
 
 const prisma = new PrismaClient();
 
+/**
+ * @swagger
+ * /api/eventregistrations/{id}:
+ *   get:
+ *     tags:
+ *       - Event
+ *     description: Returns details of an event registration
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The event registration's ID
+ *     responses:
+ *       200:
+ *         description: Returns details of an event registration
+ */
 export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
     // Fetch a single Event Registration
     try {
@@ -18,6 +36,40 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
     }
 }
 
+/**
+ * @swagger
+ * /api/eventregistrations/{id}:
+ *   put:
+ *     tags:
+ *       - Event
+ *     description: Modify details of an event registration [Requires admin privilege]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The event registration's ID
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               user:
+ *                 type: string
+ *                 description: ID of user
+ *               event:
+ *                 type: string
+ *                 description: ID of event
+ *               rsvp_link:
+ *                 type: string
+ *                 description: rsvp_link of the event registration
+ *     responses:
+ *       200:
+ *         description: Returns details of a modified event registration
+ */
 export async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
     // Check the session
     const session: any = await getServerSession(authOptions);
@@ -61,6 +113,24 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
     }
 }
 
+/**
+ * @swagger
+ * /api/eventregistrations/{id}:
+ *   delete:
+ *     tags:
+ *       - Event
+ *     description: Delete an event registration [Requires admin privilege]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The event registration's ID
+ *     responses:
+ *       200:
+ *         description: Returns details of an event registration
+ */
 export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
     const session: any = await getServerSession(authOptions);
     if (!session || !session.user.isAdmin) {

@@ -13,6 +13,8 @@ const prisma = new PrismaClient();
  * @swagger
  * /api/events:
  *   get:
+ *     tags:
+ *       - Event
  *     description: Display list of events
  *     responses:
  *       200:
@@ -32,6 +34,8 @@ export async function GET(req: NextRequest) {
  * @swagger
  * /api/events:
  *   post:
+ *     tags:
+ *       - Event
  *     description: Create new event
  *     requestBody:
  *       required: true

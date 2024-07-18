@@ -10,6 +10,8 @@ const prisma = new PrismaClient();
  * @swagger
  * /api/eventregistrations:
  *   get:
+ *     tags:
+ *       - Event
  *     description: Display list of event registrations
  *     responses:
  *       200:
@@ -29,6 +31,8 @@ export async function GET(req: NextRequest) {
  * @swagger
  * /api/eventregistrations:
  *   post:
+ *     tags:
+ *       - Event
  *     description: Create new event registration
  *     requestBody:
  *       required: true
