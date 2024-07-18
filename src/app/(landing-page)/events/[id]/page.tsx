@@ -1,18 +1,24 @@
 import { ModalRegisterEvent } from "@/components/blocks/modal-register-event";
-import prisma from "@/lib/db";
+import { axiosInstance } from "@/lib/axiosInstance";
 import { formatDate } from "@/lib/formatDate";
 import Image from "next/image";
+
+async function getEventById(id: string) {
+  try {
+    const res = await axiosInstance.get(`/api/events/${id}`);
+    return res.data;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    throw new Error("Failed to fetch data");
+  }
+}
 
 export default async function EventById({
   params,
 }: {
   params: { id: string };
 }) {
-  const event = await prisma.event.findFirst({
-    where: {
-      id: params?.id,
-    },
-  });
+  const event = await getEventById(params.id);
 
   return (
     <div className="container-base xl:px-52 mt-4 h-full">
