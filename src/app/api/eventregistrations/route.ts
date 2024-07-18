@@ -74,7 +74,7 @@ export async function POST(req: NextRequest) {
   });
   if (!foundEvent) {
     return NextResponse.json({ error: "event not found" }, { status: 400 });
-  } else if (foundEvent.dateTime > new Date()) {
+  } else if (foundEvent.dateTime < new Date()) {
     return NextResponse.json(
       { error: "event has already passed" },
       { status: 400 }
@@ -88,6 +88,20 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "user not found" }, { status: 400 });
   }
   try {
+    // check if user is already registered for the event
+    const existingEventRegistration: EventRegistration | null =
+      await prisma.eventRegistration.findFirst({
+        where: {
+          user: user,
+          event: event,
+        },
+      });
+    if (existingEventRegistration) {
+      return NextResponse.json(
+        { error: "User is already registered to the event" },
+        { status: 400 }
+      );
+    }
     const eventRegistration: EventRegistration =
       await prisma.eventRegistration.create({
         data: {
