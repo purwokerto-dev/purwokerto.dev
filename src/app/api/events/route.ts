@@ -35,7 +35,6 @@ export async function GET(req: NextRequest) {
   // List all events
   const limit = req.nextUrl.searchParams.get('limit');
   const open = req.nextUrl.searchParams.get('open');
-  console.log(typeof open);
   try {
     const events: Event[] = await prisma.event.findMany(
       {

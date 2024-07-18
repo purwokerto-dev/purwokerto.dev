@@ -13,14 +13,23 @@ const prisma = new PrismaClient();
  *     tags:
  *       - Event
  *     description: Returns list of event badges
+ *     parameters:
+ *       - in: query
+ *         name: idEvent
+ *         schema:
+ *           type: string
+ *         description: Search event badges by event ID
  *     responses:
  *       200:
  *         description: list of event badges
  */
 export async function GET(req: NextRequest) {
   // List all eventBadges
+  const idEvent = req.nextUrl.searchParams.get('idEvent');
   try {
-    const eventBadges: EventBadge[] = await prisma.eventBadge.findMany();
+    const eventBadges: EventBadge[] = await prisma.eventBadge.findMany({
+      ... (idEvent ? { where: { event: idEvent } } : {})
+    });
     return NextResponse.json(eventBadges, { status: 200 });
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 400 });
