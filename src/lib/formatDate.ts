@@ -1,4 +1,4 @@
-export function formatDate(dateString: string): string {
+export function formatDate(dateString: string | Date): string {
   const date = new Date(dateString);
 
   const options: Intl.DateTimeFormatOptions = {

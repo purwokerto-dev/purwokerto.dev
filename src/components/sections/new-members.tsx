@@ -1,11 +1,22 @@
+import Link from "next/link";
 import MemberList from "../blocks/member-list";
+import SectionHeader from "../templates/section-header";
+import { buttonVariant } from "../fragments/button";
 
 const NewMembers = () => {
   return (
-    <div className="container-base mt-24 xl:px-28">
-      <h2 className="text-3xl font-semibold">Member Terbaru</h2>
+    <SectionHeader
+      className="mt-24"
+      title="Member Terbaru"
+      description="Daftar dan menjadi bagian Purwokerto Dev">
+      <h2 className="text-3xl font-semibold"></h2>
       <MemberList />
-    </div>
+      <div className="flex justify-center">
+        <Link href="/events" className={buttonVariant.outline}>
+          Lihat Semua Events
+        </Link>
+      </div>
+    </SectionHeader>
   );
 };
 

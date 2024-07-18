@@ -3,9 +3,9 @@ import { Source_Sans_3 } from "next/font/google";
 import "./globals.css";
 import SessionProvider from "@/providers/SessionProvider";
 import ThemeProvider from "@/providers/ThemeProvider";
-import Header from "@/components/sections/header";
-import Footer from "@/components/sections/footer";
 import { cn } from "@/lib/cn";
+import TopLoader from "@/components/fragments/top-loader";
+import { Toaster } from "@/components/blocks/toaster";
 
 const sourceSans = Source_Sans_3({ subsets: ["latin"] });
 
@@ -26,13 +26,11 @@ export default function RootLayout({
         <link rel="icon" href="/whitemaskot.png" type="image/png" />
       </head>
       <body className={cn(sourceSans.className, "min-h-screen flex flex-col")}>
+        <TopLoader />
         <SessionProvider>
-          <ThemeProvider>
-            <Header />
-            <main className="flex-grow">{children}</main>
-            <Footer />
-          </ThemeProvider>
+          <ThemeProvider>{children}</ThemeProvider>
         </SessionProvider>
+        <Toaster />
       </body>
     </html>
   );

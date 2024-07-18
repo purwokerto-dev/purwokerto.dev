@@ -2,6 +2,7 @@ import { signOut } from "next-auth/react";
 import Image from "next/image";
 import { FC, useState } from "react";
 import Separator from "../fragments/separator";
+import Link from "next/link";
 
 interface ProfileMenuPropsI {
   name: string;
@@ -42,9 +43,11 @@ const ProfileMenu: FC<ProfileMenuPropsI> = ({ name, profileImg, isAdmin }) => {
             {isAdmin ? (
               <>
                 <Separator />
-                <div className="px-3 group py-4 cursor-pointer">
+                <Link
+                  href="/dashboard"
+                  className="px-3 group py-4 cursor-pointer">
                   <p className="group-hover:underline">Dashboard Admin</p>
-                </div>
+                </Link>
               </>
             ) : null}
             <Separator />

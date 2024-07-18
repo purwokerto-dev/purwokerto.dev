@@ -5,7 +5,7 @@ import { menus } from "@/data/menus";
 
 const Footer = () => {
   return (
-    <section className="xl:px-28 mt-24 bg-gray-200 dark:bg-gray-900 text-gray-600 dark:text-gray-200 relative border-t dark:border-gray-500">
+    <section className="mt-24 bg-gray-200 dark:bg-gray-900 text-gray-600 dark:text-gray-200 relative border-t dark:border-gray-500">
       <div className="container-base pt-4">
         <div className="py-5">
           <Logo />

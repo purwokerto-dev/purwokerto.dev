@@ -1,16 +1,21 @@
+import Link from "next/link";
 import EventList from "../blocks/event-list";
+import { buttonVariant } from "../fragments/button";
+import SectionHeader from "../templates/section-header";
 
 const UpcomingEvents = () => {
   return (
-    <div className="container-base mt-24 xl:px-28">
-      <h2 className="text-4xl font-extrabold text-center ">
-        Event Yang Akan Berlangsung
-      </h2>
-      <p className="text-center mt-1">
-        Daftar dan ikuti event yang akan berlangsung
-      </p>
+    <SectionHeader
+      className="mt-24"
+      title="Event Yang Akan Berlangsung"
+      description="Daftar dan ikuti event yang akan berlangsung">
       <EventList />
-    </div>
+      <div className="flex justify-center">
+        <Link href="/events" className={buttonVariant.outline}>
+          Lihat Semua Events
+        </Link>
+      </div>
+    </SectionHeader>
   );
 };
 

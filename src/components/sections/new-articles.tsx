@@ -1,11 +1,21 @@
+import Link from "next/link";
 import ArticleList from "../blocks/aricle-list";
+import SectionHeader from "../templates/section-header";
+import { buttonVariant } from "../fragments/button";
 
 const NewArticles = () => {
   return (
-    <div className="container-base mt-24 xl:px-28">
-      <h2 className="text-3xl font-semibold">Article Terbaru</h2>
+    <SectionHeader
+      className="mt-24"
+      title="Artikel Terbaru"
+      description="Tingkatkan literasi dengan membaca artikel">
       <ArticleList />
-    </div>
+      <div className="flex justify-center">
+        <Link href="/events" className={buttonVariant.outline}>
+          Lihat Semua Events
+        </Link>
+      </div>
+    </SectionHeader>
   );
 };
 

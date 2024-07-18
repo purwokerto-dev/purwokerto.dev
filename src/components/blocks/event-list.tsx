@@ -1,7 +1,8 @@
 import { axiosInstance } from "@/lib/axiosInstance";
-import Button from "../fragments/button";
+import { buttonVariant } from "../fragments/button";
 import Image from "next/image";
 import { formatDate } from "@/lib/formatDate";
+import Link from "next/link";
 
 async function getEvents() {
   try {
@@ -34,17 +35,17 @@ const EventList = async () => {
           {events.map((event: Event) => (
             <div
               key={event.id}
-              className="mx-auto mb-6 bg-white dark:bg-primary rounded-lg border dark:border-gray-600 overflow-hidden w-full flex flex-col md:flex-row md:items-start">
+              className="mx-auto mb-6 bg-gradient-to-br from-white to-gray-100 dark:from-primary dark:to-[#141f2a] rounded-lg border dark:border-gray-600 overflow-hidden w-full flex flex-col md:flex-row md:items-start">
               <div className="basis-2/5">
                 <Image
                   width={500}
                   height={500}
-                  alt={event.title}
+                  alt={event?.title}
                   className="object-cover h-52 md:h-72 w-full"
-                  src={event.banner !== null ? event.banner : "/img2.jpg"}
+                  src={event?.banner !== null ? event?.banner : "/img2.jpg"}
                 />
               </div>
-              <div className="basis-3/5 p-4">
+              <div className="basis-3/5 px-4 pt-4 pb-6">
                 <h3 className="text-2xl capitalize font-semibold">
                   {event?.title}
                 </h3>
@@ -56,21 +57,21 @@ const EventList = async () => {
                   <CalendarIcon className="w-5 h-5" />
                   <span>{formatDate(event?.dateTime)}</span>
                 </div>
-                <p className="mt-2 text-slate-600 dark:text-white">
+                <p className="mt-2 mb-8 text-slate-600 dark:text-white">
                   {event?.description}
                 </p>
                 <div>
-                  <Button text="Daftar" variant="bg" className="mt-4" />
+                  <Link
+                    href={`/events/${event?.id}`}
+                    className={buttonVariant.bg}>
+                    Detail Event
+                  </Link>
                 </div>
               </div>
             </div>
           ))}
         </div>
       )}
-
-      <div className="flex justify-center">
-        <Button text="Lihat Semua Events" variant="outline" className="mt-6" />
-      </div>
     </div>
   );
 };
