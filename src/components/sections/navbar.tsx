@@ -24,6 +24,8 @@ const Navbar = () => {
         <div className="flex items-center gap-2 justify-end">
           <ToggleTheme />
 
+          {status === "loading" && "Loading ..."}
+
           {status === "authenticated" ? (
             <ProfileMenu
               isAdmin={session?.user?.isAdmin}
