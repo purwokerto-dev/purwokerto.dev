@@ -8,6 +8,7 @@ const config: Config = {
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+  prefix: "",
   theme: {
     extend: {
       backgroundImage: {
@@ -20,6 +21,14 @@ const config: Config = {
         darkhover: "#9CB3C9",
       },
       keyframes: {
+        "accordion-down": {
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
+        },
+        "accordion-up": {
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
+        },
         hangingWiggle: {
           "0%, 100%": {
             transform: "rotate(0deg)",
@@ -35,11 +44,14 @@ const config: Config = {
         },
       },
       animation: {
+        "accordion-down": "accordion-down 0.2s ease-out",
+        "accordion-up": "accordion-up 0.2s ease-out",
         hangingWiggle: "hangingWiggle 5s ease-in-out infinite",
         wiggle: "wiggle 1s ease-in-out infinite",
       },
     },
   },
-  plugins: [],
+  plugins: [require("tailwindcss-animate")],
 };
+
 export default config;
