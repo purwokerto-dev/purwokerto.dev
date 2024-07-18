@@ -57,7 +57,7 @@ export async function GET(req: NextRequest) {
   });
   if (!foundEvent) {
     return NextResponse.json({ error: "event not found" }, { status: 400 });
-  } else if (foundEvent.dateTime > new Date()) {
+  } else if (foundEvent.dateTime < new Date()) {
     return NextResponse.json({ error: "event has already passed" }, { status: 400 });
   }
 
