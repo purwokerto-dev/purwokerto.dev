@@ -16,14 +16,33 @@ const prisma = new PrismaClient();
  *     tags:
  *       - Event
  *     description: Display list of events
+ *     parameters:
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: number
+ *         description: Limit how many events to display
+ *       - in: query
+ *         name: open
+ *         schema:
+ *           type: boolean
+ *         description: Display only open events
  *     responses:
  *       200:
  *         description: Display list of events
  */
 export async function GET(req: NextRequest) {
   // List all events
+  const limit = req.nextUrl.searchParams.get('limit');
+  const open = req.nextUrl.searchParams.get('open');
+  console.log(typeof open);
   try {
-    const events: Event[] = await prisma.event.findMany();
+    const events: Event[] = await prisma.event.findMany(
+      {
+        ... (limit ? { take : parseInt(limit) } : {}),
+        ... (open === "true" ? { where: { dateTime: { gte: new Date() } } } : {})
+      }
+    );
     return NextResponse.json(events, { status: 200 });
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 400 });
