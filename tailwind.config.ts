@@ -29,9 +29,14 @@ const config: Config = {
           "50%": { transform: "rotate(-5deg)", transformOrigin: "top left" },
           "75%": { transform: "rotate(5deg)", transformOrigin: "top left" },
         },
+        wiggle: {
+          "0%, 100%": { transform: "rotate(-3deg)" },
+          "50%": { transform: "rotate(3deg)" },
+        },
       },
       animation: {
         hangingWiggle: "hangingWiggle 5s ease-in-out infinite",
+        wiggle: "wiggle 1s ease-in-out infinite",
       },
     },
   },
