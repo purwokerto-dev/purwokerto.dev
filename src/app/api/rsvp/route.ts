@@ -10,6 +10,8 @@ const prisma = new PrismaClient();
  * @swagger
  * /api/rsvp:
  *   get:
+ *     tags:
+ *       - Event
  *     description: Do a rsvp for a user
  *     parameters:
  *       - in: query

@@ -6,6 +6,24 @@ import { authOptions } from "@/lib/auth";
 
 const prisma = new PrismaClient();
 
+/**
+ * @swagger
+ * /api/eventbadges/{id}:
+ *   get:
+ *     tags:
+ *       - Event
+ *     description: Returns details of an event badge
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The event badge's ID
+ *     responses:
+ *       200:
+ *         description: Returns details of an event badge
+ */
 export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
     // Fetch a single eventBadge
     try {
@@ -18,6 +36,40 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
     }
 }
 
+/**
+ * @swagger
+ * /api/eventbadges/{id}:
+ *   put:
+ *     tags:
+ *       - Event
+ *     description: Modify details of an event badge [Requires admin privilege]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The event badge's ID
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               event:
+ *                 type: string
+ *                 description: ID of event
+ *               badge:
+ *                 type: string
+ *                 description: ID of badge
+ *               speaker:
+ *                 type: string
+ *                 description: ID of speaker (user)
+ *     responses:
+ *       200:
+ *         description: Returns details of a modified event badge
+ */
 export async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
     // Check the session
     const session: any = await getServerSession(authOptions);
@@ -70,6 +122,24 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
     }
 }
 
+/**
+ * @swagger
+ * /api/eventbadges/{id}:
+ *   delete:
+ *     tags:
+ *       - Event
+ *     description: Delete an event badge [Requires admin privilege]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The event badge's ID
+ *     responses:
+ *       200:
+ *         description: Returns details of a deleted event badge
+ */
 export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
     const session: any = await getServerSession(authOptions);
     if (!session || !session.user.isAdmin) {

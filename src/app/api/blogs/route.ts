@@ -10,6 +10,8 @@ const prisma = new PrismaClient();
  * @swagger
  * /api/blogs:
  *   get:
+ *     tags:
+ *       - Blog
  *     description: Returns list of blogs
  *     responses:
  *       200:
@@ -29,6 +31,8 @@ export async function GET(req: NextRequest) {
  * @swagger
  * /api/blogs:
  *   post:
+ *     tags:
+ *       - Blog
  *     description: Create new blog [requires admin level access]
  *     requestBody:
  *       required: true

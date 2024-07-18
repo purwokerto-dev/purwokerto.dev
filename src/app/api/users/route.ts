@@ -9,6 +9,8 @@ const prisma = new PrismaClient();
  * @swagger
  * /api/users:
  *   get:
+ *     tags:
+ *       - User
  *     description: Returns list of users
  *     responses:
  *       200:
@@ -28,6 +30,8 @@ export async function GET(req: NextRequest) {
  * @swagger
  * /api/users:
  *   post:
+ *     tags:
+ *       - User
  *     description: Create new user
  *     requestBody:
  *       required: true

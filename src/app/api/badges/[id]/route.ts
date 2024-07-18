@@ -9,6 +9,24 @@ import { v4 as uuidv4 } from 'uuid';
 
 const prisma = new PrismaClient();
 
+/**
+ * @swagger
+ * /api/badges/{id}:
+ *   get:
+ *     tags:
+ *       - Badge
+ *     description: Returns details of a badge
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The badge's ID
+ *     responses:
+ *       200:
+ *         description: Returns details of a badge
+ */
 export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
     // Fetch a single badge
     try {
@@ -21,6 +39,40 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
     }
 }
 
+/**
+ * @swagger
+ * /api/badges/{id}:
+ *   put:
+ *     tags:
+ *       - Badge
+ *     description: Modify details of a badge [Requires admin privilege]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The badge's ID
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               title:
+ *                 type: string
+ *                 description: title of the badge
+ *               description:
+ *                 type: string
+ *                 description: description of the badge
+ *               image:
+ *                 type: string
+ *                 description: base64 image of the badge
+ *     responses:
+ *       200:
+ *         description: Returns details of a modified badge
+ */
 export async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
     // Check the session
     const session: any = await getServerSession(authOptions);
@@ -85,6 +137,24 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
     }
 }
 
+/**
+ * @swagger
+ * /api/badges/{id}:
+ *   delete:
+ *     tags:
+ *       - Badge
+ *     description: Delete a badge [Requires admin privilege]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The badge's ID
+ *     responses:
+ *       200:
+ *         description: Returns details of a deleted badge
+ */
 export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
     const session: any = await getServerSession(authOptions);
     if (!session || !session.user.isAdmin) {
