@@ -10,6 +10,8 @@ const prisma = new PrismaClient();
  * @swagger
  * /api/admins:
  *   get:
+ *     tags:
+ *       - Admin
  *     description: Returns list of admins [requires admin level access]
  *     responses:
  *       200:
@@ -35,6 +37,8 @@ export async function GET(req: NextRequest) {
  * @swagger
  * /api/admins:
  *   post:
+ *     tags:
+ *       - Admin
  *     description: Create new admin [requires admin level access]
  *     requestBody:
  *       required: true

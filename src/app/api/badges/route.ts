@@ -13,6 +13,8 @@ const prisma = new PrismaClient();
  * @swagger
  * /api/badges:
  *   get:
+ *     tags:
+ *       - Badge
  *     description: Returns list of badges
  *     responses:
  *       200:
@@ -32,6 +34,8 @@ export async function GET(req: NextRequest) {
  * @swagger
  * /api/badges:
  *   post:
+ *     tags:
+ *       - Badge
  *     description: Create new badge
  *     requestBody:
  *       required: true
