@@ -10,6 +10,8 @@ const prisma = new PrismaClient();
  * @swagger
  * /api/users/{id}:
  *   get:
+ *     tags:
+ *       - User
  *     description: Returns details of a user
  *     parameters:
  *       - in: path
@@ -37,6 +39,49 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
     }
 }
 
+/**
+ * @swagger
+ * /api/users/{id}:
+ *   put:
+ *     tags:
+ *       - User
+ *     description: Modify details of a user [Requires admin privilege]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The user's ID
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *                 description: name of the user
+ *               email:
+ *                 type: string
+ *                 description: email of the user
+ *               githubLink:
+ *                 type: string
+ *                 description: github link of the user
+ *               linkedinLink:
+ *                 type: string
+ *                 description: linkedin link of the user
+ *               image:
+ *                 type: string
+ *                 description: image url of the user
+ *               job:
+ *                 type: string
+ *                 description: user's job
+ *     responses:
+ *       200:
+ *         description: Returns details of a modified user
+ */
 export async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
     // Check the session
     const session: any = await getServerSession(authOptions);
@@ -65,6 +110,24 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
     }
 }
 
+/**
+ * @swagger
+ * /api/users/{id}:
+ *   delete:
+ *     tags:
+ *       - User
+ *     description: Delete a user [Requires admin privilege]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The user's ID
+ *     responses:
+ *       200:
+ *         description: Returns details of a deleted user
+ */
 export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
     const session: any = await getServerSession(authOptions);
     if (!session || !session.user.isAdmin) {
