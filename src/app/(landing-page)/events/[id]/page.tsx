@@ -13,12 +13,24 @@ async function getEventById(id: string) {
   }
 }
 
+async function getEventBadgeById(idEvent: string) {
+  try {
+    const res = await axiosInstance.get(`/api/eventbadges?idEvent=${idEvent}`);
+
+    return res.data;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    throw new Error("Failed to fetch data");
+  }
+}
+
 export default async function EventById({
   params,
 }: {
   params: { id: string };
 }) {
   const event = await getEventById(params.id);
+  const eventBadges = await getEventBadgeById(params.id);
 
   return (
     <div className="container-base xl:px-52 mt-4 h-full">
@@ -72,11 +84,13 @@ export default async function EventById({
             <div className="flex items-center gap-1 text-gray-600 dark:text-white mt-2">
               <Fee className="w-5 h-5" />
               <span>
-                {event?.fee === 0
+                {event?.fee === 0 || event?.fee === null
                   ? "Gratis"
                   : `Rp.${event?.fee?.toLocaleString("id")}`}
               </span>
             </div>
+
+            <div className="text-white mt-4">{JSON.stringify(eventBadges)}</div>
 
             <p className="text-base mt-4 dark:text-white">
               {event?.description}
@@ -89,6 +103,12 @@ export default async function EventById({
               description={event.description}
               place={event.place}
             />
+
+            <iframe
+              src={`http://maps.google.com/maps?q=${"-7.423972392344145, 109.23013189656182"}&z=16&output=embed`}
+              height="450"
+              width="600"
+              className="mx-auto mt-4 rounded-md"></iframe>
           </div>
         </div>
       )}

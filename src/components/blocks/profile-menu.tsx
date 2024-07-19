@@ -8,9 +8,15 @@ interface ProfileMenuPropsI {
   name: string;
   profileImg: string;
   isAdmin: boolean;
+  isDashboard?: boolean;
 }
 
-const ProfileMenu: FC<ProfileMenuPropsI> = ({ name, profileImg, isAdmin }) => {
+const ProfileMenu: FC<ProfileMenuPropsI> = ({
+  name,
+  profileImg,
+  isAdmin,
+  isDashboard = false,
+}) => {
   const [showProfileMenu, setShowProfileMenu] = useState(false);
 
   return (
@@ -41,14 +47,23 @@ const ProfileMenu: FC<ProfileMenuPropsI> = ({ name, profileImg, isAdmin }) => {
             </div>
 
             {isAdmin ? (
-              <>
-                <Separator />
-                <Link
-                  href="/dashboard"
-                  className="px-3 group py-4 cursor-pointer">
-                  <p className="group-hover:underline">Dashboard Admin</p>
-                </Link>
-              </>
+              isDashboard ? (
+                <>
+                  <Separator />
+                  <Link href="/" className="px-3 group py-4 cursor-pointer">
+                    <p className="group-hover:underline">Homepage</p>
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <Separator />
+                  <Link
+                    href="/dashboard"
+                    className="px-3 group py-4 cursor-pointer">
+                    <p className="group-hover:underline">Dashboard Admin</p>
+                  </Link>
+                </>
+              )
             ) : null}
             <Separator />
             <button

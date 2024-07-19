@@ -1,6 +1,6 @@
 "use client";
 
-import { FC } from "react";
+import { FC, useState } from "react";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -17,6 +17,7 @@ import { cn } from "@/lib/cn";
 import { formatDate } from "@/lib/formatDate";
 import axios from "axios";
 import { useSession } from "next-auth/react";
+import { useToast } from "../fragments/use-toast";
 
 interface ModalRegisterEventI {
   id: string;
@@ -32,58 +33,84 @@ export const ModalRegisterEvent: FC<ModalRegisterEventI> = ({
   place,
   dateTime,
 }) => {
+  const [loading, setLoading] = useState(false);
+  const { toast } = useToast();
   const { data }: any = useSession();
 
   const registerEvent = async () => {
     try {
+      setLoading(true);
       const response = await axios.post("/api/eventregistrations", {
         user: data?.user?.id,
         event: id,
       });
-    } catch (error) {
+      setLoading(false);
+
+      if (response.status === 201) {
+        return toast({
+          title: "Berhasil",
+          description: `Anda berhasil melakukan registrasi pada event ${title}`,
+        });
+      }
+    } catch (error: any) {
       console.log(error);
+      if (error.response.status === 400) {
+        toast({
+          title: "Gagal",
+          description: `Anda sudah melakukan registrasi pada event ${title}`,
+        });
+      }
+      setLoading(false);
     }
   };
 
   return (
-    <AlertDialog>
-      <AlertDialogTrigger className={cn(buttonVariant.bg, "mt-4")}>
-        Daftar Event
-      </AlertDialogTrigger>
-      <AlertDialogContent className="bg-gradient-to-br from-white to-gray-100 dark:from-primary dark:to-[#141f2a] dark:border-gray-600">
-        <AlertDialogHeader>
-          <AlertDialogTitle className="capitalize text-xl">
-            {title}
-          </AlertDialogTitle>
-          <AlertDialogDescription className="text-base">
-            Apakah anda yakin ingin melakukan pendaftaran event{" "}
-            <span className="font-bold capitalize">{title}</span> yang berlokasi
-            di <span className="font-bold">{place}</span> pada{" "}
-            <span className="font-bold">{formatDate(dateTime)}</span>.
-            <p className="mt-4 font-semibold">Syarat dan ketentuan</p>
-            <ul className="list-disc ml-5">
-              <li>Lorem ipsum dolor sit.</li>
-              <li>Lorem ipsum dolor sit.</li>
-              <li>Lorem ipsum dolor sit.</li>
-              <li>Lorem ipsum dolor sit.</li>
-              <li>Lorem ipsum dolor sit.</li>
-              <li>Lorem ipsum dolor sit.</li>
-              <li>Lorem ipsum dolor sit.</li>
-              <li>Lorem ipsum dolor sit.</li>
-            </ul>
-          </AlertDialogDescription>
-        </AlertDialogHeader>
-        <AlertDialogFooter>
-          <AlertDialogCancel className={cn(buttonVariant.danger, "capitalize")}>
-            Batal
-          </AlertDialogCancel>
-          <AlertDialogAction
-            onClick={registerEvent}
-            className={cn(buttonVariant.outline, "capitalize")}>
-            Continue
-          </AlertDialogAction>
-        </AlertDialogFooter>
-      </AlertDialogContent>
-    </AlertDialog>
+    <>
+      {loading ? (
+        <div className="fixed top-0 bottom-0 right-0 left-0 bg-black/80 z-[9999] flex items-center justify-center text-xl text-white">
+          Loading ...
+        </div>
+      ) : null}
+      <AlertDialog>
+        <AlertDialogTrigger className={cn(buttonVariant.bg, "mt-4")}>
+          Daftar Event
+        </AlertDialogTrigger>
+        <AlertDialogContent className="bg-gradient-to-br from-white to-gray-100 dark:from-primary dark:to-[#141f2a] dark:border-gray-600">
+          <AlertDialogHeader>
+            <AlertDialogTitle className="capitalize text-xl">
+              {title}
+            </AlertDialogTitle>
+            <AlertDialogDescription className="text-base">
+              Apakah anda yakin ingin melakukan pendaftaran event{" "}
+              <span className="font-bold capitalize">{title}</span> yang
+              berlokasi di <span className="font-bold">{place}</span> pada{" "}
+              <span className="font-bold">{formatDate(dateTime)}</span>.
+              <p className="mt-4 font-semibold">Syarat dan ketentuan</p>
+              <ul className="list-disc ml-5">
+                <li>Lorem ipsum dolor sit.</li>
+                <li>Lorem ipsum dolor sit.</li>
+                <li>Lorem ipsum dolor sit.</li>
+                <li>Lorem ipsum dolor sit.</li>
+                <li>Lorem ipsum dolor sit.</li>
+                <li>Lorem ipsum dolor sit.</li>
+                <li>Lorem ipsum dolor sit.</li>
+                <li>Lorem ipsum dolor sit.</li>
+              </ul>
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel
+              className={cn(buttonVariant.danger, "capitalize")}>
+              Batal
+            </AlertDialogCancel>
+            <AlertDialogAction
+              onClick={registerEvent}
+              className={cn(buttonVariant.outline, "capitalize")}>
+              Continue
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    </>
   );
 };

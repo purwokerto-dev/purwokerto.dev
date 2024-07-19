@@ -6,7 +6,7 @@ import Link from "next/link";
 
 async function getEvents() {
   try {
-    const res = await axiosInstance.get("/api/events");
+    const res = await axiosInstance.get("/api/events?limit=5&open=true");
     return res.data;
   } catch (error) {
     console.error("Error fetching data:", error);
