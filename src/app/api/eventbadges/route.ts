@@ -28,7 +28,12 @@ export async function GET(req: NextRequest) {
   const idEvent = req.nextUrl.searchParams.get('idEvent');
   try {
     const eventBadges: EventBadge[] = await prisma.eventBadge.findMany({
-      ... (idEvent ? { where: { event: idEvent } } : {})
+      ... (idEvent ? { where: { event: idEvent } } : {}),
+      include: {
+        ebEvent: true,
+        ebBadge: true,
+        ebSpeaker: true,
+      }
     });
     return NextResponse.json(eventBadges, { status: 200 });
   } catch (error: any) {
