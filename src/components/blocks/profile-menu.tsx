@@ -40,10 +40,10 @@ const ProfileMenu: FC<ProfileMenuPropsI> = ({
               <p className="font-semibold group-hover:underline">{name}</p>
             </div>
             <div className="px-3 group py-3 cursor-pointer">
-              <p className="group-hover:underline">My Events</p>
+              <Link href="/my-events" className="group-hover:underline">My Events</Link>
             </div>
             <div className="px-3 group py-3 cursor-pointer">
-              <p className="group-hover:underline">My Badges</p>
+              <Link href="/my-badges" className="group-hover:underline">My Badges</Link>
             </div>
 
             {isAdmin ? (
