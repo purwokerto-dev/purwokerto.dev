@@ -13,15 +13,24 @@ const prisma = new PrismaClient();
  *     tags:
  *       - Event
  *     description: Display list of event registrations
+ *     parameters:
+ *       - in: query
+ *         name: idUser
+ *         schema:
+ *           type: string
+ *         description: Search event registrations by user ID
  *     responses:
  *       200:
  *         description: Display list of event registrations
  */
 export async function GET(req: NextRequest) {
   // List all eventRegistrations
+  const idUser = req.nextUrl.searchParams.get('idUser');
   try {
     const eventRegistrations: EventRegistration[] =
-      await prisma.eventRegistration.findMany();
+      await prisma.eventRegistration.findMany({
+        ... (idUser ? { where: { user: idUser } } : {}),
+      });
     return NextResponse.json(eventRegistrations, { status: 200 });
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 400 });
