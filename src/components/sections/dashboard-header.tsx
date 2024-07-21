@@ -11,7 +11,7 @@ const DashboardHeader = () => {
   const { data: session }: any = useSession();
 
   return (
-    <div className="fixed left-0 right-0 top-0 backdrop-blur py-4 lg:py-5 bg-white dark:bg-primary z-50 border-b dark:border-gray-600">
+    <div className="fixed left-0 right-0 top-0 backdrop-blur py-2 bg-gray-100 dark:bg-primary z-50 border-b dark:border-gray-600">
       <nav className="flex h-14 items-center justify-between px-4">
         <div className={cn("lg:hidden flex items-center")}>
           <DashboardSidebarMobile />
@@ -24,12 +24,7 @@ const DashboardHeader = () => {
         <div className="flex items-center gap-2 justify-end">
           <ToggleTheme />
           <div className="flex items-center gap-2">
-            <ProfileMenu
-              isAdmin={session?.user?.isAdmin}
-              isDashboard={true}
-              name={session?.user?.name}
-              profileImg={session?.user?.image}
-            />
+            <ProfileMenu isAdmin={session?.user?.isAdmin} isDashboard={true} name={session?.user?.name} profileImg={session?.user?.image} />
           </div>
         </div>
       </nav>

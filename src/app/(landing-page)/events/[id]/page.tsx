@@ -24,11 +24,7 @@ async function getEventBadgeById(idEvent: string) {
   }
 }
 
-export default async function EventById({
-  params,
-}: {
-  params: { id: string };
-}) {
+export default async function EventById({ params }: { params: { id: string } }) {
   const event = await getEventById(params.id);
   const eventBadges = await getEventBadgeById(params.id);
 
@@ -37,13 +33,7 @@ export default async function EventById({
       {event && (
         <div className="rounded-xl overflow-hidden">
           <div>
-            <Image
-              width={800}
-              height={800}
-              alt={event?.title}
-              className="object-cover h-96 w-full"
-              src={event?.banner !== null ? event?.banner : "/img2.jpg"}
-            />
+            <Image width={800} height={800} alt={event?.title} className="object-cover h-96 w-full" src={event?.banner !== null ? event?.banner : "/img2.jpg"} />
           </div>
           <div className="py-4 md:py-8 text-gray-800">
             <h1 className="text-2xl md:text-4xl font-bold capitalize dark:text-white">
@@ -59,7 +49,8 @@ export default async function EventById({
                   strokeWidth={2}
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  className="animate-wiggle text-blue-800 dark:text-blue-300">
+                  className="animate-wiggle text-blue-800 dark:text-blue-300"
+                >
                   <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8" />
                   <polyline points="16 6 12 2 8 6" />
                   <line x1={12} x2={12} y1={2} y2={15} />
@@ -71,7 +62,6 @@ export default async function EventById({
                 </div>
               </button>
             </h1>
-
             <div className="flex items-center gap-1 text-gray-600 dark:text-white mt-2">
               <CalendarIcon className="w-5 h-5" />
               <span>{formatDate(event?.dateTime)}</span>
@@ -80,35 +70,18 @@ export default async function EventById({
               <MapPinIcon className="w-5 h-5" />
               <span>{event?.place}</span>
             </div>
-
             <div className="flex items-center gap-1 text-gray-600 dark:text-white mt-2">
               <Fee className="w-5 h-5" />
-              <span>
-                {event?.fee === 0 || event?.fee === null
-                  ? "Gratis"
-                  : `Rp.${event?.fee?.toLocaleString("id")}`}
-              </span>
+              <span>{event?.fee === 0 || event?.fee === null ? "Gratis" : `Rp.${event?.fee?.toLocaleString("id")}`}</span>
             </div>
-
-            <div className="text-white mt-4">{JSON.stringify(eventBadges)}</div>
-
-            <p className="text-base mt-4 dark:text-white">
-              {event?.description}
-            </p>
-
-            <ModalRegisterEvent
-              id={event.id}
-              dateTime={event.dateTime}
-              title={event.title}
-              description={event.description}
-              place={event.place}
-            />
-
-            <iframe
-              src={`http://maps.google.com/maps?q=${"-7.423972392344145, 109.23013189656182"}&z=16&output=embed`}
-              height="450"
-              width="600"
-              className="mx-auto mt-4 rounded-md"></iframe>
+            <div className="text-white mt-4">
+              {eventBadges.map((eventBadge: any, index: number) => (
+                <div key={index}>{JSON.stringify(eventBadge)}</div>
+              ))}
+            </div>
+            <p className="text-base mt-4 dark:text-white">{event?.description}</p>
+            <ModalRegisterEvent id={event.id} dateTime={event.dateTime} title={event.title} description={event.description} place={event.place} />
+            <iframe src={`http://maps.google.com/maps?q=${"-7.423972392344145, 109.23013189656182"}&z=16&output=embed`} height="450" width="600" className="mx-auto mt-4 rounded-md"></iframe>
           </div>
         </div>
       )}
@@ -118,17 +91,7 @@ export default async function EventById({
 
 function CalendarIcon(props: any) {
   return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round">
+    <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <path d="M8 2v4" />
       <path d="M16 2v4" />
       <rect width="18" height="18" x="3" y="4" rx="2" />
@@ -139,17 +102,7 @@ function CalendarIcon(props: any) {
 
 function MapPinIcon(props: any) {
   return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round">
+    <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
       <circle cx="12" cy="10" r="3" />
     </svg>
@@ -157,17 +110,7 @@ function MapPinIcon(props: any) {
 }
 function Fee(props: any) {
   return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width={24}
-      height={24}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={2}
-      strokeLinecap="round"
-      strokeLinejoin="round">
+    <svg {...props} xmlns="http://www.w3.org/2000/svg" width={24} height={24} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
       <circle cx={12} cy={12} r={10} />
       <path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8" />
       <path d="M12 18V6" />
