@@ -30,6 +30,9 @@ export async function GET(req: NextRequest) {
     const eventRegistrations: EventRegistration[] =
       await prisma.eventRegistration.findMany({
         ... (idUser ? { where: { user: idUser } } : {}),
+        include: {
+          erEvent: true,
+        }
       });
     return NextResponse.json(eventRegistrations, { status: 200 });
   } catch (error: any) {
