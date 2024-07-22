@@ -9,6 +9,20 @@ import { v4 as uuidv4 } from 'uuid';
 
 const prisma = new PrismaClient();
 
+function convertEpochToDate(dateTime: number): Date {
+  // Assuming any epoch time before January 1, 2030 is in seconds
+  const thresholdInSeconds = new Date('2030-01-01').getTime() / 1000;
+  
+  // Check if the dateTime is in seconds (less than threshold)
+  if (dateTime < thresholdInSeconds) {
+    // Convert seconds to milliseconds
+    return new Date(dateTime * 1000);
+  } else {
+    // Assume dateTime is already in milliseconds
+    return new Date(dateTime);
+  }
+}
+
 /**
  * @swagger
  * /api/events:
@@ -73,7 +87,7 @@ export async function GET(req: NextRequest) {
  *                 type: number
  *                 description: date and time when event takes place
  *               quota:
- *                 type: string
+ *                 type: number
  *                 description: max quota of event
  *               duration:
  *                 type: number
@@ -134,7 +148,7 @@ export async function POST(req: NextRequest) {
       data: {
         title,
         place,
-        dateTime,
+        dateTime: convertEpochToDate(dateTime),
         ... (quota ? { quota } : {}),
         ... (duration ? { duration } : {}),
         ... (description ? { description } : {}),
