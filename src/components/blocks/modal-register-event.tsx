@@ -18,6 +18,7 @@ import { formatDate } from "@/lib/formatDate";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import { useToast } from "../fragments/use-toast";
+import { useRouter } from "next/navigation";
 
 interface ModalRegisterEventI {
   id: string;
@@ -36,6 +37,7 @@ export const ModalRegisterEvent: FC<ModalRegisterEventI> = ({
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
   const { data }: any = useSession();
+  const navigate = useRouter();
 
   const registerEvent = async () => {
     try {
@@ -47,10 +49,11 @@ export const ModalRegisterEvent: FC<ModalRegisterEventI> = ({
       setLoading(false);
 
       if (response.status === 201) {
-        return toast({
+        toast({
           title: "Berhasil",
           description: `Anda berhasil melakukan registrasi pada event ${title}`,
         });
+        return navigate.push(`/my-events/${response.data.id}`);
       }
     } catch (error: any) {
       console.log(error);
