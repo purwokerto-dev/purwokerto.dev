@@ -35,6 +35,7 @@
     "react": "^18",
     "react-dom": "^18",
     "react-hook-form": "^7.52.1",
+    "react-qr-code": "^2.0.15",
     "sharp": "^0.33.4",
     "swagger-ui-react": "^5.17.14",
     "tailwind-merge": "^2.4.0",
