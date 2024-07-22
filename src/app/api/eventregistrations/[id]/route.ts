@@ -29,6 +29,9 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
     try {
         const eventRegistration: EventRegistration | null = await prisma.eventRegistration.findUnique({
             where: { id: params.id },
+            include: {
+                erEvent: true,
+            }
         });
         return NextResponse.json(eventRegistration, { status: 200 });
     } catch (error) {
