@@ -1,15 +1,4 @@
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuIndicator,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-  navigationMenuTriggerStyle,
-  NavigationMenuViewport,
-} from "@/components/fragments/navigation-menu";
-import Link from "next/link";
+import NavbarEvents from "@/components/blocks/navbar-events";
 
 export default function DashboardEventsLayout({
   children,
@@ -18,22 +7,7 @@ export default function DashboardEventsLayout({
 }>) {
   return (
     <>
-      <NavigationMenu>
-        <NavigationMenuList>
-          <NavigationMenuItem>
-            <Link href="/" legacyBehavior passHref>
-              <NavigationMenuLink className={navigationMenuTriggerStyle()}>List Event</NavigationMenuLink>
-            </Link>
-          </NavigationMenuItem>
-          <NavigationMenuItem>
-            <Link href="/dashboard/events/create" legacyBehavior passHref>
-              <NavigationMenuLink className={navigationMenuTriggerStyle()}>Add Event</NavigationMenuLink>
-            </Link>
-          </NavigationMenuItem>
-        </NavigationMenuList>
-      </NavigationMenu>
-
-      {children}
+      <NavbarEvents /> <div className="mt-6">{children}</div>
     </>
   );
 }

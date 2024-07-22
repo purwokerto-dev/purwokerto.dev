@@ -6,6 +6,7 @@ interface ButtonPropsI {
   text: string;
   variant: "outline" | "bg";
   className?: string;
+  type?: "button" | "submit" | "reset" | undefined;
 }
 
 const baseStyle =
@@ -17,8 +18,15 @@ export const buttonVariant = {
   danger: `${baseStyle} bg-red-500 text-white hover:bg-red-400`,
 };
 
-const Button: FC<ButtonPropsI> = ({ onClick, text, variant, className }) => (
+const Button: FC<ButtonPropsI> = ({
+  onClick,
+  text,
+  variant,
+  className,
+  type = "button",
+}) => (
   <button
+    type={type}
     onClick={onClick}
     className={cn(
       variant === "outline" && buttonVariant.outline,

@@ -19,6 +19,17 @@ export const menus = [
   },
 ];
 
+export const eventMenus = [
+  {
+    name: "List Event",
+    path: "/dashboard/events",
+  },
+  {
+    name: "Create Event",
+    path: "/dashboard/events/create",
+  },
+];
+
 export const dashboardMenus: NavItem[] = [
   {
     title: "Dashboard",
