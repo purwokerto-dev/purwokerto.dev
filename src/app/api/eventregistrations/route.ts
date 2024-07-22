@@ -116,7 +116,7 @@ export async function POST(req: NextRequest) {
         data: {
           user,
           event,
-          rsvp_link: "/api/rsvp?user=" + user + "&event=" + event,
+          rsvp_link: "/my-events/status-rsvp?eventId=" + event + "&userId=" + user,
           createdBy: session.user.id,
         },
       });
