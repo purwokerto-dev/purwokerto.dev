@@ -46,12 +46,12 @@ export default async function DashboardBadgesPage() {
                     <th
                       scope="col"
                       className="p-5 text-left text-sm leading-6 font-semibold capitalize">
-                      Image
+                      Description
                     </th>
                     <th
                       scope="col"
                       className="p-5 text-left text-sm leading-6 font-semibold capitalize">
-                      Description
+                      Image
                     </th>
                     <th
                       scope="col"
