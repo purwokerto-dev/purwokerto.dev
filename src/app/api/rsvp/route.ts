@@ -22,7 +22,7 @@ const prisma = new PrismaClient();
  *         description: The user ID to filter by
  *       - in: query
  *         name: event
- *         required: false
+ *         required: true
  *         schema:
  *           type: string
  *         description: The event ID to filter by
@@ -82,8 +82,21 @@ export async function GET(req: NextRequest) {
       where: { event },
     });
 
+    if (!eventBadges || eventBadges.length === 0) {
+      return NextResponse.json({ error: "Terima kasih sudah mendaftar event, perlu diingat event ini tidak memiliki poin/badge sebagai reward." }, { status: 200 });
+    }
+
     eventBadges.forEach(async (eventBadge) => {
       const getPoint = eventBadge.speaker === foundUser.id ? (Number(process.env.SPEAKER_POINT) || 3) : 1;
+      const eventPoints = await prisma.eventPoint.findFirst({
+        where: { 
+          eventRegistration: eventRegistration.id,
+          eventBadge: eventBadge.id
+         },
+      });
+      if (eventPoints) {
+        return;
+      }
       const newEventPoint: EventPoint = await prisma.eventPoint.create({
         data: {
           eventRegistration: eventRegistration.id,
@@ -93,7 +106,7 @@ export async function GET(req: NextRequest) {
         },
       });
     });
-    return NextResponse.json({ message: "Thank you for attending the event!"}, { status: 200 });
+    return NextResponse.json({ message: "Terima kasih sudah mendaftar event!"}, { status: 200 });
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 400 });
   }
