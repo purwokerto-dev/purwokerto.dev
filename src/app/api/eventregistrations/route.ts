@@ -19,6 +19,11 @@ const prisma = new PrismaClient();
  *         schema:
  *           type: string
  *         description: Search event registrations by user ID
+ *       - in: query
+ *         name: idEvent
+ *         schema:
+ *           type: string
+ *         description: Search event registrations by event ID
  *     responses:
  *       200:
  *         description: Display list of event registrations
@@ -26,10 +31,11 @@ const prisma = new PrismaClient();
 export async function GET(req: NextRequest) {
   // List all eventRegistrations
   const idUser = req.nextUrl.searchParams.get('idUser');
+  const idEvent = req.nextUrl.searchParams.get('idEvent');
   try {
     const eventRegistrations: EventRegistration[] =
       await prisma.eventRegistration.findMany({
-        ... (idUser ? { where: { user: idUser } } : {}),
+        ... (idUser || idEvent ? { where: { ... (idUser ? { user: idUser } : {}), ... (idEvent ? { event: idEvent } : {}) } } : {}),
         include: {
           erEvent: true,
         }
