@@ -10,7 +10,6 @@ async function getEventById(id: string) {
     return res.data;
   } catch (error) {
     console.error("Error fetching data:", error);
-    throw new Error("Failed to fetch data");
   }
 }
 
@@ -21,7 +20,6 @@ async function getEventBadgeById(idEvent: string) {
     return res.data;
   } catch (error) {
     console.error("Error fetching data:", error);
-    throw new Error("Failed to fetch data");
   }
 }
 

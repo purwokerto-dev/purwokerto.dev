@@ -1,30 +1,21 @@
-import MapEvent from "@/components/blocks/map-event";
 import { axiosInstance } from "@/lib/axiosInstance";
-import { formatDate } from "@/lib/formatDate";
 import { EyeIcon, PencilIcon, TrashIcon } from "lucide-react";
-import Image from "next/image";
+import { headers } from "next/headers";
 
 async function getAdmins() {
   try {
-    const res = await axiosInstance.get("/api/admins");
+    const res = await axiosInstance.get("/api/admins", {
+      headers: { cookie: headers().get("cookie") },
+    });
     return res.data;
   } catch (error) {
     console.error("Error fetching data:", error);
   }
 }
 
-type Event = {
+type Admin = {
   id: string;
-  banner: string | null;
-  title: string;
-  place: string;
-  quota: string;
-  duration: number | null;
-  map: string;
-  fee: number | null;
-  hidden: boolean;
-  dateTime: string;
-  description: string;
+  email: string;
 };
 
 export default async function DashboardAdminSettingsPage() {
@@ -60,47 +51,15 @@ export default async function DashboardAdminSettingsPage() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-300 dark:divide-gray-600 dark:border dark:border-t-0 dark:border-gray-600">
-                  {/* {events.map((event: Event) => (
+                  {admins?.map((admin: Admin) => (
                     <tr
-                      key={event?.id}
+                      key={admin.id}
                       className="bg-white hover:bg-gray-50 dark:bg-gray-800">
                       <td className="p-5 whitespace-nowrap text-sm leading-6 font-medium ">
-                        {event?.id}
+                        {admin.id}
                       </td>
                       <td className="p-5 whitespace-nowrap text-sm leading-6 font-medium">
-                        {event?.title}
-                      </td>
-                      <td className="p-5 whitespace-nowrap text-sm leading-6 font-medium">
-                        {event?.quota}
-                      </td>
-                      <td className="p-5 whitespace-nowrap text-sm leading-6 font-medium">
-                        {event?.place}
-                      </td>
-                      <td className="p-5 whitespace-nowrap text-sm leading-6 font-medium">
-                        {formatDate(event?.dateTime)}
-                      </td>
-                      <td className="p-5 whitespace-nowrap text-sm leading-6 font-medium truncate ...">
-                        {event?.duration} Menit
-                      </td>
-                      <td className="p-5 whitespace-nowrap text-sm leading-6 font-medium">
-                        {event?.description}
-                      </td>
-                      <td className="p-5 whitespace-nowrap text-sm leading-6 font-medium">
-                        <Image
-                          src={event.banner ? event.banner : ""}
-                          width={100}
-                          height={100}
-                          alt={event.title}
-                        />
-                      </td>
-                      <td className="p-5 whitespace-nowrap text-sm leading-6 font-medium">
-                        <MapEvent value={event.map} height={100} width={200} />
-                      </td>
-                      <td className="p-5 whitespace-nowrap text-sm leading-6 font-medium">
-                        {event?.fee}
-                      </td>
-                      <td className="p-5 whitespace-nowrap text-sm leading-6 font-medium">
-                        {event?.hidden ? "TRUE" : "FALSE"}
+                        {admin.email}
                       </td>
                       <td className="p-5">
                         <div className="flex items-center gap-1">
@@ -116,7 +75,7 @@ export default async function DashboardAdminSettingsPage() {
                         </div>
                       </td>
                     </tr>
-                  ))} */}
+                  ))}
                 </tbody>
               </table>
             </div>
