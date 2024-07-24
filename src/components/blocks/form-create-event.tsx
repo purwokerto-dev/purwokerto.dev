@@ -19,7 +19,7 @@ export function FormCreateEvent() {
     description: "",
     map: "",
     fee: "",
-    hidden: true,
+    hidden: false,
   });
   const [bannerBase64, setBannerBase64] = useState("");
 
@@ -107,7 +107,7 @@ export function FormCreateEvent() {
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <div>
           <label htmlFor="title" className="font-semibold">
-            Title
+            Title <span className="text-red-500">*</span>
           </label>
           <Input
             required
@@ -122,7 +122,7 @@ export function FormCreateEvent() {
         </div>
         <div>
           <label htmlFor="place" className="font-semibold">
-            Place
+            Place <span className="text-red-500">*</span>
           </label>
           <Input
             required
@@ -137,7 +137,7 @@ export function FormCreateEvent() {
         </div>
         <div>
           <label htmlFor="dateTime" className="font-semibold">
-            Date Time
+            Date Time <span className="text-red-500">*</span>
           </label>
           <Input
             required
@@ -154,7 +154,6 @@ export function FormCreateEvent() {
             Quota
           </label>
           <Input
-            required
             id="quota"
             type="number"
             placeholder="quota"
@@ -168,7 +167,6 @@ export function FormCreateEvent() {
             Duration
           </label>
           <Input
-            required
             id="duration"
             type="number"
             placeholder="duration"
@@ -182,7 +180,6 @@ export function FormCreateEvent() {
             Description
           </label>
           <Textarea
-            required
             id="description"
             placeholder="description"
             name="description"
@@ -197,7 +194,6 @@ export function FormCreateEvent() {
             Banner
           </label>
           <Input
-            required
             id="banner"
             type="file"
             placeholder="banner"
@@ -220,7 +216,6 @@ export function FormCreateEvent() {
           </label>
           <Input
             id="map"
-            required
             type="text"
             placeholder="map"
             name="map"

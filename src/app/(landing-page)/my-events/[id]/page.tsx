@@ -1,4 +1,4 @@
-import { ModalRegisterEvent } from "@/components/blocks/modal-register-event";
+import MapEvent from "@/components/blocks/map-event";
 import QRRSVP from "@/components/blocks/QRRSVP";
 import { axiosInstance } from "@/lib/axiosInstance";
 import { formatDate } from "@/lib/formatDate";
@@ -16,16 +16,16 @@ async function getMyEventRegistrationById(idEventRegistration: string) {
   }
 }
 
-// async function getEventBadgeById(idEvent: string) {
-//   try {
-//     const res = await axiosInstance.get(`/api/eventbadges?idEvent=${idEvent}`);
+async function getEventBadgeById(idEvent: string) {
+  try {
+    const res = await axiosInstance.get(`/api/eventbadges?idEvent=${idEvent}`);
 
-//     return res.data;
-//   } catch (error) {
-//     console.error("Error fetching data:", error);
-//     throw new Error("Failed to fetch data");
-//   }
-// }
+    return res.data;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    throw new Error("Failed to fetch data");
+  }
+}
 
 export default async function MyEventById({
   params,
@@ -33,22 +33,23 @@ export default async function MyEventById({
   params: { id: string };
 }) {
   const event = await getMyEventRegistrationById(params.id);
-  //   const eventBadges = await getEventBadgeById(params.id);
+  const eventBadges = await getEventBadgeById(params.id);
 
   return (
     <div className="container-base xl:px-52 mt-4 h-full">
-      {JSON.stringify(event)}
-      <QRRSVP rsvplink={event.rsvp_link} />
-
-      {/* {event && (
+      {event && (
         <div className="rounded-xl overflow-hidden">
           <div>
             <Image
               width={800}
               height={800}
-              alt={event?.title}
+              alt={event?.erEvent?.title}
               className="object-cover h-96 w-full"
-              src={event?.banner !== null ? event?.banner : "/img2.jpg"}
+              src={
+                event?.erEvent?.banner !== null
+                  ? event?.erEvent?.banner
+                  : "/img2.jpg"
+              }
             />
           </div>
           <div className="py-4 md:py-8 text-gray-800">
@@ -79,18 +80,18 @@ export default async function MyEventById({
             </h1>
             <div className="flex items-center gap-1 text-gray-600 dark:text-white mt-2">
               <CalendarIcon className="w-5 h-5" />
-              <span>{formatDate(event?.dateTime)}</span>
+              <span>{formatDate(event?.erEvent?.dateTime)}</span>
             </div>
             <div className="flex items-center gap-1 text-gray-600 dark:text-white mt-2">
               <MapPinIcon className="w-5 h-5" />
-              <span>{event?.place}</span>
+              <span>{event?.erEvent?.place}</span>
             </div>
             <div className="flex items-center gap-1 text-gray-600 dark:text-white mt-2">
               <Fee className="w-5 h-5" />
               <span>
-                {event?.fee === 0 || event?.fee === null
+                {event?.erEvent?.fee === 0 || event?.erEvent?.fee === null
                   ? "Gratis"
-                  : `Rp.${event?.fee?.toLocaleString("id")}`}
+                  : `Rp.${event?.erEvent?.fee?.toLocaleString("id")}`}
               </span>
             </div>
             <div className="text-white mt-4">
@@ -98,24 +99,16 @@ export default async function MyEventById({
                 <div key={index}>{JSON.stringify(eventBadge)}</div>
               ))}
             </div>
-            <p className="text-base mt-4 dark:text-white">
-              {event?.description}
+            <p className="text-base my-4 dark:text-white">
+              {event?.erEvent?.description}
             </p>
-            <ModalRegisterEvent
-              id={event.id}
-              dateTime={event.dateTime}
-              title={event.title}
-              description={event.description}
-              place={event.place}
-            />
-            <iframe
-              src={`http://maps.google.com/maps?q=${event?.map}&z=16&output=embed`}
-              height="450"
-              width="600"
-              className="mx-auto mt-4 rounded-md"></iframe>
+
+            <QRRSVP rsvplink={event?.rsvp_link} />
+            {event?.rsvp_link}
+            <MapEvent value={event?.erEvent?.map} />
           </div>
         </div>
-      )} */}
+      )}
     </div>
   );
 }

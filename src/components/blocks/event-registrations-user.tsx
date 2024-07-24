@@ -23,6 +23,7 @@ type Event = {
   title: string;
   place: string;
   dateTime: string;
+  erEvent: any;
   description: string;
 };
 
@@ -33,12 +34,49 @@ const EventRegistrationsUser = async () => {
   return (
     <div className="mt-2">
       {events.length === 0 ? (
-        <span>Belum ada event yang sedang berlangsung🥲</span>
+        <span>Belum ada event yang kamu daftar🥲</span>
       ) : (
         <div className="mt-10">
           {events.map((event: Event) => (
-            <div key={event.id}>
-              <Link href={`/my-events/${event.id}`}>rsvp</Link>
+            <div
+              key={event.id}
+              className="mx-auto mb-6 bg-gradient-to-br from-white to-gray-100 dark:from-primary dark:to-[#141f2a] rounded-lg border dark:border-gray-600 overflow-hidden w-full flex flex-col md:flex-row md:items-start">
+              <div className="basis-2/5">
+                <Image
+                  width={500}
+                  height={500}
+                  alt={event?.erEvent?.title}
+                  className="object-cover h-52 md:h-72 w-full"
+                  src={
+                    event?.erEvent?.banner !== null
+                      ? event?.erEvent?.banner
+                      : "/img2.jpg"
+                  }
+                />
+              </div>
+              <div className="basis-3/5 px-4 pt-4 pb-6">
+                <h3 className="text-2xl capitalize font-semibold">
+                  {event?.erEvent?.title}
+                </h3>
+                <div className="flex items-center gap-1 text-gray-600 dark:text-white mt-2">
+                  <MapPinIcon className="w-5 h-5" />
+                  <span>{event?.erEvent?.place}</span>
+                </div>
+                <div className="flex items-center gap-1 text-gray-600 dark:text-white mt-2">
+                  <CalendarIcon className="w-5 h-5" />
+                  <span>{formatDate(event?.erEvent?.dateTime)}</span>
+                </div>
+                <p className="mt-2 mb-8 text-slate-600 dark:text-white">
+                  {event?.erEvent?.description}
+                </p>
+                <div>
+                  <Link
+                    href={`/my-events/${event?.id}`}
+                    className={buttonVariant.bg}>
+                    Detail Event
+                  </Link>
+                </div>
+              </div>
             </div>
           ))}
         </div>

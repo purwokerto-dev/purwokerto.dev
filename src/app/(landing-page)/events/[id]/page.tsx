@@ -1,3 +1,4 @@
+import MapEvent from "@/components/blocks/map-event";
 import { ModalRegisterEvent } from "@/components/blocks/modal-register-event";
 import { axiosInstance } from "@/lib/axiosInstance";
 import { formatDate } from "@/lib/formatDate";
@@ -102,11 +103,7 @@ export default async function EventById({
               description={event.description}
               place={event.place}
             />
-            <iframe
-              src={`http://maps.google.com/maps?q=${event?.map}&z=16&output=embed`}
-              height="450"
-              width="600"
-              className="mx-auto mt-4 rounded-md"></iframe>
+            <MapEvent value={event?.map} />
           </div>
         </div>
       )}
