@@ -7,9 +7,11 @@ import { Textarea } from "../fragments/textarea";
 import Image from "next/image";
 import Button from "../fragments/button";
 import { useToast } from "../fragments/use-toast";
+import { useRouter } from "next/navigation";
 
 export function FormCreateEvent() {
   const { toast } = useToast();
+  const navigate = useRouter();
   const [eventBody, setEventBody] = useState({
     title: "",
     place: "",
@@ -82,6 +84,8 @@ export function FormCreateEvent() {
       });
 
       setBannerBase64("");
+
+      navigate.push("/dashboard/events");
 
       return toast({
         title: "Berhasil",

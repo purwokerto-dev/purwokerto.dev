@@ -1,4 +1,8 @@
+import MapEvent from "@/components/blocks/map-event";
 import { axiosInstance } from "@/lib/axiosInstance";
+import { formatDate } from "@/lib/formatDate";
+import { EyeIcon, PencilIcon, TrashIcon } from "lucide-react";
+import Image from "next/image";
 
 async function getEvents() {
   try {
@@ -15,6 +19,11 @@ type Event = {
   banner: string | null;
   title: string;
   place: string;
+  quota: string;
+  duration: number | null;
+  map: string;
+  fee: number | null;
+  hidden: boolean;
   dateTime: string;
   description: string;
 };
@@ -24,14 +33,144 @@ export default async function DashboardEventsPage() {
 
   return (
     <div>
-      {events.map((event: Event) => (
-        <div key={event.id}>
-          {JSON.stringify(event)}
-          <br />
-          <button>Edit</button>
-          <button>Delete</button>
+      <div className="flex flex-col">
+        <div className="relative text-gray-500 focus-within:text-gray-900 mb-4">
+          <h2 className="text-2xl font-bold dark:text-white">
+            List Event Active
+          </h2>
         </div>
-      ))}
+        <div className="overflow-x-auto">
+          <div className="min-w-full inline-block align-middle">
+            <div className="overflow-hidden ">
+              <table className=" min-w-full rounded-xl">
+                <thead>
+                  <tr className="bg-gray-50 dark:bg-primary dark:text-white">
+                    <th
+                      scope="col"
+                      className="p-5 text-left text-sm leading-6 font-semibold capitalize rounded-tl-lg">
+                      ID
+                    </th>
+                    <th
+                      scope="col"
+                      className="p-5 text-left text-sm leading-6 font-semibold capitalize">
+                      Title
+                    </th>
+                    <th
+                      scope="col"
+                      className="p-5 text-left text-sm leading-6 font-semibold capitalize">
+                      Quota
+                    </th>
+                    <th
+                      scope="col"
+                      className="p-5 text-left text-sm leading-6 font-semibold capitalize">
+                      Place
+                    </th>
+                    <th
+                      scope="col"
+                      className="p-5 text-left text-sm leading-6 font-semibold capitalize">
+                      Date Time
+                    </th>
+                    <th
+                      scope="col"
+                      className="p-5 text-left text-sm leading-6 font-semibold capitalize">
+                      Duration
+                    </th>
+                    <th
+                      scope="col"
+                      className="p-5 text-left text-sm leading-6 font-semibold capitalize">
+                      Description
+                    </th>
+                    <th
+                      scope="col"
+                      className="p-5 text-left text-sm leading-6 font-semibold capitalize">
+                      Banner
+                    </th>
+                    <th
+                      scope="col"
+                      className="p-5 text-left text-sm leading-6 font-semibold capitalize">
+                      Map
+                    </th>
+                    <th
+                      scope="col"
+                      className="p-5 text-left text-sm leading-6 font-semibold capitalize">
+                      Fee
+                    </th>
+                    <th
+                      scope="col"
+                      className="p-5 text-left text-sm leading-6 font-semibold capitalize">
+                      Hidden
+                    </th>
+                    <th
+                      scope="col"
+                      className="p-5 text-left text-sm leading-6 font-semibold capitalize rounded-tr-xl">
+                      Action (On progress)
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-300 dark:divide-gray-600 dark:border dark:border-t-0 dark:border-gray-600">
+                  {events.map((event: Event) => (
+                    <tr
+                      key={event?.id}
+                      className="bg-white hover:bg-gray-50 dark:bg-gray-800">
+                      <td className="p-5 whitespace-nowrap text-sm leading-6 font-medium ">
+                        {event?.id}
+                      </td>
+                      <td className="p-5 whitespace-nowrap text-sm leading-6 font-medium">
+                        {event?.title}
+                      </td>
+                      <td className="p-5 whitespace-nowrap text-sm leading-6 font-medium">
+                        {event?.quota}
+                      </td>
+                      <td className="p-5 whitespace-nowrap text-sm leading-6 font-medium">
+                        {event?.place}
+                      </td>
+                      <td className="p-5 whitespace-nowrap text-sm leading-6 font-medium">
+                        {formatDate(event?.dateTime)}
+                      </td>
+                      <td className="p-5 whitespace-nowrap text-sm leading-6 font-medium">
+                        {event?.duration} Menit
+                      </td>
+                      <td className="p-5 whitespace-nowrap text-sm leading-6 font-medium">
+                        {event?.description}
+                      </td>
+                      <td className="p-5 whitespace-nowrap text-sm leading-6 font-medium">
+                        <Image
+                          src={event.banner ? event.banner : ""}
+                          width={100}
+                          height={100}
+                          alt={event.title}
+                        />
+                      </td>
+                      <td className="p-5 whitespace-nowrap text-sm leading-6 font-medium">
+                        <MapEvent value={event.map} height={100} width={200} />
+                      </td>
+                      <td className="p-5 whitespace-nowrap text-sm leading-6 font-medium">
+                        {event?.fee}
+                      </td>
+                      <td className="p-5 whitespace-nowrap text-sm leading-6 font-medium">
+                        {event?.hidden ? "TRUE" : "FALSE"}
+                      </td>
+                      <td className="p-5">
+                        <div className="flex items-center gap-1">
+                          <button className="p-2  rounded-full  group transition-all duration-500  flex item-center">
+                            <EyeIcon />
+                          </button>
+                          <button className="p-2  rounded-full  group transition-all duration-500  flex item-center">
+                            <PencilIcon />
+                          </button>
+                          <button className="p-2 rounded-full  group transition-all duration-500  flex item-center">
+                            <TrashIcon />
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
