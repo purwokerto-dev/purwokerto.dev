@@ -1,31 +1,38 @@
 import { axiosInstance } from "@/lib/axiosInstance";
 import { EyeIcon, PencilIcon, TrashIcon } from "lucide-react";
-import { headers } from "next/headers";
+import Image from "next/image";
 
-async function getAdmins() {
+async function getEventBadgesByEventId(eventId: string) {
   try {
-    const res = await axiosInstance.get("/api/admins", {
-      headers: { cookie: headers().get("cookie") },
-    });
+    const res = await axiosInstance.get(`api/eventbadges?idEvent=${eventId}`);
     return res.data;
   } catch (error) {
     console.error("Error fetching data:", error);
   }
 }
 
-type Admin = {
+type Badge = {
   id: string;
-  email: string;
+  img: string | null;
+  title: string;
+  description: string;
+  ebBadge: any;
 };
 
-export default async function DashboardAdminSettingsPage() {
-  const admins = await getAdmins();
+export default async function DashboardEventBadgesPage({
+  searchParams,
+}: {
+  searchParams: any;
+}) {
+  const badges = await getEventBadgesByEventId(searchParams.eventId);
 
   return (
     <div>
       <div className="flex flex-col">
         <div className="relative text-gray-500 focus-within:text-gray-900 mb-4">
-          <h2 className="text-2xl font-bold dark:text-white">List Admin</h2>
+          <h2 className="text-2xl font-bold dark:text-white">
+            List Badges Event Id {searchParams.eventId}
+          </h2>
         </div>
         <div className="overflow-x-auto">
           <div className="min-w-full inline-block align-middle">
@@ -41,7 +48,17 @@ export default async function DashboardAdminSettingsPage() {
                     <th
                       scope="col"
                       className="p-5 text-left text-sm leading-6 font-semibold capitalize">
-                      Email
+                      Title
+                    </th>
+                    <th
+                      scope="col"
+                      className="p-5 text-left text-sm leading-6 font-semibold capitalize">
+                      Image
+                    </th>
+                    <th
+                      scope="col"
+                      className="p-5 text-left text-sm leading-6 font-semibold capitalize">
+                      Description
                     </th>
                     <th
                       scope="col"
@@ -51,15 +68,32 @@ export default async function DashboardAdminSettingsPage() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-300 dark:divide-gray-600 dark:border dark:border-t-0 dark:border-gray-600">
-                  {admins?.map((admin: Admin) => (
+                  {badges.map((badge: Badge) => (
                     <tr
-                      key={admin.id}
+                      key={badge?.id}
                       className="bg-white hover:bg-gray-50 dark:bg-gray-800">
                       <td className="p-5 whitespace-nowrap text-sm leading-6 font-medium ">
-                        {admin.id}
+                        {badge?.id}
                       </td>
                       <td className="p-5 whitespace-nowrap text-sm leading-6 font-medium">
-                        {admin.email}
+                        {badge?.ebBadge?.title}
+                      </td>
+                      <td className="p-5 whitespace-nowrap text-sm leading-6 font-medium">
+                        {badge?.ebBadge?.description}
+                      </td>
+                      <td className="p-5 whitespace-nowrap text-sm leading-6 font-medium">
+                        <Image
+                          src={
+                            badge?.ebBadge?.img
+                              ? badge?.ebBadge?.img.startsWith("/")
+                                ? badge?.ebBadge?.img
+                                : `/${badge?.ebBadge?.img}`
+                              : ""
+                          }
+                          width={100}
+                          height={100}
+                          alt={badge?.ebBadge?.title}
+                        />
                       </td>
                       <td className="p-5">
                         <div className="flex items-center gap-1">

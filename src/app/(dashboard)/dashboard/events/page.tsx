@@ -1,8 +1,23 @@
 import MapEvent from "@/components/blocks/map-event";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/fragments/tooltip";
 import { axiosInstance } from "@/lib/axiosInstance";
 import { formatDate } from "@/lib/formatDate";
-import { EyeIcon, PencilIcon, TrashIcon } from "lucide-react";
+import {
+  Award,
+  Badge,
+  EyeIcon,
+  PencilIcon,
+  Trash,
+  TrashIcon,
+  UserCheck,
+} from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 async function getEvents() {
   try {
@@ -10,7 +25,6 @@ async function getEvents() {
     return res.data;
   } catch (error) {
     console.error("Error fetching data:", error);
-    throw new Error("Failed to fetch data");
   }
 }
 
@@ -152,15 +166,52 @@ export default async function DashboardEventsPage() {
                       </td>
                       <td className="p-5">
                         <div className="flex items-center gap-1">
-                          <button className="p-2  rounded-full  group transition-all duration-500  flex item-center">
-                            <EyeIcon />
-                          </button>
-                          <button className="p-2  rounded-full  group transition-all duration-500  flex item-center">
-                            <PencilIcon />
-                          </button>
-                          <button className="p-2 rounded-full  group transition-all duration-500  flex item-center">
-                            <TrashIcon />
-                          </button>
+                          <TooltipProvider>
+                            <Tooltip>
+                              <TooltipTrigger>
+                                <Link
+                                  href={`/dashboard/events/eventregistrations?eventId=${event.id}`}>
+                                  <UserCheck />
+                                </Link>
+                              </TooltipTrigger>
+                              <TooltipContent>
+                                <p>See Participant</p>
+                              </TooltipContent>
+                            </Tooltip>
+                          </TooltipProvider>
+                          <TooltipProvider>
+                            <Tooltip>
+                              <TooltipTrigger>
+                                <Link
+                                  href={`/dashboard/events/eventbadges?eventId=${event.id}`}>
+                                  <Award />
+                                </Link>
+                              </TooltipTrigger>
+                              <TooltipContent>
+                                <p>See Badge</p>
+                              </TooltipContent>
+                            </Tooltip>
+                          </TooltipProvider>
+                          <TooltipProvider>
+                            <Tooltip>
+                              <TooltipTrigger>
+                                <PencilIcon />
+                              </TooltipTrigger>
+                              <TooltipContent>
+                                <p>Edit Event</p>
+                              </TooltipContent>
+                            </Tooltip>
+                          </TooltipProvider>
+                          <TooltipProvider>
+                            <Tooltip>
+                              <TooltipTrigger>
+                                <TrashIcon />
+                              </TooltipTrigger>
+                              <TooltipContent>
+                                <p>Delete Event</p>
+                              </TooltipContent>
+                            </Tooltip>
+                          </TooltipProvider>
                         </div>
                       </td>
                     </tr>

@@ -1,31 +1,37 @@
+import MapEvent from "@/components/blocks/map-event";
 import { axiosInstance } from "@/lib/axiosInstance";
+import { formatDate } from "@/lib/formatDate";
 import { EyeIcon, PencilIcon, TrashIcon } from "lucide-react";
-import { headers } from "next/headers";
+import Image from "next/image";
 
-async function getAdmins() {
+async function getEventRegistartions() {
   try {
-    const res = await axiosInstance.get("/api/admins", {
-      headers: { cookie: headers().get("cookie") },
-    });
+    const res = await axiosInstance.get("/api/users");
     return res.data;
   } catch (error) {
     console.error("Error fetching data:", error);
   }
 }
 
-type Admin = {
+type Event = {
   id: string;
+  name: string;
   email: string;
+  image: string | null;
 };
 
-export default async function DashboardAdminSettingsPage() {
-  const admins = await getAdmins();
+export default async function EventRegistrationsPage({
+  searchParams,
+}: {
+  searchParams: any;
+}) {
+  const users = await getEventRegistartions();
 
   return (
     <div>
       <div className="flex flex-col">
         <div className="relative text-gray-500 focus-within:text-gray-900 mb-4">
-          <h2 className="text-2xl font-bold dark:text-white">List Admin</h2>
+          <h2 className="text-2xl font-bold dark:text-white">List User</h2>
         </div>
         <div className="overflow-x-auto">
           <div className="min-w-full inline-block align-middle">
@@ -41,7 +47,17 @@ export default async function DashboardAdminSettingsPage() {
                     <th
                       scope="col"
                       className="p-5 text-left text-sm leading-6 font-semibold capitalize">
+                      Name
+                    </th>
+                    <th
+                      scope="col"
+                      className="p-5 text-left text-sm leading-6 font-semibold capitalize">
                       Email
+                    </th>
+                    <th
+                      scope="col"
+                      className="p-5 text-left text-sm leading-6 font-semibold capitalize">
+                      Profile
                     </th>
                     <th
                       scope="col"
@@ -51,15 +67,26 @@ export default async function DashboardAdminSettingsPage() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-300 dark:divide-gray-600 dark:border dark:border-t-0 dark:border-gray-600">
-                  {admins?.map((admin: Admin) => (
+                  {users.map((event: Event) => (
                     <tr
-                      key={admin.id}
+                      key={event?.id}
                       className="bg-white hover:bg-gray-50 dark:bg-gray-800">
                       <td className="p-5 whitespace-nowrap text-sm leading-6 font-medium ">
-                        {admin.id}
+                        {event?.id}
                       </td>
                       <td className="p-5 whitespace-nowrap text-sm leading-6 font-medium">
-                        {admin.email}
+                        {event?.name}
+                      </td>
+                      <td className="p-5 whitespace-nowrap text-sm leading-6 font-medium">
+                        {event?.email}
+                      </td>
+                      <td className="p-5 whitespace-nowrap text-sm leading-6 font-medium">
+                        <Image
+                          src={event.image ? event.image : ""}
+                          width={100}
+                          height={100}
+                          alt={event.name}
+                        />
                       </td>
                       <td className="p-5">
                         <div className="flex items-center gap-1">
