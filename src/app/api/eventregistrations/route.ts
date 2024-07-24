@@ -38,6 +38,7 @@ export async function GET(req: NextRequest) {
         ... (idUser || idEvent ? { where: { ... (idUser ? { user: idUser } : {}), ... (idEvent ? { event: idEvent } : {}) } } : {}),
         include: {
           erEvent: true,
+          erUser: true,
         }
       });
     return NextResponse.json(eventRegistrations, { status: 200 });
