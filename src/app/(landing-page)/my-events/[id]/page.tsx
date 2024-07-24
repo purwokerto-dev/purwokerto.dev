@@ -52,7 +52,7 @@ export default async function MyEventById({
           </div>
           <div className="py-4 md:py-8 text-gray-800">
             <h1 className="text-2xl md:text-4xl font-bold capitalize dark:text-white">
-              {event?.title}
+              {event?.erEvent?.title}
               <button className="relative w-[93px] ml-2">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

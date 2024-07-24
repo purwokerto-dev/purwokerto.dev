@@ -1,13 +1,6 @@
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/fragments/tooltip";
+import RSVPButton from "@/components/blocks/RSVP-button";
 import { axiosInstance } from "@/lib/axiosInstance";
-import { EyeIcon, PencilIcon, TrashIcon, UserCheck } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
 
 async function getEventRegistartions(eventId: string) {
   try {
@@ -104,18 +97,10 @@ export default async function EventRegistrationsPage({
                       </td>
                       <td className="p-5">
                         <div className="flex items-center gap-1">
-                          <TooltipProvider>
-                            <Tooltip>
-                              <TooltipTrigger>
-                                <Link href={event.rsvp_link}>
-                                  <UserCheck />
-                                </Link>
-                              </TooltipTrigger>
-                              <TooltipContent>
-                                <p>RSVP</p>
-                              </TooltipContent>
-                            </Tooltip>
-                          </TooltipProvider>
+                          <RSVPButton
+                            userId={event?.erUser?.id}
+                            eventId={searchParams.eventId}
+                          />
                         </div>
                       </td>
                     </tr>
