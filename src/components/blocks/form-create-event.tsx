@@ -256,7 +256,9 @@ export function FormCreateEvent() {
             }
           />
         </div>
-        <Button type="submit" text="Submit" variant="bg" />
+        <div>
+          <Button type="submit" text="Submit" variant="bg" />
+        </div>
       </form>
     </div>
   );

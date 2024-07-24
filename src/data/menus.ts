@@ -30,6 +30,24 @@ export const eventMenus = [
   },
 ];
 
+export const usersMenus = [
+  {
+    name: "List User",
+    path: "/dashboard/users",
+  },
+];
+
+export const adminSetingsMenus = [
+  {
+    name: "List Admin",
+    path: "/dashboard/admin-settings",
+  },
+  {
+    name: "Add Admin",
+    path: "/dashboard/admin-settings/add",
+  },
+];
+
 export const dashboardMenus: NavItem[] = [
   {
     title: "Dashboard",
@@ -48,6 +66,12 @@ export const dashboardMenus: NavItem[] = [
     href: "/dashboard/events",
     icon: "callenderplus",
     label: "Events",
+  },
+  {
+    title: "Users",
+    href: "/dashboard/users",
+    icon: "user",
+    label: "Users",
   },
   {
     title: "Badges",

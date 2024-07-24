@@ -4,13 +4,12 @@ import { formatDate } from "@/lib/formatDate";
 import { EyeIcon, PencilIcon, TrashIcon } from "lucide-react";
 import Image from "next/image";
 
-async function getEvents() {
+async function getAdmins() {
   try {
-    const res = await axiosInstance.get("/api/events?limit=5&open=true");
+    const res = await axiosInstance.get("/api/admins");
     return res.data;
   } catch (error) {
     console.error("Error fetching data:", error);
-    throw new Error("Failed to fetch data");
   }
 }
 
@@ -28,16 +27,14 @@ type Event = {
   description: string;
 };
 
-export default async function DashboardEventsPage() {
-  const events = await getEvents();
+export default async function DashboardAdminSettingsPage() {
+  const admins = await getAdmins();
 
   return (
     <div>
       <div className="flex flex-col">
         <div className="relative text-gray-500 focus-within:text-gray-900 mb-4">
-          <h2 className="text-2xl font-bold dark:text-white">
-            List Event Active
-          </h2>
+          <h2 className="text-2xl font-bold dark:text-white">List Admin</h2>
         </div>
         <div className="overflow-x-auto">
           <div className="min-w-full inline-block align-middle">
@@ -53,52 +50,7 @@ export default async function DashboardEventsPage() {
                     <th
                       scope="col"
                       className="p-5 text-left text-sm leading-6 font-semibold capitalize">
-                      Title
-                    </th>
-                    <th
-                      scope="col"
-                      className="p-5 text-left text-sm leading-6 font-semibold capitalize">
-                      Quota
-                    </th>
-                    <th
-                      scope="col"
-                      className="p-5 text-left text-sm leading-6 font-semibold capitalize">
-                      Place
-                    </th>
-                    <th
-                      scope="col"
-                      className="p-5 text-left text-sm leading-6 font-semibold capitalize">
-                      Date Time
-                    </th>
-                    <th
-                      scope="col"
-                      className="p-5 text-left text-sm leading-6 font-semibold capitalize">
-                      Duration
-                    </th>
-                    <th
-                      scope="col"
-                      className="p-5 text-left text-sm leading-6 font-semibold capitalize">
-                      Description
-                    </th>
-                    <th
-                      scope="col"
-                      className="p-5 text-left text-sm leading-6 font-semibold capitalize">
-                      Banner
-                    </th>
-                    <th
-                      scope="col"
-                      className="p-5 text-left text-sm leading-6 font-semibold capitalize">
-                      Map
-                    </th>
-                    <th
-                      scope="col"
-                      className="p-5 text-left text-sm leading-6 font-semibold capitalize">
-                      Fee
-                    </th>
-                    <th
-                      scope="col"
-                      className="p-5 text-left text-sm leading-6 font-semibold capitalize">
-                      Hidden
+                      Email
                     </th>
                     <th
                       scope="col"
@@ -108,7 +60,7 @@ export default async function DashboardEventsPage() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-300 dark:divide-gray-600 dark:border dark:border-t-0 dark:border-gray-600">
-                  {events.map((event: Event) => (
+                  {/* {events.map((event: Event) => (
                     <tr
                       key={event?.id}
                       className="bg-white hover:bg-gray-50 dark:bg-gray-800">
@@ -164,7 +116,7 @@ export default async function DashboardEventsPage() {
                         </div>
                       </td>
                     </tr>
-                  ))}
+                  ))} */}
                 </tbody>
               </table>
             </div>

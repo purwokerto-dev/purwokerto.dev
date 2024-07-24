@@ -4,13 +4,12 @@ import { usePathname } from "next/navigation";
 import React from "react";
 import MenuItem from "../fragments/menu-item";
 import { cn } from "@/lib/cn";
-import { eventMenus } from "@/data/menus";
 
-const NavbarEvents = () => {
+const NavbarSub = ({ menus }: any) => {
   const pathname = usePathname();
   return (
     <ul className="flex gap-3 items-center">
-      {eventMenus.map((menu) => (
+      {menus.map((menu: any) => (
         <MenuItem
           isActive={pathname === menu.path ? true : false}
           key={menu.path}
@@ -27,4 +26,4 @@ const NavbarEvents = () => {
   );
 };
 
-export default NavbarEvents;
+export default NavbarSub;

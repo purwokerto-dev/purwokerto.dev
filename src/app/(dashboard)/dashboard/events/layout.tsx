@@ -1,4 +1,5 @@
-import NavbarEvents from "@/components/blocks/navbar-events";
+import NavbarSub from "@/components/blocks/navbar-sub";
+import { eventMenus } from "@/data/menus";
 
 export default function DashboardEventsLayout({
   children,
@@ -7,7 +8,7 @@ export default function DashboardEventsLayout({
 }>) {
   return (
     <>
-      <NavbarEvents /> <div className="mt-6">{children}</div>
+      <NavbarSub menus={eventMenus} /> <div className="mt-6">{children}</div>
     </>
   );
 }
