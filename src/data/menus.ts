@@ -28,6 +28,10 @@ export const eventMenus = [
     name: "Create Event",
     path: "/dashboard/events/create",
   },
+  {
+    name: "Create Event Badge",
+    path: "/dashboard/events/eventbadges/create",
+  },
 ];
 
 export const badgesMenus = [

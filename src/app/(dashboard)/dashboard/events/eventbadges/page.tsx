@@ -2,9 +2,9 @@ import { axiosInstance } from "@/lib/axiosInstance";
 import { EyeIcon, PencilIcon, TrashIcon } from "lucide-react";
 import Image from "next/image";
 
-async function getBadges() {
+async function getEventBadgesByEventId(eventId: string) {
   try {
-    const res = await axiosInstance.get("/api/badges");
+    const res = await axiosInstance.get(`api/eventbadges?idEvent=${eventId}`);
     return res.data;
   } catch (error) {
     console.error("Error fetching data:", error);
@@ -16,16 +16,23 @@ type Badge = {
   img: string | null;
   title: string;
   description: string;
+  ebBadge: any;
 };
 
-export default async function DashboardBadgesPage() {
-  const badges = await getBadges();
+export default async function DashboardEventBadgesPage({
+  searchParams,
+}: {
+  searchParams: any;
+}) {
+  const badges = await getEventBadgesByEventId(searchParams.eventId);
 
   return (
     <div>
       <div className="flex flex-col">
         <div className="relative text-gray-500 focus-within:text-gray-900 mb-4">
-          <h2 className="text-2xl font-bold dark:text-white">List Badges</h2>
+          <h2 className="text-2xl font-bold dark:text-white">
+            List Badges Event Id {searchParams.eventId}
+          </h2>
         </div>
         <div className="overflow-x-auto">
           <div className="min-w-full inline-block align-middle">
@@ -69,23 +76,23 @@ export default async function DashboardBadgesPage() {
                         {badge?.id}
                       </td>
                       <td className="p-5 whitespace-nowrap text-sm leading-6 font-medium">
-                        {badge?.title}
+                        {badge?.ebBadge?.title}
                       </td>
                       <td className="p-5 whitespace-nowrap text-sm leading-6 font-medium">
-                        {badge?.description}
+                        {badge?.ebBadge?.description}
                       </td>
                       <td className="p-5 whitespace-nowrap text-sm leading-6 font-medium">
                         <Image
                           src={
-                            badge.img
-                              ? badge.img.startsWith("/")
-                                ? badge.img
-                                : `/${badge.img}`
+                            badge?.ebBadge?.img
+                              ? badge?.ebBadge?.img.startsWith("/")
+                                ? badge?.ebBadge?.img
+                                : `/${badge?.ebBadge?.img}`
                               : ""
                           }
                           width={100}
                           height={100}
-                          alt={badge.title}
+                          alt={badge?.ebBadge?.title}
                         />
                       </td>
                       <td className="p-5">

@@ -12,7 +12,7 @@ import { useRouter } from "next/navigation";
 export function FormCreateBadge() {
   const { toast } = useToast();
   const navigate = useRouter();
-  const [eventBody, setEventBody] = useState({
+  const [badgeBody, setBadgeBody] = useState({
     title: "",
     description: "",
   });
@@ -33,7 +33,7 @@ export function FormCreateBadge() {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let { name, value } = e.target;
 
-    setEventBody((prev) => ({ ...prev, [name]: value }));
+    setBadgeBody((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -41,12 +41,12 @@ export function FormCreateBadge() {
 
     try {
       await axios.post("/api/badges", {
-        title: eventBody.title,
-        description: eventBody.description,
+        title: badgeBody.title,
+        description: badgeBody.description,
         img: imageBase64,
       });
 
-      setEventBody({
+      setBadgeBody({
         title: "",
         description: "",
       });
@@ -88,7 +88,7 @@ export function FormCreateBadge() {
             placeholder="title"
             name="title"
             className=""
-            value={eventBody.title}
+            value={badgeBody.title}
             onChange={handleChange}
           />
         </div>
@@ -101,7 +101,7 @@ export function FormCreateBadge() {
             id="description"
             placeholder="description"
             name="description"
-            value={eventBody.description}
+            value={badgeBody.description}
             onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
               handleChange(e as unknown as React.ChangeEvent<HTMLInputElement>)
             }
