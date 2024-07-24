@@ -30,6 +30,17 @@ export const eventMenus = [
   },
 ];
 
+export const badgesMenus = [
+  {
+    name: "List Badge",
+    path: "/dashboard/badges",
+  },
+  {
+    name: "Create Badge",
+    path: "/dashboard/badges/create",
+  },
+];
+
 export const usersMenus = [
   {
     name: "List User",
