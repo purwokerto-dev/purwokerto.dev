@@ -14,6 +14,7 @@ import {
   PencilIcon,
   Trash,
   TrashIcon,
+  UserCheck,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -165,6 +166,19 @@ export default async function DashboardEventsPage() {
                       </td>
                       <td className="p-5">
                         <div className="flex items-center gap-1">
+                          <TooltipProvider>
+                            <Tooltip>
+                              <TooltipTrigger>
+                                <Link
+                                  href={`/dashboard/events/eventregistrations?eventId=${event.id}`}>
+                                  <UserCheck />
+                                </Link>
+                              </TooltipTrigger>
+                              <TooltipContent>
+                                <p>See Participant</p>
+                              </TooltipContent>
+                            </Tooltip>
+                          </TooltipProvider>
                           <TooltipProvider>
                             <Tooltip>
                               <TooltipTrigger>
