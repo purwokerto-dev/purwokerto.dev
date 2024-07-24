@@ -1,9 +1,10 @@
 import { axiosInstance } from "@/lib/axiosInstance";
+import { headers } from "next/headers"
 
 async function rsvpLink(idUser: string, idEvent: string) {
   try {
     const res = await axiosInstance.get(
-      `/api/rsvp?user=${idUser}&event=${idEvent}`
+      `/api/rsvp?user=${idUser}&event=${idEvent}`, { headers: { cookie: headers().get('cookie') } }
     );
 
     if (res.status === 200) {
@@ -11,7 +12,7 @@ async function rsvpLink(idUser: string, idEvent: string) {
     }
     console.log(res);
   } catch (error: any) {
-    console.log(error);
+    console.log(error.message);
 
     if (error.response.status === 400) {
       return "Event not found";
