@@ -15,7 +15,8 @@ async function rsvpLink(idUser: string, idEvent: string) {
     console.log(error.message);
 
     if (error.response.status === 400) {
-      return "Event not found";
+      const er: string = error.response.data.error ? error.response.data.error : "Event not found";
+      return er;
     }
 
     if (error.response.status === 403) {

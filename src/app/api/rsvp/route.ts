@@ -1,6 +1,6 @@
 // pages/api/users/index.ts
 import { NextRequest, NextResponse } from 'next/server';
-import { PrismaClient, EventPoint } from '@prisma/client';
+import { PrismaClient, EventPoint, EventRegistration } from '@prisma/client';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from "@/lib/auth";
 
@@ -105,6 +105,12 @@ export async function GET(req: NextRequest) {
           createdBy: session.user.id,
         },
       });
+    });
+    const updatedEventRegistration: EventRegistration = await prisma.eventRegistration.update({
+        where: { id: eventRegistration.id },
+        data: {
+            attend: true,
+        },
     });
     return NextResponse.json({ message: "Terima kasih sudah mendaftar event!"}, { status: 200 });
   } catch (error: any) {
