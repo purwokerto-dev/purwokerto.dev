@@ -3,6 +3,7 @@ import Image from "next/image";
 import { FC, useState } from "react";
 import Separator from "../fragments/separator";
 import Link from "next/link";
+import { axiosInstance } from "@/lib/axiosInstance";
 
 interface ProfileMenuPropsI {
   name: string;
@@ -67,7 +68,13 @@ const ProfileMenu: FC<ProfileMenuPropsI> = ({
             ) : null}
             <Separator />
             <button
-              onClick={() => signOut()}
+              onClick={async () => {
+                await signOut();
+                await axiosInstance.get(
+                  `/api/httpcookies?op=logout`
+                );
+                window.location.href = '/';
+              }}
               className="py-2 flex gap-2 items-center justify-center transition hover:bg-red-500 hover:text-white font-semibold m-2 rounded-lg">
               Keluar
               <svg

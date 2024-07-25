@@ -11,10 +11,10 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL('/', request.url));
   }
 
-  const token = request.cookies.get('next-auth.session-token');
+  const isAdmin = request.cookies.get('isAdmin')?.value;
 
   if (url.pathname.startsWith('/dashboard')) {
-    if (!token) {
+    if (!isAdmin || isAdmin !== 'true') {
       return NextResponse.redirect(new URL('/', request.url));
     }
   }

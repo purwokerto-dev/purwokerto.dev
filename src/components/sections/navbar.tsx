@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Logo from "../fragments/logo";
 import ToggleTheme from "../fragments/toggle-theme";
 import ToggleMenu from "../fragments/toggle-menu";
@@ -9,10 +9,25 @@ import NavbarDekstopMenu from "../blocks/navbar-dekstop";
 import Button from "../fragments/button";
 import { signIn, useSession } from "next-auth/react";
 import ProfileMenu from "../blocks/profile-menu";
+import { axiosInstance } from "@/lib/axiosInstance";
+import Cookie from 'js-cookie';
+import { AxiosRequestHeaders } from "axios";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { data: session, status }: any = useSession();
+
+  useEffect(() => {
+    async function setCookie() {
+      if (status === "authenticated") {
+        await axiosInstance.get(
+          `/api/httpcookies?op=login`,
+          { headers: { cookie: Cookie.get() } as unknown as AxiosRequestHeaders }
+        );
+      }
+    }
+    setCookie();
+  }, [status]);
 
   return (
     <nav className="container-base">
