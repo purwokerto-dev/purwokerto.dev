@@ -31,7 +31,7 @@ export default async function MyEventById({
   params: { id: string };
 }) {
   const event = await getMyEventRegistrationById(params.id);
-  const eventBadges = await getEventBadgeById(params.id);
+  const eventBadges = await getEventBadgeById(event.erEvent.id);
 
   return (
     <div className="container-base xl:px-52 mt-4 h-full">
@@ -52,7 +52,7 @@ export default async function MyEventById({
           </div>
           <div className="py-4 md:py-8 text-gray-800">
             <h1 className="text-2xl md:text-4xl font-bold capitalize dark:text-white">
-              {event?.title}
+              {event?.erEvent?.title}
               <button className="relative w-[93px] ml-2">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -92,9 +92,22 @@ export default async function MyEventById({
                   : `Rp.${event?.erEvent?.fee?.toLocaleString("id")}`}
               </span>
             </div>
-            <div className="text-white mt-4">
-              {eventBadges.map((eventBadge: any, index: number) => (
-                <div key={index}>{JSON.stringify(eventBadge)}</div>
+            <div className="text-gray-600 dark:text-white mt-2">
+              <p className="text-xl">Event Badges</p>
+              {eventBadges.map((eventBadge: any) => (
+                <ul key={eventBadge.id}>
+                  <li>Title: {eventBadge.ebBadge.title}</li>
+                  <li>Description: {eventBadge.ebBadge.description}</li>
+                  <li>
+                    Badge:{" "}
+                    <Image
+                      src={eventBadge.ebBadge.img}
+                      alt={eventBadge.ebBadge.title}
+                      width={200}
+                      height={200}
+                    />
+                  </li>
+                </ul>
               ))}
             </div>
             <p className="text-base my-4 dark:text-white">
@@ -102,7 +115,6 @@ export default async function MyEventById({
             </p>
 
             <QRRSVP rsvplink={event?.rsvp_link} />
-            {event?.rsvp_link}
             <MapEvent value={event?.erEvent?.map} />
           </div>
         </div>

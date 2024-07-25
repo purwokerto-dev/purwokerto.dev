@@ -1,23 +1,28 @@
-import MapEvent from "@/components/blocks/map-event";
+import RSVPButton from "@/components/blocks/RSVP-button";
 import { axiosInstance } from "@/lib/axiosInstance";
-import { formatDate } from "@/lib/formatDate";
-import { EyeIcon, PencilIcon, TrashIcon } from "lucide-react";
 import Image from "next/image";
 
-async function getEventRegistartions() {
+async function getEventRegistartions(eventId: string) {
   try {
-    const res = await axiosInstance.get("/api/users");
+    const res = await axiosInstance.get(
+      `/api/eventregistrations?idEvent=${eventId}`
+    );
     return res.data;
   } catch (error) {
     console.error("Error fetching data:", error);
   }
 }
 
-type Event = {
+type User = {
   id: string;
   name: string;
   email: string;
   image: string | null;
+};
+
+type Event = {
+  erUser: User;
+  rsvp_link: string;
 };
 
 export default async function EventRegistrationsPage({
@@ -25,13 +30,15 @@ export default async function EventRegistrationsPage({
 }: {
   searchParams: any;
 }) {
-  const users = await getEventRegistartions();
+  const users = await getEventRegistartions(searchParams.eventId);
 
   return (
     <div>
       <div className="flex flex-col">
         <div className="relative text-gray-500 focus-within:text-gray-900 mb-4">
-          <h2 className="text-2xl font-bold dark:text-white">List User</h2>
+          <h2 className="text-2xl font-bold dark:text-white">
+            List User Participant Event {searchParams.eventId}
+          </h2>
         </div>
         <div className="overflow-x-auto">
           <div className="min-w-full inline-block align-middle">
@@ -69,36 +76,31 @@ export default async function EventRegistrationsPage({
                 <tbody className="divide-y divide-gray-300 dark:divide-gray-600 dark:border dark:border-t-0 dark:border-gray-600">
                   {users.map((event: Event) => (
                     <tr
-                      key={event?.id}
+                      key={event?.erUser?.id}
                       className="bg-white hover:bg-gray-50 dark:bg-gray-800">
                       <td className="p-5 whitespace-nowrap text-sm leading-6 font-medium ">
-                        {event?.id}
+                        {event?.erUser?.id}
                       </td>
                       <td className="p-5 whitespace-nowrap text-sm leading-6 font-medium">
-                        {event?.name}
+                        {event?.erUser?.name}
                       </td>
                       <td className="p-5 whitespace-nowrap text-sm leading-6 font-medium">
-                        {event?.email}
+                        {event?.erUser?.email}
                       </td>
                       <td className="p-5 whitespace-nowrap text-sm leading-6 font-medium">
                         <Image
-                          src={event.image ? event.image : ""}
+                          src={event.erUser?.image ? event.erUser?.image : ""}
                           width={100}
                           height={100}
-                          alt={event.name}
+                          alt={event.erUser?.name}
                         />
                       </td>
                       <td className="p-5">
                         <div className="flex items-center gap-1">
-                          <button className="p-2  rounded-full  group transition-all duration-500  flex item-center">
-                            <EyeIcon />
-                          </button>
-                          <button className="p-2  rounded-full  group transition-all duration-500  flex item-center">
-                            <PencilIcon />
-                          </button>
-                          <button className="p-2 rounded-full  group transition-all duration-500  flex item-center">
-                            <TrashIcon />
-                          </button>
+                          <RSVPButton
+                            userId={event?.erUser?.id}
+                            eventId={searchParams.eventId}
+                          />
                         </div>
                       </td>
                     </tr>

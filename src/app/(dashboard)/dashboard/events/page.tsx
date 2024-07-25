@@ -12,6 +12,7 @@ import {
   Badge,
   EyeIcon,
   PencilIcon,
+  ScanEye,
   Trash,
   TrashIcon,
   UserCheck,
@@ -171,7 +172,7 @@ export default async function DashboardEventsPage() {
                               <TooltipTrigger>
                                 <Link
                                   href={`/dashboard/events/eventregistrations?eventId=${event.id}`}>
-                                  <UserCheck />
+                                  <ScanEye />
                                 </Link>
                               </TooltipTrigger>
                               <TooltipContent>
