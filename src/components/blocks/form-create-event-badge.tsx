@@ -96,7 +96,6 @@ export function FormCreateEventBadge() {
             Speaker <span className="text-red-500">*</span>
           </label>
           <Input
-            required
             id="userId"
             type="text"
             placeholder="userId"
