@@ -23,6 +23,7 @@ type User = {
 type Event = {
   erUser: User;
   rsvp_link: string;
+  attend: boolean;
 };
 
 export default async function EventRegistrationsPage({
@@ -68,6 +69,11 @@ export default async function EventRegistrationsPage({
                     </th>
                     <th
                       scope="col"
+                      className="p-5 text-left text-sm leading-6 font-semibold capitalize">
+                      Attendance
+                    </th>
+                    <th
+                      scope="col"
                       className="p-5 text-left text-sm leading-6 font-semibold capitalize rounded-tr-xl">
                       Action (On progress)
                     </th>
@@ -94,6 +100,9 @@ export default async function EventRegistrationsPage({
                           height={100}
                           alt={event.erUser?.name}
                         />
+                      </td>
+                      <td className="p-5 whitespace-nowrap text-sm leading-6 font-medium">
+                        {event?.attend ? "DATANG" : "TIDAK DATANG"}
                       </td>
                       <td className="p-5">
                         <div className="flex items-center gap-1">
