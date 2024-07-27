@@ -28,7 +28,9 @@ const EventList = async () => {
   return (
     <div className="mt-2">
       {events.length === 0 ? (
-        <span>Belum ada event yang sedang berlangsung🥲</span>
+        <span className="mb-4 block text-center font-bold">
+          Belum ada event yang sedang berlangsung🥲
+        </span>
       ) : (
         <div className="mt-10">
           {events.map((event: Event) => (
