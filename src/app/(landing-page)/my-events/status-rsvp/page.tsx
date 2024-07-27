@@ -15,12 +15,14 @@ async function rsvpLink(idUser: string, idEvent: string) {
     console.log(error.message);
 
     if (error.response.status === 400) {
-      const er: string = error.response.data.error ? error.response.data.error : "Event not found";
+      const er: string = error.response.data.error
+        ? error.response.data.error
+        : "Event not found";
       return er;
     }
 
     if (error.response.status === 403) {
-      return "Access unauthorized";
+      return "RSVP Dilakukan pada saat dilokasi oleh panitia.";
     }
   }
 }
