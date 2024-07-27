@@ -45,7 +45,7 @@ const EventRegistrationsUser = async () => {
                   width={500}
                   height={500}
                   alt={event?.erEvent?.title}
-                  className="object-cover h-52 md:h-72 w-full"
+                  className="object-cover h-full"
                   src={
                     event?.erEvent?.banner !== null
                       ? event?.erEvent?.banner

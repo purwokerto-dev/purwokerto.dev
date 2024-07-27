@@ -42,7 +42,7 @@ export default async function MyEventById({
               width={800}
               height={800}
               alt={event?.erEvent?.title}
-              className="object-cover h-96 w-full"
+              className="object-cover h-full"
               src={
                 event?.erEvent?.banner !== null
                   ? event?.erEvent?.banner
