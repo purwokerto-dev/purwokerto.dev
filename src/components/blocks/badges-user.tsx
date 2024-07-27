@@ -28,11 +28,14 @@ const BadgesUser = async () => {
                 src={badge.img ? badge.img : ""}
                 width={100}
                 height={100}
-                className="rounded-full transition-all border-2"
+                className={`rounded-full transition-all border-2 ${badge.totalPoints === 0 ? 'grayscale border-gray-600' : ''}`}
                 alt={badge.title}
               />
-              <small className="absolute top-0 left-1/2 transform -translate-x-1/2 font-bold bg-orange-500 text-black p-1 rounded-full flex items-center justify-center size-7 shadow-lg">{badge.totalPoints}</small>
-              <p className="text-center mt-2 font-bold">{badge.title}</p>
+              {
+                badge.totalPoints > 0 &&
+                <small className="absolute top-0 left-1/2 transform -translate-x-1/2 font-bold bg-orange-500 text-black p-1 rounded-full flex items-center justify-center size-7 shadow-lg">{badge.totalPoints}</small>
+              }
+              <p className={`text-center mt-2 font-bold ${badge.totalPoints === 0 ? 'text-gray-600': ''}`}>{badge.title}</p>
             </div>
           ))}
         </div>
