@@ -90,14 +90,7 @@ export const ModalRegisterEvent: FC<ModalRegisterEventI> = ({
               <span className="font-bold">{formatDate(dateTime)}</span>.
               <p className="mt-4 font-semibold">Syarat dan ketentuan</p>
               <ul className="list-disc ml-5">
-                <li>Lorem ipsum dolor sit.</li>
-                <li>Lorem ipsum dolor sit.</li>
-                <li>Lorem ipsum dolor sit.</li>
-                <li>Lorem ipsum dolor sit.</li>
-                <li>Lorem ipsum dolor sit.</li>
-                <li>Lorem ipsum dolor sit.</li>
-                <li>Lorem ipsum dolor sit.</li>
-                <li>Lorem ipsum dolor sit.</li>
+                <li>-</li>
               </ul>
             </AlertDialogDescription>
           </AlertDialogHeader>
