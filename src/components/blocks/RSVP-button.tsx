@@ -6,7 +6,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "../fragments/tooltip";
-import { UserCheck } from "lucide-react";
+import { CheckCircle, UserCheck } from "lucide-react";
 import axios from "axios";
 import { useToast } from "../fragments/use-toast";
 import { useRouter } from "next/navigation";
@@ -14,9 +14,10 @@ import { useRouter } from "next/navigation";
 interface RSVPButtonI {
   eventId: string;
   userId: string;
+  attend: boolean;
 }
 
-const RSVPButton: FC<RSVPButtonI> = ({ eventId, userId }) => {
+const RSVPButton: FC<RSVPButtonI> = ({ eventId, userId, attend }) => {
   const navigate = useRouter();
   const { toast } = useToast();
 
@@ -55,7 +56,7 @@ const RSVPButton: FC<RSVPButtonI> = ({ eventId, userId }) => {
     <TooltipProvider>
       <Tooltip>
         <TooltipTrigger onClick={handleRSVP}>
-          <UserCheck />
+          {attend ? <CheckCircle /> : <UserCheck />}
         </TooltipTrigger>
         <TooltipContent>
           <p>RSVP</p>

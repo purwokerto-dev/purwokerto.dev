@@ -107,6 +107,7 @@ export default async function EventRegistrationsPage({
                       <td className="p-5">
                         <div className="flex items-center gap-1">
                           <RSVPButton
+                            attend={event?.attend}
                             userId={event?.erUser?.id}
                             eventId={searchParams.eventId}
                           />
