@@ -6,21 +6,26 @@ import { authOptions } from "@/lib/auth";
 import { mkdir, writeFile } from 'fs/promises';
 import { join } from 'path';
 import { v4 as uuidv4 } from 'uuid';
+import { toZonedTime } from 'date-fns-tz';
+
 
 const prisma = new PrismaClient();
 
-function convertEpochToDate(dateTime: number): Date {
+function convertEpochToDate(dateTime: number, timeZone: string = 'Asia/Jakarta'): Date {
   // Assuming any epoch time before January 1, 2030 is in seconds
   const thresholdInSeconds = new Date('2030-01-01').getTime() / 1000;
   
   // Check if the dateTime is in seconds (less than threshold)
+  let date;
   if (dateTime < thresholdInSeconds) {
     // Convert seconds to milliseconds
-    return new Date(dateTime * 1000);
+    date = new Date(dateTime * 1000);
   } else {
     // Assume dateTime is already in milliseconds
-    return new Date(dateTime);
+    date = new Date(dateTime);
   }
+  // Convert the date to the specified timezone
+  return toZonedTime(date, timeZone);
 }
 
 /**
