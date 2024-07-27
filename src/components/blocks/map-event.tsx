@@ -11,7 +11,7 @@ const MapEvent = ({
 }) => {
   return (
     <iframe
-      src={`http://maps.google.com/maps?q=${value}&z=16&output=embed`}
+      src={`https://maps.google.com/maps?q=${value}&z=16&output=embed`}
       height={height}
       width={width}
       className="mx-auto mt-4 w-full rounded-md"></iframe>
