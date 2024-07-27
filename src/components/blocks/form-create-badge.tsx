@@ -114,6 +114,7 @@ export function FormCreateBadge() {
           <Input
             id="image"
             type="file"
+            required
             placeholder="image"
             name="image"
             accept=".png, .jpg, .jpeg, .svg"

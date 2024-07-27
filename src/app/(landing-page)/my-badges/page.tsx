@@ -14,7 +14,7 @@ async function getUserBadges(idUser: string) {
 export default async function MyBadgesPage() {
   const session = await getCurrentUser();
 
-  const userBadges = await getUserBadges(session?.user?.id);
+  const userBadges = await getUserBadges((session?.user as { id: string })?.id);
 
   return (
     <div className="container-base xl:px-52 mt-4">
