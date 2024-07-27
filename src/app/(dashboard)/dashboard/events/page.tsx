@@ -1,3 +1,4 @@
+import DeleteEvent from "@/components/blocks/delete-event";
 import MapEvent from "@/components/blocks/map-event";
 import {
   Tooltip,
@@ -7,16 +8,7 @@ import {
 } from "@/components/fragments/tooltip";
 import { axiosInstance } from "@/lib/axiosInstance";
 import { formatDate } from "@/lib/formatDate";
-import {
-  Award,
-  Badge,
-  EyeIcon,
-  PencilIcon,
-  ScanEye,
-  Trash,
-  TrashIcon,
-  UserCheck,
-} from "lucide-react";
+import { Award, PencilIcon, ScanEye } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -203,16 +195,7 @@ export default async function DashboardEventsPage() {
                               </TooltipContent>
                             </Tooltip>
                           </TooltipProvider>
-                          <TooltipProvider>
-                            <Tooltip>
-                              <TooltipTrigger>
-                                <TrashIcon />
-                              </TooltipTrigger>
-                              <TooltipContent>
-                                <p>Delete Event</p>
-                              </TooltipContent>
-                            </Tooltip>
-                          </TooltipProvider>
+                          <DeleteEvent eventId={event.id} />
                         </div>
                       </td>
                     </tr>
