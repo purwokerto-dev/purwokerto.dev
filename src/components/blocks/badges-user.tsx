@@ -23,15 +23,15 @@ const BadgesUser = async () => {
       ) : (
         <div className="mt-10 mb-6 grid grid-cols-5 gap-5">
           {userBadges.map((badge: any) => (
-            <div key={badge.id} className="flex flex-col items-center group">
+            <div key={badge.id} className="relative flex flex-col items-center group">
               <Image
                 src={badge.img ? badge.img : ""}
                 width={100}
                 height={100}
-                className="rounded-lg group-hover:scale-110 transition-all"
+                className="rounded-full transition-all border-2"
                 alt={badge.title}
               />
-              <small>{badge.totalPoints} poin</small>
+              <small className="absolute top-0 left-1/2 transform -translate-x-1/2 font-bold bg-orange-500 text-black p-1 rounded-full flex items-center justify-center size-7 shadow-lg">{badge.totalPoints}</small>
               <p className="text-center mt-2 font-bold">{badge.title}</p>
             </div>
           ))}
