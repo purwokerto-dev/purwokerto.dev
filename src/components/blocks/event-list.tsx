@@ -42,7 +42,7 @@ const EventList = async () => {
                   width={500}
                   height={500}
                   alt={event?.title}
-                  className="object-cover h-52 md:h-72 w-full"
+                  className="object-cover h-full"
                   src={event?.banner !== null ? event?.banner : "/img2.jpg"}
                 />
               </div>
