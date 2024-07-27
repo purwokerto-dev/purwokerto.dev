@@ -22,6 +22,10 @@ const Footer = () => {
                 url="https://www.youtube.com/@purwokertodev"
                 type="youtube"
               />
+              <Social
+                url="https://www.linkedin.com/groups/14489439/"
+                type="linkedin"
+              />
             </div>
           </div>
           <div>
