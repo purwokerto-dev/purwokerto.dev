@@ -45,3 +45,6 @@ next-env.d.ts
 /public/banners
 
 # deployment
+publish.sh
+Dockerfile
+docker-compose.yml
