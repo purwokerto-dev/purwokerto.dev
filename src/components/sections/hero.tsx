@@ -30,7 +30,9 @@ const Hero = async () => {
           Wadah Komunitas Developer Purwokerto untuk Berkreasi, Terkoneksi dan
           Berkolaborasi.
         </p>
-        <Button text="Gabung Komunitas" variant="bg" />
+        <a href="https://chat.whatsapp.com/JkEVlp01EfeBCwQ9ml9ELm" target="_blank" rel="noopener noreferrer">
+          <Button text="Gabung Komunitas" variant="bg" />
+        </a>
       </div>
       <div className="flex justify-center md:justify-end gap-4 sm:gap-8 mt-8">
         <div className="hidden sm:block transition-300 w-44 space-y-4 sm:space-y-8 mt-64 lg:mt-56">
