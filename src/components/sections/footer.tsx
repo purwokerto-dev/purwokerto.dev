@@ -13,10 +13,14 @@ const Footer = () => {
         <div className="lg:flex justify-between items-start">
           <div className="pb-4">
             <p className="mt-3">Keep Up And Learning.</p>
-            <div className="mt-2 flex">
+            <div className="mt-2 flex flex-col gap-2">
               <Social
                 url="https://www.instagram.com/purwokerto.dev"
                 type="instagram"
+              />
+              <Social
+                url="https://www.youtube.com/@purwokertodev"
+                type="youtube"
               />
             </div>
           </div>

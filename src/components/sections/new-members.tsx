@@ -9,11 +9,10 @@ const NewMembers = () => {
       className="mt-24"
       title="Member Terbaru"
       description="Daftar dan menjadi bagian Purwokerto Dev">
-      <h2 className="text-3xl font-semibold"></h2>
-      <MemberList />
+      <MemberList limit={10} />
       <div className="flex justify-center">
-        <Link href="/events" className={buttonVariant.outline}>
-          Lihat Semua Events
+        <Link href="/members" className={buttonVariant.outline}>
+          Lihat Semua Member
         </Link>
       </div>
     </SectionHeader>

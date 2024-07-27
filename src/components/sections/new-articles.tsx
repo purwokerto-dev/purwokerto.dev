@@ -11,8 +11,8 @@ const NewArticles = () => {
       description="Tingkatkan literasi dengan membaca artikel">
       <ArticleList />
       <div className="flex justify-center">
-        <Link href="/events" className={buttonVariant.outline}>
-          Lihat Semua Events
+        <Link href="/blogs" className={buttonVariant.outline}>
+          Lihat Semua Article
         </Link>
       </div>
     </SectionHeader>

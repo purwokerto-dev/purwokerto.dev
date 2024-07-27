@@ -4,7 +4,7 @@ import { menus } from "@/data/menus";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/cn";
 import Button from "../fragments/button";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 
 interface NavbarMobileMenuPropsI {
   isOpen: boolean;
@@ -16,6 +16,8 @@ const NavbarMobileMenu: FC<NavbarMobileMenuPropsI> = ({
   setIsOpen,
 }) => {
   const pathname = usePathname();
+  const { status } = useSession();
+
   return (
     <div
       className={`fixed z-40 left-0 right-0 lg:hidden duration-300 bg-white dark:bg-primary transition-300 ${
@@ -37,7 +39,9 @@ const NavbarMobileMenu: FC<NavbarMobileMenuPropsI> = ({
             )}
           />
         ))}
-        <Button onClick={() => signIn("google")} text="masuk" variant="bg" />
+        {status === "unauthenticated" ? (
+          <Button onClick={() => signIn("google")} text="masuk" variant="bg" />
+        ) : null}
       </ul>
     </div>
   );

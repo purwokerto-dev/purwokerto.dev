@@ -5,7 +5,7 @@ export default async function MyEvensPage() {
   return (
     <SectionHeader
       className="mt-12 md:mt-16"
-      title="My Event"
+      title="My Events"
       description="Event yang saya ikuti">
       <EventRegistrationsUser />
     </SectionHeader>

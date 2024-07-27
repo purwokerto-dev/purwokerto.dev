@@ -28,7 +28,7 @@ const ProfileMenu: FC<ProfileMenuPropsI> = ({
         <Image src={profileImg} alt="img" width={200} height={200} />
       </button>
       {showProfileMenu ? (
-        <div className="bg-white/90 dark:bg-primary/90 rounded-xl w-56 absolute top-14 right-0 border dark:border-gray-600 shadow-lg flex flex-col overflow-hidden">
+        <div className="bg-white/90 dark:bg-primary/90 rounded-xl w-56 absolute z-[99999] top-14 right-0 border dark:border-gray-600 shadow-lg flex flex-col overflow-hidden">
           <div className="flex flex-col">
             <div className="px-3 group py-3 cursor-pointer flex items-center gap-2">
               <Image
@@ -41,10 +41,14 @@ const ProfileMenu: FC<ProfileMenuPropsI> = ({
               <p className="font-semibold group-hover:underline">{name}</p>
             </div>
             <div className="px-3 group py-3 cursor-pointer">
-              <Link href="/my-events" className="group-hover:underline">My Events</Link>
+              <Link href="/my-events" className="group-hover:underline">
+                My Events
+              </Link>
             </div>
             <div className="px-3 group py-3 cursor-pointer">
-              <Link href="/my-badges" className="group-hover:underline">My Badges</Link>
+              <Link href="/my-badges" className="group-hover:underline">
+                My Badges
+              </Link>
             </div>
 
             {isAdmin ? (
@@ -70,10 +74,8 @@ const ProfileMenu: FC<ProfileMenuPropsI> = ({
             <button
               onClick={async () => {
                 await signOut();
-                await axiosInstance.get(
-                  `/api/httpcookies?op=logout`
-                );
-                window.location.href = '/';
+                await axiosInstance.get(`/api/httpcookies?op=logout`);
+                window.location.href = "/";
               }}
               className="py-2 flex gap-2 items-center justify-center transition hover:bg-red-500 hover:text-white font-semibold m-2 rounded-lg">
               Keluar

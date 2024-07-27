@@ -1,25 +1,13 @@
-import { axiosInstance } from "@/lib/axiosInstance";
-import { getCurrentUser } from "@/lib/session";
-
-async function getUserBadges(idUser: string) {
-  try {
-    const res = await axiosInstance.get(`/api/userbadges?user=${idUser}`);
-
-    return res.data;
-  } catch (error) {
-    console.error("Error fetching data:", error);
-  }
-}
+import BadgesUser from "@/components/blocks/badges-user";
+import SectionHeader from "@/components/templates/section-header";
 
 export default async function MyBadgesPage() {
-  const session = await getCurrentUser();
-
-  const userBadges = await getUserBadges((session?.user as { id: string })?.id);
-
   return (
-    <div className="container-base xl:px-52 mt-4">
-      my badges <br />
-      {!userBadges ? "no data" : JSON.stringify(userBadges)}
-    </div>
+    <SectionHeader
+      className="mt-12 md:mt-16"
+      title="My Badges"
+      description="Badge yang saya miliki">
+      <BadgesUser />
+    </SectionHeader>
   );
 }
