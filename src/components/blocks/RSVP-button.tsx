@@ -9,6 +9,7 @@ import {
 import { UserCheck } from "lucide-react";
 import axios from "axios";
 import { useToast } from "../fragments/use-toast";
+import { useRouter } from "next/navigation";
 
 interface RSVPButtonI {
   eventId: string;
@@ -16,6 +17,7 @@ interface RSVPButtonI {
 }
 
 const RSVPButton: FC<RSVPButtonI> = ({ eventId, userId }) => {
+  const navigate = useRouter();
   const { toast } = useToast();
 
   const handleRSVP = async () => {
@@ -23,10 +25,12 @@ const RSVPButton: FC<RSVPButtonI> = ({ eventId, userId }) => {
       const res = await axios.get(`/api/rsvp?user=${userId}&event=${eventId}`);
 
       if (res.status === 200) {
-        return toast({
+        toast({
           title: "Berhasil",
           description: `RSVP Berhasil`,
         });
+
+        return navigate.refresh();
       }
     } catch (error: any) {
       console.log(error.message);
