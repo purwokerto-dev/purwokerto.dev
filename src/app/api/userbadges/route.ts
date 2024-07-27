@@ -50,7 +50,8 @@ export async function GET(req: NextRequest) {
 
         return NextResponse.json(mergedArray, { status: 200 });
       } else {
-        return NextResponse.json({ error: "No data" }, { status: 400 });
+        const emptyBadges = badges.map(badge => ({ ...badge, totalPoints: 0 }));
+        return NextResponse.json(emptyBadges, { status: 200 });
       }
     } else {
       return NextResponse.json({ error: "Please specify user" }, { status: 400 });
