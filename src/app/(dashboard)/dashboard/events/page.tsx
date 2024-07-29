@@ -42,9 +42,7 @@ export default async function DashboardEventsPage() {
     <div>
       <div className="flex flex-col">
         <div className="relative text-gray-500 focus-within:text-gray-900 mb-4">
-          <h2 className="text-2xl font-bold dark:text-white">
-            List Event Active
-          </h2>
+          <h2 className="text-2xl font-bold dark:text-white">List Event</h2>
         </div>
         <div className="overflow-x-auto">
           <div className="min-w-full inline-block align-middle">
@@ -135,7 +133,7 @@ export default async function DashboardEventsPage() {
                         {formatDate(event?.dateTime)}
                       </td>
                       <td className="p-5 whitespace-nowrap text-sm leading-6 font-medium truncate ...">
-                        {event?.duration} Menit
+                        {event?.duration} Jam
                       </td>
                       <td className="p-5 whitespace-nowrap text-sm leading-6 font-medium">
                         {event?.description}

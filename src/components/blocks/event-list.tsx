@@ -4,9 +4,14 @@ import Image from "next/image";
 import { formatDate } from "@/lib/formatDate";
 import Link from "next/link";
 
-async function getEvents() {
+async function getEvents(active: boolean) {
   try {
-    const res = await axiosInstance.get("/api/events?limit=5&open=true");
+    let res;
+    if (active) {
+      res = await axiosInstance.get("/api/events?limit=5&open=true");
+    } else {
+      res = await axiosInstance.get("/api/events");
+    }
     return res.data;
   } catch (error) {
     console.error("Error fetching data:", error);
@@ -22,8 +27,8 @@ type Event = {
   description: string;
 };
 
-const EventList = async () => {
-  const events = await getEvents();
+const EventList = async ({ active }: { active: boolean }) => {
+  const events = await getEvents(active);
 
   return (
     <div className="mt-2">

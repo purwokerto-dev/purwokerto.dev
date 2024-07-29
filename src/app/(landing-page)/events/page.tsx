@@ -7,7 +7,7 @@ export default function Events() {
       className="mt-12 md:mt-16"
       title="Daftar Event"
       description="Daftar dan ikuti event yang akan berlangsung">
-      <EventList />
+      <EventList active={false} />
     </SectionHeader>
   );
 }
