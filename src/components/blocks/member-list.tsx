@@ -1,10 +1,10 @@
-import { axiosInstance } from "@/lib/axiosInstance";
+import { fetchUsers } from "@/app/api/users/fetchUsers";
 import Image from "next/image";
 
 async function getMembers() {
   try {
-    const res = await axiosInstance.get("/api/users");
-    return res.data;
+    const res = await fetchUsers();
+    return res;
   } catch (error) {
     console.error("Error fetching data:", error);
   }
@@ -12,7 +12,7 @@ async function getMembers() {
 
 const MemberList = async ({ limit }: { limit: number | "all" }) => {
   const datas = await getMembers();
-  const members = limit !== "all" ? datas.slice(0, limit) : datas;
+  const members = limit !== "all" ? (datas ?? []).slice(0, limit) : datas ?? [];
 
   return (
     <div className="mt-2">

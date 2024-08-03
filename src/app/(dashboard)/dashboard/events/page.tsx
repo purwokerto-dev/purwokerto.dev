@@ -6,34 +6,21 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/fragments/tooltip";
-import { axiosInstance } from "@/lib/axiosInstance";
 import { formatDate } from "@/lib/formatDate";
 import { Award, PencilIcon, ScanEye } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { fetchEvents } from "@/app/api/events/fetchEvents";
+import { Event } from '@prisma/client';
 
 async function getEvents() {
   try {
-    const res = await axiosInstance.get("/api/events");
-    return res.data;
+    const res = await fetchEvents();
+    return res;
   } catch (error) {
     console.error("Error fetching data:", error);
   }
 }
-
-type Event = {
-  id: string;
-  banner: string | null;
-  title: string;
-  place: string;
-  quota: string;
-  duration: number | null;
-  map: string;
-  fee: number | null;
-  hidden: boolean;
-  dateTime: string;
-  description: string;
-};
 
 export default async function DashboardEventsPage() {
   const events = await getEvents();
@@ -115,7 +102,7 @@ export default async function DashboardEventsPage() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-300 dark:divide-gray-600 dark:border dark:border-t-0 dark:border-gray-600">
-                  {events.map((event: Event) => (
+                  {events && events.map((event: Event) => (
                     <tr
                       key={event?.id}
                       className="bg-white hover:bg-gray-50 dark:bg-gray-800">
@@ -149,7 +136,7 @@ export default async function DashboardEventsPage() {
                         />
                       </td>
                       <td className="p-5 whitespace-nowrap text-sm leading-6 font-medium">
-                        <MapEvent value={event.map} height={100} width={200} />
+                        <MapEvent value={event.map ?? ""} height={100} width={200} />
                       </td>
                       <td className="p-5 whitespace-nowrap text-sm leading-6 font-medium">
                         {event?.fee}

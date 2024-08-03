@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { PrismaClient, Admin } from '@prisma/client';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from "@/lib/auth";
+import { fetchAdmins } from './fetchAdmins';
 
 const prisma = new PrismaClient();
 
@@ -26,7 +27,7 @@ export async function GET(req: NextRequest) {
   }
   // List all admins
   try {
-    const admins: Admin[] = await prisma.admin.findMany();
+    const admins: Admin[] = await fetchAdmins();
     return NextResponse.json(admins, { status: 200 });
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 400 });

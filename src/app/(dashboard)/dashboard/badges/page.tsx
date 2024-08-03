@@ -1,22 +1,16 @@
-import { axiosInstance } from "@/lib/axiosInstance";
+import { fetchBadges } from "@/app/api/badges/fetchBadges";
 import { EyeIcon, PencilIcon, TrashIcon } from "lucide-react";
 import Image from "next/image";
+import { Badge } from '@prisma/client';
 
 async function getBadges() {
   try {
-    const res = await axiosInstance.get("/api/badges");
-    return res.data;
+    const res = await fetchBadges();
+    return res;
   } catch (error) {
     console.error("Error fetching data:", error);
   }
 }
-
-type Badge = {
-  id: string;
-  img: string | null;
-  title: string;
-  description: string;
-};
 
 export default async function DashboardBadgesPage() {
   const badges = await getBadges();
@@ -61,7 +55,7 @@ export default async function DashboardBadgesPage() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-300 dark:divide-gray-600 dark:border dark:border-t-0 dark:border-gray-600">
-                  {badges.map((badge: Badge) => (
+                  {badges && badges.map((badge: Badge) => (
                     <tr
                       key={badge?.id}
                       className="bg-white hover:bg-gray-50 dark:bg-gray-800">

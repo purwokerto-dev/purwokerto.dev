@@ -1,3 +1,4 @@
+import { fetchUsers } from "@/app/api/users/fetchUsers";
 import MapEvent from "@/components/blocks/map-event";
 import { axiosInstance } from "@/lib/axiosInstance";
 import { formatDate } from "@/lib/formatDate";
@@ -6,8 +7,8 @@ import Image from "next/image";
 
 async function getUsers() {
   try {
-    const res = await axiosInstance.get("/api/users");
-    return res.data;
+    const res = await fetchUsers();
+    return res;
   } catch (error) {
     console.error("Error fetching data:", error);
   }
@@ -63,7 +64,7 @@ export default async function DashboardUsersPage() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-300 dark:divide-gray-600 dark:border dark:border-t-0 dark:border-gray-600">
-                  {users.map((event: Event) => (
+                  {users?.map((event: Event) => (
                     <tr
                       key={event?.id}
                       className="bg-white hover:bg-gray-50 dark:bg-gray-800">

@@ -7,6 +7,7 @@ import { mkdir, writeFile } from 'fs/promises';
 import { join } from 'path';
 import { v4 as uuidv4 } from 'uuid';
 import { toZonedTime } from 'date-fns-tz';
+import { fetchEvents } from './fetchEvents';
 
 
 const prisma = new PrismaClient();
@@ -52,15 +53,10 @@ function convertEpochToDate(dateTime: number, timeZone: string = 'Asia/Jakarta')
  */
 export async function GET(req: NextRequest) {
   // List all events
-  const limit = req.nextUrl.searchParams.get('limit');
-  const open = req.nextUrl.searchParams.get('open');
+  const limit = parseInt(req.nextUrl.searchParams.get('limit') ?? '');
+  const open = req.nextUrl.searchParams.get('open') === 'true';
   try {
-    const events: Event[] = await prisma.event.findMany(
-      {
-        ... (limit ? { take : parseInt(limit) } : {}),
-        ... (open === "true" ? { where: { dateTime: { gte: new Date() } } } : {})
-      }
-    );
+    const events: Event[] = await fetchEvents(limit ?? undefined, open ?? undefined);
     return NextResponse.json(events, { status: 200 });
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 400 });

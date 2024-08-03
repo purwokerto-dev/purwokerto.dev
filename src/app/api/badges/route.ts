@@ -6,6 +6,7 @@ import { authOptions } from "@/lib/auth";
 import { mkdir, writeFile } from 'fs/promises';
 import { join } from 'path';
 import { v4 as uuidv4 } from 'uuid';
+import { fetchBadges } from './fetchBadges';
 
 const prisma = new PrismaClient();
 
@@ -23,7 +24,7 @@ const prisma = new PrismaClient();
 export async function GET(req: NextRequest) {
   // List all badges
   try {
-    const badges: Badge[] = await prisma.badge.findMany();
+    const badges: Badge[] = await fetchBadges();
     return NextResponse.json(badges, { status: 200 });
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 400 });

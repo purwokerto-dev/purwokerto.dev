@@ -1,39 +1,31 @@
-import { axiosInstance } from "@/lib/axiosInstance";
 import { buttonVariant } from "../fragments/button";
 import Image from "next/image";
 import { formatDate } from "@/lib/formatDate";
 import Link from "next/link";
+import { fetchEvents } from "@/app/api/events/fetchEvents";
+import { Event } from '@prisma/client';
 
 async function getEvents() {
   try {
-    const res = await axiosInstance.get("/api/events?limit=5&open=true");
-    return res.data;
+    const res = await fetchEvents(5, true);
+    return res;
   } catch (error) {
     console.error("Error fetching data:", error);
   }
 }
-
-type Event = {
-  id: string;
-  banner: string | null;
-  title: string;
-  place: string;
-  dateTime: string;
-  description: string;
-};
 
 const EventList = async () => {
   const events = await getEvents();
 
   return (
     <div className="mt-2">
-      {events.length === 0 ? (
+      {events && events.length === 0 ? (
         <span className="mb-4 block text-center font-bold">
           Belum ada event yang sedang berlangsung🥲
         </span>
       ) : (
         <div className="mt-10">
-          {events.map((event: Event) => (
+          {events && events.map((event: Event) => (
             <div
               key={event.id}
               className="mx-auto mb-6 bg-gradient-to-br from-white to-gray-100 dark:from-primary dark:to-[#141f2a] rounded-lg border dark:border-gray-600 overflow-hidden w-full flex flex-col md:flex-row md:items-start">

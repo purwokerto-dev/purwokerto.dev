@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { PrismaClient, User } from '@prisma/client';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from "@/lib/auth";
+import { fetchUsers } from './fetchUsers';
 
 const prisma = new PrismaClient();
 
@@ -19,7 +20,7 @@ const prisma = new PrismaClient();
 export async function GET(req: NextRequest) {
   // List all users
   try {
-    const users: User[] = await prisma.user.findMany();
+    const users: User[] = await fetchUsers();
     return NextResponse.json(users, { status: 200 });
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 400 });

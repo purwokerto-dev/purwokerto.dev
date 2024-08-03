@@ -1,22 +1,15 @@
-import { axiosInstance } from "@/lib/axiosInstance";
+import { fetchAdmins } from "@/app/api/admins/fetchAdmins";
 import { EyeIcon, PencilIcon, TrashIcon } from "lucide-react";
-import { headers } from "next/headers";
+import { Admin } from '@prisma/client';
 
 async function getAdmins() {
   try {
-    const res = await axiosInstance.get("/api/admins", {
-      headers: { cookie: headers().get("cookie") },
-    });
-    return res.data;
+    const res = await fetchAdmins();
+    return res;
   } catch (error) {
     console.error("Error fetching data:", error);
   }
 }
-
-type Admin = {
-  id: string;
-  email: string;
-};
 
 export default async function DashboardAdminSettingsPage() {
   const admins = await getAdmins();
