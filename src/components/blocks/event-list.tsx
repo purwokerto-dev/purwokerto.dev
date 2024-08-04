@@ -5,17 +5,17 @@ import Link from "next/link";
 import { fetchEvents } from "@/app/api/events/fetchEvents";
 import { Event } from '@prisma/client';
 
-async function getEvents() {
+async function getEvents(active: boolean) {
   try {
-    const res = await fetchEvents(5, true);
+    const res = await fetchEvents(5, active);
     return res;
   } catch (error) {
     console.error("Error fetching data:", error);
   }
 }
 
-const EventList = async () => {
-  const events = await getEvents();
+const EventList = async ({ active }: { active: boolean }) => {
+  const events = await getEvents(active);
 
   return (
     <div className="mt-2">
