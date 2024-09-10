@@ -1,5 +1,5 @@
-import { NextResponse } from 'next/server'
-import type { NextRequest } from 'next/server'
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
 
 // This function can be marked `async` if using `await` inside
 export function middleware(request: NextRequest) {
@@ -7,15 +7,15 @@ export function middleware(request: NextRequest) {
   const url = new URL(request.url);
 
   // Check if MODE is production and the pathname is /api-doc
-  if (mode === 'production' && url.pathname === '/api-doc') {
-    return NextResponse.redirect(new URL('/', request.url));
+  if (mode === "production" && url.pathname === "/api-doc") {
+    return NextResponse.redirect(new URL("/", request.url));
   }
 
-  const isAdmin = request.cookies.get('isAdmin')?.value;
+  const isAdmin = request.cookies.get("isAdmin")?.value;
 
-  if (url.pathname.startsWith('/dashboard')) {
-    if (!isAdmin || isAdmin !== 'true') {
-      return NextResponse.redirect(new URL('/', request.url));
+  if (url.pathname.startsWith("/dashboard")) {
+    if (!isAdmin || isAdmin !== "true") {
+      return NextResponse.redirect(new URL("/", request.url));
     }
   }
 
@@ -25,5 +25,5 @@ export function middleware(request: NextRequest) {
 
 // See "Matching Paths" below to learn more
 export const config = {
-  matcher: ['/api-doc', '/dashboard'],
-}
+  matcher: ["/api-doc", "/dashboard/:path*"],
+};
