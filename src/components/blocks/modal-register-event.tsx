@@ -90,8 +90,33 @@ export const ModalRegisterEvent: FC<ModalRegisterEventI> = ({
               <span className="font-bold">{formatDate(dateTime)}</span>.
               <p className="mt-4 font-semibold">Syarat dan ketentuan</p>
               <ul className="list-disc ml-5">
-                <li>Peserta diharapkan hadir tepat waktu dan mengikuti seluruh rangkaian acara.</li>
-                <li>Untuk informasi lebih lanjut, peserta dapat menghubungi panitia melalui email <a className="text-blue-400" href="mailto:developerpurwokerto@gmail.com">developerpurwokerto@gmail.com</a> atau <a className="text-blue-400" href="https://chat.whatsapp.com/JkEVlp01EfeBCwQ9ml9ELm" target="_blank">Whatsapp Komunitas</a></li>
+                <li>
+                  Peserta diharapkan hadir tepat waktu dan mengikuti seluruh
+                  rangkaian acara.
+                </li>
+                <li>
+                  Untuk informasi lebih lanjut, peserta dapat menghubungi
+                  panitia melalui email{" "}
+                  <a
+                    className="text-blue-400"
+                    href="mailto:developerpurwokerto@gmail.com">
+                    developerpurwokerto@gmail.com
+                  </a>{" "}
+                  DM instagram{" "}
+                  <a
+                    className="text-blue-400"
+                    href="https://www.instagram.com/purwokerto.dev/"
+                    target="_blank">
+                    @purwokerto.dev
+                  </a>{" "}
+                  atau{" "}
+                  <a
+                    className="text-blue-400"
+                    href="https://chat.whatsapp.com/LG1fUoUOk2G5tFqoY82GCF"
+                    target="_blank">
+                    Whatsapp Komunitas
+                  </a>
+                </li>
               </ul>
             </AlertDialogDescription>
           </AlertDialogHeader>
