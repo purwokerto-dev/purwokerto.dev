@@ -5,6 +5,9 @@ const prisma = new PrismaClient();
 export async function fetchEvents(limit?: number, open?: boolean): Promise<Event[]> {
   return await prisma.event.findMany({
     ...(limit ? { take: limit } : {}),
-    ...(open ? { where: { dateTime: { gte: new Date() } } } : {})
+    ...(open ? { where: { dateTime: { gte: new Date() } } } : {}),
+    orderBy: {
+      dateTime: 'desc',
+    },
   });
 }

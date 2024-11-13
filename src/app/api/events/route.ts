@@ -57,6 +57,8 @@ export async function GET(req: NextRequest) {
   const open = req.nextUrl.searchParams.get('open') === 'true';
   try {
     const events: Event[] = await fetchEvents(limit ?? undefined, open ?? undefined);
+    // Sort events by dateTime in descending order
+    events.sort((a, b) => b.dateTime.getTime() - a.dateTime.getTime());
     return NextResponse.json(events, { status: 200 });
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 400 });
